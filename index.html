@@ -1,0 +1,2875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistemas Integrados</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+  <style>
+    /* TODOS OS ESTILOS ORIGINAIS MANTIDOS, EXCETO OS DA ABA ATENDIMENTO */
+
+    /* Estilos para a aba de Atendimento (ATF) - CORRIGIDOS */
+    .atf-wrap {
+      max-width: 100%;
+      margin: 18px auto;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: flex-start; /* Alterado para alinhar à esquerda */
+      padding-bottom: 30px;
+    }
+
+    .atf-panel {
+      width: 280px;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      order: 1; /* Painel primeiro (esquerda) */
+    }
+    
+    .atf-panel h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      text-align: center;
+      color: #ff6600;
+    }
+    
+    .atf-panel label {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+    
+    .atf-panel input[type="text"],
+    .atf-panel input[type="date"],
+    .atf-panel input[type="number"] {
+      width: 100%;
+      padding: 6px 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .atf-panel input[type="text"]:focus,
+    .atf-panel input[type="date"]:focus,
+    .atf-panel input[type="number"]:focus {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    outline: none;
+    border-color: rgba(255,255,255,0.3);
+}
+    
+    .atf-panel .row {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .atf-panel button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px;
+      font-weight: 900;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 12px;
+    }
+    
+    .atf-panel button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .atf-btn-primary {
+      background: #ff6600;
+      color: #fff;
+    }
+    
+    .atf-btn-secondary {
+      background: #0aa0b0;
+      color: #fff;
+    }
+    
+    .atf-btn-success {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .atf-canvas-wrap {
+    position: relative;
+    background: #333;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    max-width: 741px; /* Diminuído 5% (780 → 741) */
+    overflow: hidden;
+    order: 2;
+}
+
+/* AUMENTAR AINDA MAIS A VISUALIZAÇÃO */
+#atf-canvas {
+    position: relative;
+    display: block;
+    background-image: url('https://i.imgur.com/HJZZSxl.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    width: 627px;      /* AUMENTADO de 500px para 627px */
+    height: 313px;     /* AUMENTADO de 250px para 313px */
+}
+
+    .atf-overlay {
+      position: absolute;
+      color: white;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      user-select: none;
+      font-family: Arial, sans-serif;
+    }
+    
+    .atf-overlay.small {
+      font-size: 13px;
+      font-weight: 550;
+      font-family: "Century Gothic", "CenturyGothic", AppleGothic, sans-serif;
+    }
+    
+    .atf-overlay.big {
+      font-size: 40px;
+      color: black;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Posições originais mantidas */
+    #ov-atend.atf-overlay.big {
+      left: 47.39% !important;
+      top: 37.49% !important;
+    }
+
+    #ov-lig.atf-overlay.big {
+      left: 47.93% !important;
+      top: 59.93% !important;
+    }
+
+    #ov-os.atf-overlay.big {
+      left: 48.21% !important;
+      top: 82.22% !important;
+    }
+
+    .atf-mensagem {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 200, 0, 0.9);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-weight: 700;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .atf-mensagem.mostrar {
+      opacity: 1;
+    }
+
+    .atf-loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1001;
+      display: none;
+    }
+    
+    .atf-credits {
+      font-size: 10px;
+      color: #bbb;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* Estilos para a aba de Cancelamento */
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 5px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+    }
+
+    /* Restante do CSS original mantido intacto */
+    :root {
+      --primary: #2563eb;
+      --secondary: #1e40af;
+      --accent: #dc2626;
+      --success: #059669;
+      --light: #f8fafc;
+      --dark: #1e293b;
+      --gray: #64748b;
+      --border-radius: 8px;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.5;
+      padding: 15px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .logo-icon {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    
+    h1 {
+      font-size: 1.8rem;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    
+    /* Sistema de abas */
+    .tabs {
+      display: flex;
+      background: white;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      margin-bottom: 0;
+    }
+    
+    .tab-button {
+      flex: 1;
+      padding: 12px;
+      background: #e9ecef;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .tab-button:hover {
+      background: #dde1e6;
+    }
+    
+    .tab-button.active {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .card {
+      background: white;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .card-header {
+      background: var(--primary);
+      color: white;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      color: var(--secondary);
+      margin: 20px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.95rem;
+    }
+    
+    .input-icon {
+      color: var(--primary);
+      width: 16px;
+      font-size: 0.9rem;
+    }
+    
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      background-color: #f8fafc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+    
+    .btn-success {
+      background: var(--success);
+    }
+    
+    .btn-success:hover {
+      background: #047857;
+    }
+    
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    
+    .result-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    
+    .result-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .result-content {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e0;
+      border-radius: 6px;
+      padding: 15px;
+      min-height: 200px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      max-height: 300px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    .result-content.html-result {
+      background: #f0f9ff;
+      border: 2px dashed #7dd3fc;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 12px 18px;
+      background: var(--success);
+      color: white;
+      border-radius: 6px;
+      box-shadow: var(--box-shadow);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      font-size: 0.9rem;
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+    }
+    
+    .required::after {
+      content: " *";
+      color: var(--accent);
+    }
+    
+    .error-message {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .lembrete {
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #92400e;
+      display: none;
+    }
+    
+    .vencimento-container {
+      display: block;
+    }
+    
+    .vencimento-container.hidden {
+      display: none;
+    }
+    
+    .exemplo {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 5px;
+      font-style: italic;
+    }
+    
+    /* Estilos para a tabela de senhas */
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: var(--secondary);
+      position: sticky;
+      top: 0;
+    }
+    
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    
+    .credential {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    
+    .credential:hover {
+      background-color: #e6f7ff;
+    }
+    
+    .credential-text {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 510;
+}
+
+#equipmentsTable td:first-child {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 550;
+}
+    
+    .copy-icon {
+      color: var(--primary);
+      opacity: 0.7;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+    
+    .credential:hover .copy-icon {
+      opacity: 1;
+    }
+    
+    .search-container {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      background-color: #f8fafc;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 20px;
+      color: var(--gray);
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+    
+    /* Estilos para o bloco de notas */
+    .editor-container {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e0;
+      border-radius: 6px;
+      padding: 15px;
+      min-height: 400px;
+    }
+    
+    #editor {
+      width: 100%;
+      height: 70vh;
+      min-height: 350px;
+      resize: vertical;
+      padding: 16px 18px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      background-color: #f8fafc;
+      transition: var(--transition);
+    }
+    
+    #editor:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    #editor::placeholder {
+      color: var(--gray);
+      font-style: italic;
+    }
+    
+    /* Controles de fonte */
+    .font-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+    
+    .font-controls label {
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .font-size-select {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      background: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    
+    /* Estilos para a aba de Cores */
+    .add-color-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: flex-end;
+    }
+    
+    .color-sample {
+      width: 80px;
+      height: 40px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    
+    .code-example {
+      font-family: 'Courier New', monospace;
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+      margin: 5px 0;
+    }
+    
+    /* Estilos para a aba de Povoados */
+    .povoados-search-container {
+      padding: 15px;
+      background-color: #f8fafc;
+      border-radius: var(--border-radius);
+      margin-bottom: 15px;
+    }
+    
+    .povoados-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .povoados-search-icon {
+      position: absolute;
+      left: 15px;
+      color: var(--gray);
+      z-index: 2;
+    }
+    
+    .povoados-results-container {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--border-radius);
+      background: white;
+    }
+    
+    .povoados-result-count {
+      margin: 10px 15px;
+      color: var(--secondary);
+      font-size: 0.9rem;
+      padding: 5px 0;
+      border-bottom: 1px dashed #ddd;
+    }
+    
+    .povoados-resultado {
+      background-color: white;
+      padding: 15px;
+      margin: 8px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--primary);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .povoados-resultado:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-left-color: var(--accent);
+    }
+    
+    .povoados-responsavel {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--dark);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .povoados-responsavel::before {
+      content: '👤';
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .povoados-cidade {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gray);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .povoados-cidade::before {
+      content: '🏙️';
+      margin-right: 8px;
+      font-size: 0.85rem;
+    }
+    
+    .povoados-povoado {
+      font-size: 0.9rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+    }
+    
+    .povoados-povoado::before {
+      content: '📍';
+      margin-right: 8px;
+      font-size: 0.85rem;
+    }
+    
+    .povoados-no-results {
+      text-align: center;
+      padding: 30px;
+      color: var(--gray);
+    }
+    
+    .povoados-no-results i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #ddd;
+    }
+    
+    .highlight {
+      background-color: #ffeaa7;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    @media (max-width: 768px) {
+      th, td {
+        padding: 8px 10px;
+      }
+      
+      .card-body {
+        padding: 15px;
+      }
+      
+      .tabs {
+        flex-direction: column;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      #editor {
+        min-height: 300px;
+      }
+      
+      .font-controls {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .color-sample {
+        width: 60px;
+        height: 30px;
+      }
+      
+      .add-color-form {
+        flex-direction: column;
+      }
+      
+      .povoados-resultado {
+        padding: 12px;
+      }
+      
+      .povoados-responsavel {
+        font-size: 0.95rem;
+      }
+      
+      .povoados-cidade {
+        font-size: 0.9rem;
+      }
+      
+      .povoados-povoado {
+        font-size: 0.85rem;
+      }
+      
+      .atf-wrap {
+        flex-direction: column;
+      }
+      
+      .atf-panel {
+        width: 100%;
+      }
+      
+      #atf-canvas {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 250px;
+      }
+      
+      .atf-overlay.big {
+        font-size: 60px;
+      }
+      
+      .atf-overlay.small {
+        font-size: 14px;
+      }
+      
+      .radio-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    
+    #areaCopia {
+      position: absolute;
+      left: -9999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-tools logo-icon"></i>
+        <h1>Sistemas Integrados</h1>
+      </div>
+    </header>
+
+    <!-- Sistema de abas -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="openTab('mudanca')">
+        <i class="fas fa-truck-moving"></i> Mudança
+      </button>
+      <button class="tab-button" onclick="openTab('baixa')">
+        <i class="fas fa-money-bill-wave"></i> Baixa
+      </button>
+      <button class="tab-button" onclick="openTab('senhas')">
+        <i class="fas fa-key"></i> Senhas
+      </button>
+      <button class="tab-button" onclick="openTab('notas')">
+        <i class="fas fa-sticky-note"></i> Notas
+      </button>
+      <button class="tab-button" onclick="openTab('cores')">
+        <i class="fas fa-palette"></i> Cores
+      </button>
+      <button class="tab-button" onclick="openTab('povoados')">
+        <i class="fas fa-map-marker-alt"></i> Povoados
+      </button>
+      <!-- Nova aba para Cancelamento -->
+      <button class="tab-button" onclick="openTab('cancelamento')">
+        <i class="fas fa-times-circle"></i> Cancelamento
+      </button>
+      <!-- Aba para o Modelo de Atendimento -->
+      <button class="tab-button" onclick="openTab('atendimento')">
+        <i class="fas fa-headset"></i> Atendimento
+      </button>
+    </div>
+
+    <!-- Aba de Mudança de Endereço -->
+    <div id="mudanca" class="tab-content active">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-edit"></i>
+          Formulário de Mudança
+        </div>
+        <div class="card-body">
+          <form id="formulario-mudanca">
+            <div class="section-title">
+              <i class="fas fa-map-marker-alt"></i>
+              Endereço Antigo
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cidadeAntiga" class="required"><i class="fas fa-city input-icon"></i>Cidade</label>
+                <input type="text" id="cidadeAntiga" placeholder="Ex: SANTA INÊS - MA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="ruaAntiga" class="required"><i class="fas fa-road input-icon"></i>Rua</label>
+                <input type="text" id="ruaAntiga" placeholder="Ex: SANTO ANTÔNIO" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="bairroAntigo" class="required"><i class="fas fa-map-marker-alt input-icon"></i>Bairro</label>
+                <input type="text" id="bairroAntigo" placeholder="Ex: CENTRO" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="numeroAntigo" class="required"><i class="fas fa-house input-icon"></i>Número da Casa</label>
+                <input type="text" id="numeroAntigo" placeholder="Ex: 123" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="referenciaAntiga"><i class="fas fa-map-pin input-icon"></i>Pontos de Referência</label>
+                <input type="text" id="referenciaAntiga" placeholder="Ex: PRÓXIMO AO SHOPPING" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-map-marked-alt"></i>
+              Endereço Novo
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cidadeNova" class="required"><i class="fas fa-city input-icon"></i>Cidade</label>
+                <input type="text" id="cidadeNova" placeholder="Ex: MONÇÃO - MA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="ruaNova" class="required"><i class="fas fa-road input-icon"></i>Rua</label>
+                <input type="text" id="ruaNova" placeholder="Ex: LARANJEIRAS" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="bairroNova" class="required"><i class="fas fa-map-marker-alt input-icon"></i>Bairro</label>
+                <input type="text" id="bairroNova" placeholder="Ex: CENTRO" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="numeroNova" class="required"><i class="fas fa-house input-icon"></i>Número da Casa</label>
+                <input type="text" id="numeroNova" placeholder="Ex: 456" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="referenciaNova" class="required"><i class="fas fa-map-pin input-icon"></i>Dois Pontos de Referência</label>
+                <input type="text" id="referenciaNova" placeholder="Ex: PRÓXIMO A UBS E A RODOVIÁRIA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-money-bill-wave"></i>
+              Informações de Pagamento e Contato
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="contatos" class="required"><i class="fas fa-phone input-icon"></i>Dois Números de Contato</label>
+                <input type="text" id="contatos" placeholder="Ex: (98) 99999-9999 / (98) 98888-8888" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="parcelas" class="required"><i class="fas fa-credit-card input-icon"></i>Forma de Pagamento</label>
+                <select id="parcelas" onchange="toggleVencimento()">
+                  <option value="">SELECIONE</option>
+                  <option value="ISENTO">ISENTO</option>
+                  <option value="À VISTA">À VISTA</option>
+                  <option value="2 VEZES">2 VEZES</option>
+                </select>
+              </div>
+              
+              <div class="form-group vencimento-container" id="vencimentoContainer">
+                <label for="vencimento" class="required"><i class="fas fa-calendar-alt input-icon"></i>Vencimento do Boleto</label>
+                <select id="vencimento">
+                  <option value="">SELECIONE O DIA</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-info-circle"></i>
+              Informações de Atendimento
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="protocoloMudanca" class="required"><i class="fas fa-file-alt input-icon"></i>Número de Protocolo</label>
+                <input type="text" id="protocoloMudanca" placeholder="Ex: 90390001087992" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="telefoneAtendimento" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento</label>
+                <input type="text" id="telefoneAtendimento" placeholder="Ex: 559885826733" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+
+            <!-- NOVO CAMPO DE OBSERVAÇÕES -->
+            <div class="section-title">
+              <i class="fas fa-sticky-note"></i>
+              Observações Adicionais
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="observacoes"><i class="fas fa-comment input-icon"></i>Observações (Opcional)</label>
+                <input type="text" id="observacoes" placeholder="Ex: FOTO SELFIE ANEXADA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+
+            <div class="form-group" id="erroValidacaoMudanca" style="color: var(--accent); text-align: center; display: none;"></div>
+
+            <div class="actions">
+              <button type="button" class="btn" onclick="gerarTextoMudanca()">
+                <i class="fas fa-file-alt"></i> Gerar Texto
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Resultado apenas da Anotação DuoBox (removida a Ordem de Serviço) -->
+      <div class="result-container">
+        <div class="card">
+          <div class="result-header">
+            <div class="result-title"><i class="fas fa-clipboard-list"></i> Anotação DuoBox</div>
+            <button class="btn btn-success" onclick="copiarTexto('resultadoHtmlMudanca')">
+              <i class="fas fa-copy"></i> Copiar
+            </button>
+          </div>
+          <div class="result-content html-result" id="resultadoHtmlMudanca"></div>
+        </div>
+      </div>
+
+      <div class="lembrete" id="lembreteMudanca">
+        <strong><i class="fas fa-exclamation-circle"></i> Lembrete:</strong> Lembre-se de solicitar a foto selfie do titular com algum documento de identificação ao lado do rosto e a foto da nova residência.
+      </div>
+    </div>
+
+    <!-- Aba de Baixa Bancária -->
+    <div id="baixa" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-edit"></i>
+          Formulário de Baixa Bancária
+        </div>
+        <div class="card-body">
+          <form id="formulario-baixa">
+            <div class="section-title">
+              <i class="fas fa-money-check"></i>
+              Informações do Pagamento
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="dataPix" class="required"><i class="fas fa-calendar-day input-icon"></i>Data do Pagamento</label>
+                <input type="text" id="dataPix" placeholder="Ex: 26/02/2025">
+                <div class="exemplo">Exemplo: 26/02/2025</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="valorPix" class="required"><i class="fas fa-money-bill input-icon"></i>Valor do Pagamento</label>
+                <input type="text" id="valorPix" placeholder="Ex: 99,90">
+                <div class="exemplo">Exemplo: 99,90 (será convertido para R$ 99,90)</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="mensalidade" class="required"><i class="fas fa-calendar-alt input-icon"></i>Referente à Mensalidade</label>
+                <input type="text" id="mensalidade" placeholder="Ex: 01/2025">
+                <div class="exemplo">Exemplo: 01/2025</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="vencimentoBoleto" class="required"><i class="fas fa-calendar-check input-icon"></i>Vencimento do Boleto</label>
+                <input type="text" id="vencimentoBoleto" placeholder="Ex: 10/02/2025">
+                <div class="exemplo">Exemplo: 10/02/2025</div>
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-barcode"></i>
+              Detalhes do Boleto
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="numeroBoleto" class="required"><i class="fas fa-hashtag input-icon"></i>Número do Boleto</label>
+                <input type="text" id="numeroBoleto" placeholder="Ex: 508626">
+                <div class="exemplo">Exemplo: 508626</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="valorBoleto" class="required"><i class="fas fa-money-bill-wave input-icon"></i>Valor do Boleto</label>
+                <input type="text" id="valorBoleto" placeholder="Ex: 101,90">
+                <div class="exemplo">Exemplo: 101,90 (será convertido para R$ 101,90)</div>
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-info-circle"></i>
+              Informações de Atendimento
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="protocoloBaixa" class="required"><i class="fas fa-file-alt input-icon"></i>Número de Protocolo</label>
+                <input type="text" id="protocoloBaixa" placeholder="Ex: 28900000922967">
+                <div class="exemplo">Exemplo: 28900000922967</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="telefoneBaixa" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento</label>
+                <input type="text" id="telefoneBaixa" placeholder="Ex: 559881853959">
+                <div class="exemplo">Exemplo: 559881853959</div>
+              </div>
+            </div>
+
+            <div class="form-group" id="erroValidacaoBaixa" style="color: var(--accent); text-align: center; display: none;"></div>
+
+            <div class="actions">
+              <button type="button" class="btn" onclick="gerarTextoBaixa()">
+                <i class="fas fa-file-alt"></i> Gerar Texto
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="result-header">
+          <div class="result-title"><i class="fas fa-clipboard-list"></i> Anotação DuoBox</div>
+          <button class="btn btn-success" onclick="copiarTexto('resultadoBaixa')">
+            <i class="fas fa-copy"></i> Copiar
+          </button>
+        </div>
+        <div class="result-content" id="resultadoBaixa"></div>
+      </div>
+    </div>
+
+    <!-- Aba de Senhas de Equipamentos -->
+    <div id="senhas" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-key"></i>
+          Credenciais de Acesso
+        </div>
+        <div class="card-body">
+          <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar por modelo, login ou senha...">
+            <button class="btn" onclick="clearSearch()">
+              <i class="fas fa-times"></i> Limpar
+            </button>
+          </div>
+          
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>MODELO</th>
+                  <th>LOGIN</th>
+                  <th>SENHA</th>
+                </tr>
+              </thead>
+              <tbody id="equipmentsTable">
+                <tr>
+                  <td>FIBER</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('superadmin')">
+                      <span class="credential-text">superadmin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('f1ber@dm!n')">
+                      <span class="credential-text">f1ber@dm!n</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DIR 842</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('Admin')">
+                      <span class="credential-text">Admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('hcneti123hc')">
+                      <span class="credential-text">hcneti123hc</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>AX2</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('admin')">
+                      <span class="credential-text">admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('zaq1XSW@')">
+                      <span class="credential-text">zaq1XSW@</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>HG6145F</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('admin')">
+                      <span class="credential-text">admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('M4r4n37#F1b3r')">
+                      <span class="credential-text">M4r4n37#F1b3r</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>WS5200</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('superadmin')">
+                      <span class="credential-text">superadmin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('hcneti123hc')">
+                      <span class="credential-text">hcneti123hc</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>SR1041E</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('admin')">
+                      <span class="credential-text">admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('c0Ntr0le@hcn3ti#')">
+                      <span class="credential-text">c0Ntr0le@hcn3ti#</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="noResults" class="no-results" style="display: none;">
+              Nenhum equipamento encontrado com o termo pesquisado.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aba de Bloco de Notas -->
+    <div id="notas" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-sticky-note"></i>
+          Editor de Notas
+        </div>
+        <div class="card-body">
+          <div class="font-controls">
+            <label for="font-size">Tamanho da fonte:</label>
+            <select id="font-size" class="font-size-select" onchange="changeFontSize()">
+              <option value="14px">Pequeno</option>
+              <option value="16px" selected>Médio</option>
+              <option value="18px">Grande</option>
+              <option value="20px">Muito Grande</option>
+            </select>
+          </div>
+          
+          <div class="editor-container">
+            <textarea id="editor" placeholder="Digite suas notas aqui..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aba de Cores -->
+<div id="cores" class="tab-content">
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-palette"></i>
+            Tabela de Cores para Anotações
+        </div>
+        <div class="card-body">
+            <div class="add-color-form">
+                <div class="form-group">
+                    <label for="hexCode"><i class="fas fa-tint input-icon"></i>Digite o código hexadecimal da cor</label>
+                    <input type="text" id="hexCode" placeholder="Ex: #0000FF (azul)" maxlength="7">
+                </div>
+                <button class="btn" onclick="adicionarCorPersonalizada()">
+                    <i class="fas fa-plus"></i> Adicionar Cor
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table id="coresTable">
+                    <thead>
+                        <tr>
+                            <th>Cor</th>
+                            <th>Nome</th>
+                            <th>Código</th>
+                            <th>Exemplo</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #FF0000;"></div></td>
+                            <td>Vermelho</td>
+                            <td>#FF0000</td>
+                            <td class="code-example" id="codigo-vermelho">&lt;mark style="background-color: #FF0000; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-vermelho')"> <!-- CORRIGIDO -->
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #FF7F7F;"></div></td>
+                            <td>Vermelho Claro</td>
+                            <td>#FF7F7F</td>
+                            <td class="code-example" id="codigo-vermelho-claro">&lt;mark style="background-color: #FF7F7F; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td> <!-- CORRIGIDO -->
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-vermelho-claro')"> <!-- CORRIGIDO -->
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #FF4C4C;"></div></td>
+                            <td>Rosa Avermelhado</td>
+                            <td>#FF4C4C</td>
+                            <td class="code-example" id="codigo-rosa">&lt;mark style="background-color: #FF4C4C; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-rosa')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #FFA07A;"></div></td>
+                            <td>Salmão Claro</td>
+                            <td>#FFA07A</td>
+                            <td class="code-example" id="codigo-salmao">&lt;mark style="background-color: #FFA07A; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-salmao')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #E6F0FF;"></div></td>
+                            <td>Azul Lavanda</td>
+                            <td>#E6F0FF</td>
+                            <td class="code-example" id="codigo-azul">&lt;mark style="background-color: #E6F0FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-azul')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #FFFF99;"></div></td>
+                            <td>Amarelo Marcador</td>
+                            <td>#FFFF99</td>
+                            <td class="code-example" id="codigo-amarelo">&lt;mark style="background-color: #FFFF99; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-amarelo')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #B6FFB6;"></div></td>
+                            <td>Verde Marcador</td>
+                            <td>#B6FFB6</td>
+                            <td class="code-example" id="codigo-verde">&lt;mark style="background-color: #B6FFB6; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-verde')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #A7D8FF;"></div></td>
+                            <td>Azul Marcador</td>
+                            <td>#A7D8FF</td>
+                            <td class="code-example" id="codigo-azul-marcador">&lt;mark style="background-color: #A7D8FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-azul-marcador')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #FFA500;"></div></td>
+                            <td>Laranja</td>
+                            <td>#FFA500</td>
+                            <td class="code-example" id="codigo-laranja">&lt;mark style="background-color: #FFA500; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-laranja')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="color-sample" style="background-color: #D3D3D3;"></div></td>
+                            <td>Cinza Claro</td>
+                            <td>#D3D3D3</td>
+                            <td class="code-example" id="codigo-cinza">&lt;mark style="background-color: #D3D3D3; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                            <td>
+                                <button class="btn" onclick="copiarExemplo('codigo-cinza')">
+                                    <i class="fas fa-copy"></i> Copiar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Aba de Povoados -->
+    <div id="povoados" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-map-marker-alt"></i>
+          Pesquisa de Povoados
+        </div>
+        <div class="card-body">
+          <div class="povoados-search-container">
+            <div class="povoados-search-box">
+              <i class="fas fa-search povoados-search-icon"></i>
+              <input type="text" id="searchPovoado" class="search-input" placeholder="Digite o nome do povoado, cidade ou responsável..." style="padding-left: 40px;">
+            </div>
+          </div>
+          
+          <div class="povoados-result-count" id="resultCountPovoados">Digite acima para iniciar a pesquisa</div>
+          
+          <div class="povoados-results-container" id="povoadosResults">
+            <div class="povoados-no-results">
+              <i class="fas fa-search"></i>
+              <p>Digite o nome de um povoado, cidade ou responsável para buscar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOVA ABA: Cancelamento -->
+    <div id="cancelamento" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-times-circle"></i>
+          Formulário de Cancelamento
+        </div>
+        <div class="card-body">
+          <form id="formulario-cancelamento">
+            <div class="section-title">
+              <i class="fas fa-user"></i>
+              Informações do Cliente
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="clienteCancelamento" class="required"><i class="fas fa-user input-icon"></i>Nome do Cliente</label>
+                <input type="text" id="clienteCancelamento" placeholder="Ex: MARIA APARECIDA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="telefoneCancelamento" class="required"><i class="fas fa-phone input-icon"></i>Telefone/WhatsApp</label>
+                <input type="text" id="telefoneCancelamento" placeholder="Ex: (98) 98321-1529">
+              </div>
+              
+              <div class="form-group">
+                <label for="motivoCancelamento" class="required"><i class="fas fa-comment input-icon"></i>Motivo do Cancelamento</label>
+                <input type="text" id="motivoCancelamento" placeholder="Ex: MUDANÇA DE ESTADO" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="planoCancelamento" class="required"><i class="fas fa-wifi input-icon"></i>Plano do Cliente</label>
+                <input type="text" id="planoCancelamento" placeholder="Ex: 500MB" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="valorCancelamento" class="required"><i class="fas fa-money-bill input-icon"></i>Valor do Plano (R$)</label>
+                <input type="text" id="valorCancelamento" placeholder="Ex: 99,90">
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-file-contract"></i>
+              Situação do Contrato
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="required"><i class="fas fa-money-bill-wave input-icon"></i>Situação de Débitos</label>
+                <div class="radio-group">
+                  <div class="radio-option">
+                    <input type="radio" id="sem_debitos_cancel" name="debitosCancelamento" value="sem débitos" checked>
+                    <label for="sem_debitos_cancel">Sem débitos</label>
+                  </div>
+                  <div class="radio-option">
+                    <input type="radio" id="com_debitos_cancel" name="debitosCancelamento" value="com débitos">
+                    <label for="com_debitos_cancel">Com débitos</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="required"><i class="fas fa-gavel input-icon"></i>Multa Rescisória</label>
+                <div class="radio-group">
+                  <div class="radio-option">
+                    <input type="radio" id="sem_multa_cancel" name="multaCancelamento" value="sem multa rescisória" checked>
+                    <label for="sem_multa_cancel">Sem multa</label>
+                  </div>
+                  <div class="radio-option">
+                    <input type="radio" id="com_multa_cancel" name="multaCancelamento" value="com multa rescisória">
+                    <label for="com_multa_cancel">Com multa</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="equipamentoCancelamento"><i class="fas fa-hdd input-icon"></i>Equipamento em Cadastro</label>
+                <input type="text" id="equipamentoCancelamento" placeholder="Ex: D-Link 842 // ONU  AN5506-01-A" oninput="this.value = this.value.toUpperCase()">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="incluirEquipamento" checked>
+                  <label for="incluirEquipamento">Incluir equipamento no texto</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-info-circle"></i>
+              Informações de Atendimento
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="protocoloCancelamento" class="required"><i class="fas fa-file-alt input-icon"></i>Número de Protocolo</label>
+                <input type="text" id="protocoloCancelamento" placeholder="Ex: 90390001087992">
+              </div>
+              
+              <div class="form-group">
+                <label for="telefoneContatoCancelamento" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone para Contato</label>
+                <input type="text" id="telefoneContatoCancelamento" placeholder="Ex: (98) 98321-1529">
+              </div>
+              
+              <div class="form-group">
+                <label for="atendenteCancelamento" class="required"><i class="fas fa-headset input-icon"></i>Nome do Atendente</label>
+                <input type="text" id="atendenteCancelamento" placeholder="Ex: JUBISCLEITON" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-sticky-note"></i>
+              Observações Adicionais
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="observacoesCancelamento"><i class="fas fa-edit input-icon"></i>Observações (Opcional)</label>
+                <textarea id="observacoesCancelamento" placeholder="Digite observações adicionais aqui..." oninput="this.value = this.value.toUpperCase()"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group" id="erroValidacaoCancelamento" style="color: var(--accent); text-align: center; display: none;"></div>
+
+            <div class="actions">
+              <button type="button" class="btn" onclick="gerarTextoCancelamento()">
+                <i class="fas fa-file-alt"></i> Gerar Texto
+              </button>
+              <button type="button" class="btn btn-success" onclick="limparFormularioCancelamento()">
+                <i class="fas fa-broom"></i> Limpar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="result-container">
+        <div class="card">
+          <div class="result-header">
+            <div class="result-title"><i class="fas fa-clipboard-list"></i> Texto do Cancelamento</div>
+            <button class="btn btn-success" onclick="copiarTexto('resultadoCancelamento')">
+              <i class="fas fa-copy"></i> Copiar
+            </button>
+          </div>
+          <div class="result-content" id="resultadoCancelamento"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOVA ABA: Modelo de Atendimento (ATF) -->
+    <div id="atendimento" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-headset"></i>
+          Modelo de Atendimento
+        </div>
+        <div class="card-body">
+          <div class="atf-wrap">
+            <!-- PAINEL À ESQUERDA (AGORA PRIMEIRO) -->
+            <div class="atf-panel">
+              <h2>Modelo de Atendimento</h2>
+
+              <label>Nome</label>
+              <input id="inputNome" type="text" value="ANTÔNIO W. ( JÚNIOR )">
+
+              <label>Data</label>
+              <input id="inputData" type="date">
+
+              <label>Atendimentos</label>
+              <input id="inputAtend" type="number" min="0" value="0">
+
+              <label>Ligações</label>
+              <input id="inputLig" type="number" min="0" value="0">
+
+              <label>O.S. Abertas</label>
+              <input id="inputOS" type="number" min="0" value="0">
+
+              <div class="row">
+                <button class="atf-btn-primary" id="btnAtualizar">Atualizar</button>
+                <button class="atf-btn-secondary" id="btnReset">Resetar Valores</button>
+              </div>
+
+              <button class="atf-btn-success" id="btnCopiarImagem" style="margin-top:15px;">
+                📋 Copiar Imagem com Informações
+              </button>
+
+              <div class="atf-credits">.</div>
+            </div>
+
+            <!-- CANVAS À DIREITA (AGORA SEGUNDO) - COM VISUALIZAÇÃO MAIOR -->
+            <div class="atf-canvas-wrap">
+              <div id="atf-canvas" style="width:627px;height:313px;">
+    <!-- Overlays com posições fixas conforme suas configurações -->
+    
+    <!-- ADICIONE ESTA LINHA PARA O NOME -->
+    <div id="ov-nome" class="atf-overlay small" 
+         style="left:49.62%;top:15.67%">ANTÔNIO WILSON DE SOUSA</div>
+    
+    <div id="ov-data" class="atf-overlay small" 
+         style="left:47.39%;top:21.19%">00/00/0000</div>
+
+    <div id="ov-atend" class="atf-overlay big" 
+         style="left:47.39%;top:37.49%">0</div>
+    
+    <div id="ov-lig" class="atf-overlay big" 
+         style="left:47.93%;top:59.93%">0</div>
+    
+    <div id="ov-os" class="atf-overlay big" 
+         style="left:48.21%;top:82.22%">0</div>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏᴅᴊᴀꜱ</p>
+    </div>
+  </div>
+
+  <!-- Área de cópia oculta -->
+  <textarea id="areaCopia"></textarea>
+
+  <!-- Notificação -->
+  <div class="notification" id="notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="notificationText">Texto copiado com sucesso!</span>
+  </div>
+
+  <!-- Loading para ATF -->
+  <div class="atf-loading" id="atfLoading">Gerando imagem... Aguarde.</div>
+
+  <!-- Mensagem para ATF -->
+  <div class="atf-mensagem" id="atfMensagem"></div>
+
+  <script>
+    // ========== FUNÇÕES DO CANCELAMENTO ==========
+    
+    // Função para gerar texto de cancelamento
+    function gerarTextoCancelamento() {
+      const campos = {
+        "Nome do Cliente": "clienteCancelamento",
+        "Telefone/WhatsApp": "telefoneCancelamento",
+        "Motivo do Cancelamento": "motivoCancelamento",
+        "Plano do Cliente": "planoCancelamento",
+        "Valor do Plano": "valorCancelamento",
+        "Protocolo": "protocoloCancelamento",
+        "Telefone para Contato": "telefoneContatoCancelamento",
+        "Atendente": "atendenteCancelamento"
+      };
+
+      let camposVazios = [];
+      const valores = {};
+
+      for (const [nomeCampo, idCampo] of Object.entries(campos)) {
+        const elemento = document.getElementById(idCampo);
+        let valor = elemento ? elemento.value.trim() : '';
+        
+        if (!valor) {
+          camposVazios.push(nomeCampo);
+        } else {
+          valores[idCampo] = valor;
+        }
+      }
+
+      // Validação condicional para equipamento
+      const incluirEquipamento = document.getElementById('incluirEquipamento').checked;
+      const equipamento = document.getElementById('equipamentoCancelamento').value.trim();
+
+      if (incluirEquipamento && !equipamento) {
+        camposVazios.push("Equipamento em Cadastro");
+      }
+
+      const erroDiv = document.getElementById("erroValidacaoCancelamento");
+      if (camposVazios.length > 0) {
+        erroDiv.textContent = "Preencha os seguintes campos obrigatórios: " + camposVazios.join(", ");
+        erroDiv.style.display = 'block';
+        document.getElementById("resultadoCancelamento").textContent = '';
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      } else {
+        erroDiv.style.display = 'none';
+      }
+
+      // Obter valores dos radio buttons
+      const debitos = document.querySelector('input[name="debitosCancelamento"]:checked').value;
+      const multa = document.querySelector('input[name="multaCancelamento"]:checked').value;
+
+      // Verificar se há observações
+      const observacoes = document.getElementById('observacoesCancelamento').value.trim().toUpperCase();
+
+      // Primeira parte do texto (sempre igual)
+      let texto = `CLIENTE ${valores["clienteCancelamento"].toUpperCase()}, ATRAVÉS DO WHATSAPP (${valores["telefoneCancelamento"]}), SOLICITA O CANCELAMENTO COM A SEGUINTE INFORMAÇÃO: ${valores["motivoCancelamento"].toUpperCase()}. CLIENTE ATIVO NO PLANO ${valores["planoCancelamento"].toUpperCase()} NO VALOR DE R$ ${valores["valorCancelamento"]}.<br>\nFOI OFERECIDA MUDANÇA DE TITULARIDADE E SUSPENSÃO TEMPORÁRIA, ${debitos.toUpperCase()} E ${multa.toUpperCase()}.`;
+
+      // Segunda parte (com ou sem equipamento)
+      if (incluirEquipamento && equipamento) {
+        texto += ` CLIENTE POSSUI EQUIPAMENTO EM CADASTRO ( ${equipamento.toUpperCase()} ).<br>\n`;
+      } else {
+        texto += `<br>\n`;
+      }
+
+      // Terceira parte (observações, se houver)
+      if (observacoes) {
+        texto += `${observacoes}.<br>\n`;
+      }
+
+      // Quarta parte (sempre igual)
+      texto += `REGISTRO DA RESCISÃO COM TODAS AS INFORMAÇÕES ACIMA, CONFIRMADAS E VALIDADAS PELO ATENDENTE [ ${valores["atendenteCancelamento"].toUpperCase()} ].<br>\nprotocolo: ${valores["protocoloCancelamento"]} // telefone: ${valores["telefoneContatoCancelamento"]}`;
+
+      document.getElementById("resultadoCancelamento").textContent = texto;
+      
+      // Rolar para o resultado
+      document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Função para limpar formulário de cancelamento
+    function limparFormularioCancelamento() {
+      document.getElementById('clienteCancelamento').value = '';
+      document.getElementById('telefoneCancelamento').value = '';
+      document.getElementById('motivoCancelamento').value = '';
+      document.getElementById('planoCancelamento').value = '';
+      document.getElementById('valorCancelamento').value = '';
+      document.getElementById('equipamentoCancelamento').value = '';
+      document.getElementById('protocoloCancelamento').value = '';
+      document.getElementById('telefoneContatoCancelamento').value = '';
+      document.getElementById('atendenteCancelamento').value = '';
+      document.getElementById('observacoesCancelamento').value = '';
+      document.getElementById('sem_debitos_cancel').checked = true;
+      document.getElementById('sem_multa_cancel').checked = true;
+      document.getElementById('incluirEquipamento').checked = true;
+      document.getElementById('resultadoCancelamento').textContent = '';
+      document.getElementById('erroValidacaoCancelamento').style.display = 'none';
+      
+      showNotification('Formulário limpo com sucesso!');
+    }
+
+    // ========== FUNÇÕES EXISTENTES DO INDEX ==========
+    
+    // Dados reais dos povoados - LISTA COMPLETA E ATUALIZADA
+const povoados = [
+    // RESPONSÁVEL: YARA HENRIQUE - CIDADE: ALTO ALEGRE
+    {povoado: "Bacuri", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Nova Brasília", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Centro das Rosas", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Boneca do Botelho", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Boneca do Massau", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Timbira do Bógea", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Bidório", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Celestino", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Diócino", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Nova Olinda", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "São Raimundo da Piaba", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Centro dos Paulos", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Centro do Vital", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Jacamim", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Mineirinho", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+    {povoado: "Morada Nova", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
+
+    // RESPONSÁVEL: ANA CAROLINE - CIDADE: BELA VISTA
+    {povoado: "Alto do Bonito", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Cajueiro", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Igarapé dos Bois", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Vila Bela", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Estaca Zero", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Juçaral dos Mendonça", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Lago do Caboclo Morto", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Centro do Zé Félix", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Aratauí", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+    {povoado: "Tocantins", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
+
+    // RESPONSÁVEL: ANDERSON LUCAS // LAUANE ANDRADE - CIDADE: BOM JARDIM
+    {povoado: "São João dos Crentes", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Boa Esperança", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Tirirical", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Zé Boeiro", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Santa Luz", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Vila Abreu", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Rosário", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Traíra", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Vila Bandeirantes", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Rapadurinha", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Centro dos Casimiros", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Barrote", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Galego dos Fernandes", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Campinas / Km 18", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Novo Carú", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+    {povoado: "Igarapé Grande", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS // LAUANE ANDRADE"},
+
+    // RESPONSÁVEL: EDVALDO AIRES // DANIELLE SAMPAIO - CIDADE: IGARAPÉ DO MEIO
+    {povoado: "Juçaralzinho", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Fazenda União", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Vila Diamante", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Vila Primavera", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Vila Falcão", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Puraqueu", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Andirobalzinho / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Gameleira / Cajari", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Marabá / Cajari", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Rita / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Patrício", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Goiaba", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Passarinho", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Tarumã", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "São Benedito", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Alto do Piquizeiro", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "São Vicente", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Centro dos Pinaços", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Beira do Campo", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Fazenda Nova", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Toari", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Lajes Compridas", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Alto São João", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Morada Nova / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Morros / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Serrote / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+    {povoado: "Baixa do Arroz / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
+
+    // RESPONSÁVEL: SAMARA - CIDADE: MONÇÃO
+    {povoado: "São José dos Cocais", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Santa Helena", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Vila Nova / Vila Cajá", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Santa Maria", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Martiliano", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Margarida Alves I", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Margarida Alves II", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Vila São João", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Santa Rita", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Castelo", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Jeju", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Vila da Paz", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Ananazal", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Cordeiro", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Rodagem", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Conceição", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Mata Boi", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Outeiro", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Jacareí", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Pedras", cidade: "Monção", responsavel: "SAMARA"},
+    {povoado: "Buragica", cidade: "Monção", responsavel: "SAMARA"},
+
+    // RESPONSÁVEL: TORRE DE CONTROLE - VÁRIAS CIDADES
+    {povoado: "Areias", cidade: "Vários", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Santa Helena / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Boi Montado", cidade: "Vários", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Trizidela / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Juçareira / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Morada Nova (República) / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Centrinho / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Acará-Mirim / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Lameiro Grande / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Areia Branca / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Ponte de Terra / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Cafezal / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Centro Seco / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Severino / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Nova Morada / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Cara de Pau / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "São José / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Fugido / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Lages / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Gata / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Colônia Pimentel / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Bambu / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Morada Nova / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Olho d'Água dos Carneiros / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "São Raimundo / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Vila Jorim / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Calango Novo / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Franco / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Sítio do Elias / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Igarapé do Cavalo / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Vieira / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Café Merenda / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Mucuri / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
+
+    // RESPONSÁVEL: MIKAELLY NETO - CIDADE: PIO XII
+    {povoado: "Centro do Mezaque", cidade: "Pio XII", responsavel: "MIKAELLY NETO"},
+    {povoado: "Centro dos Torres", cidade: "Pio XII", responsavel: "MIKAELLY NETO"},
+
+    // RESPONSÁVEL: LARISSA VALÉRIA - CIDADE: PINDARÉ
+    {povoado: "Areias", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
+    {povoado: "Santa Helena", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
+    {povoado: "Trizidela", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
+    {povoado: "Boi Montado", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
+
+    // RESPONSÁVEL: TORRE DE CONTROLE - CIDADE: SANTA INÊS
+    {povoado: "Ladeira do Gato", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Juçaral do Capistrano", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Santa Filomena", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Encruzilhada", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Barradiço", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Vieiras", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Barros Filho", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Alto da Cruz", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Distrito Rural", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Barro Vermelho", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Garrote", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Lago Verde", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Porção da Juçara", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "São José do Aterrado", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Colônia Pimentel", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Mandiocal", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+    {povoado: "Marfim", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
+
+    // RESPONSÁVEL: LUANA SOUSA - CIDADE: SANTA LUZIA
+    {povoado: "Fazendinha", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+    {povoado: "Manguari", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+    {povoado: "Alto do Leandro", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+    {povoado: "Roça Grande", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+    {povoado: "Centro do Meio", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+    {povoado: "Maria Ferreira", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+    {povoado: "Beradão", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+    {povoado: "Jabota", cidade: "Santa Luzia", responsavel: "LUANA SOUSA"},
+
+    // RESPONSÁVEL: E. CARVALHO - CIDADE: SÃO JOÃO DO CARÚ
+    {povoado: "Santana", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
+    {povoado: "Muchins", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
+    {povoado: "Jabuti", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
+    {povoado: "Bacuri", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
+    {povoado: "Valdemiro", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
+    {povoado: "Centro do Josino", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
+    {povoado: "Igarapé dos Índios", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
+
+    // RESPONSÁVEL: INGRID - CIDADE: TUFILÂNDIA
+    {povoado: "Sumaúma", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Sumaúma II", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Novo Anajá", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Novo Anajá Velho", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Pimenta", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Santa Teresa", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Água Bela", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Lagoa Nova", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Vila Esperança", cidade: "Tufilândia", responsavel: "INGRID"},
+    {povoado: "Centro dos Brancos", cidade: "Tufilândia", responsavel: "INGRID"},
+
+    // RESPONSÁVEL: ALAN - CIDADE: VITÓRIA DO MEARIM
+    {povoado: "Acoque", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Vila Nova", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Boa Vista", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Mato Grosso", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Barras", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Louro", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Tirirical", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Jacaraí", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Jaguari", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Piçarreira", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "São Lourenço", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Alto das Preguiças", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Cafezal", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "João Diogo", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Pedras", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Escondido", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Todo Dia", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Arirana / Via Rádio", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+    {povoado: "Caçoada", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
+
+    // RESPONSÁVEL: ANDREIA - CIDADE: ZÉ DOCA
+    {povoado: "Bom Viver", cidade: "Zé Doca", responsavel: "ANDREIA"},
+    {povoado: "Quadra São Luís", cidade: "Zé Doca", responsavel: "ANDREIA"},
+    {povoado: "Alto Alegre / Quebra", cidade: "Zé Doca", responsavel: "ANDREIA"},
+    {povoado: "Rosilândia", cidade: "Zé Doca", responsavel: "ANDREIA"},
+    {povoado: "Quadra São José", cidade: "Zé Doca", responsavel: "ANDREIA"}
+];
+
+    // Sistema de abas
+    function openTab(tabName) {
+      // Esconder todas as abas
+      const tabContents = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+      }
+      
+      // Remover classe active de todos os botões
+      const tabButtons = document.getElementsByClassName('tab-button');
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove('active');
+      }
+      
+      // Mostrar a aba selecionada e ativar o botão
+      document.getElementById(tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // Função para mostrar notificação
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      
+      notificationText.textContent = message;
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // Função para copiar texto
+    function copiarTexto(elementId) {
+      const element = document.getElementById(elementId);
+      const textToCopy = element.textContent || element.innerText;
+      
+      if (!textToCopy.trim()) {
+        showNotification('Gere o texto primeiro antes de copiar!');
+        return;
+      }
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showNotification('Texto copiado com sucesso!');
+      }).catch(err => {
+        console.error('Erro ao copiar texto: ', err);
+        // Fallback para navegadores mais antigos
+        const textArea = document.getElementById('areaCopia');
+        textArea.value = textToCopy;
+        textArea.select();
+        document.execCommand('copy');
+        showNotification('Texto copiado com sucesso!');
+      });
+    }
+
+    // Função para copiar texto diretamente (usada nas senhas)
+    function copiarTextoDireto(texto) {
+      navigator.clipboard.writeText(texto).then(() => {
+        showNotification('Texto copiado com sucesso!');
+      }).catch(err => {
+        console.error('Erro ao copiar texto: ', err);
+        // Fallback para navegadores mais antigos
+        const textArea = document.getElementById('areaCopia');
+        textArea.value = texto;
+        textArea.select();
+        document.execCommand('copy');
+        showNotification('Texto copiado com sucesso!');
+      });
+    }
+
+    // Sistema de abas - inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar o seletor de vencimento
+      const vencimentoSelect = document.getElementById('vencimento');
+      for (let i = 1; i <= 31; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        vencimentoSelect.appendChild(option);
+      }
+      
+      // Carregar notas salvas
+      const savedNotes = localStorage.getItem('notaOffline');
+      if (savedNotes) {
+        document.getElementById('editor').value = savedNotes;
+      }
+      
+      // Carregar tamanho de fonte salvo
+      const fontSize = localStorage.getItem('fontSize');
+      if (fontSize) {
+        document.getElementById('editor').style.fontSize = fontSize;
+        document.getElementById('font-size').value = fontSize;
+      }
+      
+      // Salvar automaticamente as notas enquanto o usuário digita
+      document.getElementById('editor').addEventListener('input', function() {
+        localStorage.setItem('notaOffline', this.value);
+      });
+      
+      // Permitir adicionar cor pressionando Enter
+      document.getElementById('hexCode').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          adicionarCorPersonalizada();
+          e.preventDefault();
+        }
+      });
+      
+      // Inicializar a busca de povoados
+      document.getElementById('searchPovoado').addEventListener('input', buscarPovoados);
+      
+      // Inicializar o ATF
+      inicializarATF();
+      
+      // Permitir enviar formulário com Enter (Cancelamento)
+      const inputsCancelamento = document.querySelectorAll('#formulario-cancelamento input');
+      inputsCancelamento.forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            gerarTextoCancelamento();
+          }
+        });
+      });
+    });
+
+    // Função para alterar o tamanho da fonte
+    function changeFontSize() {
+      const fontSize = document.getElementById('font-size').value;
+      document.getElementById('editor').style.fontSize = fontSize;
+      localStorage.setItem('fontSize', fontSize);
+    }
+
+    // Funções para a aba de Cores
+    function adicionarCorPersonalizada() {
+      const hexCodeInput = document.getElementById('hexCode');
+      let hexCode = hexCodeInput.value.trim();
+      
+      // Adicionar # se não tiver
+      if (hexCode && !hexCode.startsWith('#')) {
+        hexCode = '#' + hexCode;
+      }
+      
+      // Validar código hexadecimal
+      const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+      if (!hexRegex.test(hexCode)) {
+        showNotification('Código hexadecimal inválido!');
+        return;
+      }
+      
+      // Gerar nome da cor baseado no código
+      const nomeCor = `Cor Personalizada (${hexCode.toUpperCase()})`;
+      const idCor = `codigo-personalizado-${Date.now()}`;
+      
+      // Criar linha na tabela
+      const tbody = document.querySelector('#coresTable tbody');
+      const novaLinha = document.createElement('tr');
+      
+      novaLinha.innerHTML = `
+        <td><div class="color-sample" style="background-color: ${hexCode};"></div></td>
+        <td>${nomeCor}</td>
+        <td>${hexCode.toUpperCase()}</td>
+        <td class="code-example" id="${idCor}">&lt;mark style="background-color: ${hexCode}; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+        <td>
+          <button class="btn" onclick="copiarExemplo('${idCor}')">
+            <i class="fas fa-copy"></i> Copiar
+          </button>
+        </td>
+      `;
+      
+      // Adicionar no início da tabela
+      tbody.insertBefore(novaLinha, tbody.firstChild);
+      
+      // Limpar campo de entrada
+      hexCodeInput.value = '';
+      
+      // Mostrar mensagem de sucesso
+      showNotification('Cor personalizada adicionada com sucesso!');
+    }
+    
+    // Função para copiar o exemplo de código
+    function copiarExemplo(idElemento) {
+      const elemento = document.getElementById(idElemento);
+      const texto = elemento.textContent;
+      
+      // Criar um elemento textarea temporário para copiar o texto
+      const textarea = document.createElement('textarea');
+      textarea.value = texto;
+      document.body.appendChild(textarea);
+      textarea.select();
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          showNotification('Código copiado com sucesso!');
+        } else {
+          throw new Error('Falha ao copiar texto');
+        }
+      } catch (err) {
+        console.error('Erro ao copiar texto: ', err);
+        alert('Falha ao copiar texto. Selecione e copie manualmente (Ctrl+C).');
+      }
+      
+      document.body.removeChild(textarea);
+    }
+
+    // Função para remover acentos e caracteres especiais
+    function removerAcentos(texto) {
+      return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+
+    // Busca de povoados - CORRIGIDA para ignorar acentuação
+    function buscarPovoados() {
+      const termo = document.getElementById('searchPovoado').value;
+      const termoSemAcento = removerAcentos(termo);
+      const resultadosContainer = document.getElementById('povoadosResults');
+      const contador = document.getElementById('resultCountPovoados');
+      
+      if (termo.length < 2) {
+        resultadosContainer.innerHTML = '<div class="povoados-no-results"><i class="fas fa-search"></i><p>Digite pelo menos 2 caracteres para buscar</p></div>';
+        contador.textContent = 'Digite acima para buscar povoados';
+        return;
+      }
+      
+      const resultados = povoados.filter(povoado => {
+        const responsavelSemAcento = removerAcentos(povoado.responsavel);
+        const cidadeSemAcento = removerAcentos(povoado.cidade);
+        const povoadoSemAcento = removerAcentos(povoado.povoado);
+        
+        return responsavelSemAcento.includes(termoSemAcento) ||
+               cidadeSemAcento.includes(termoSemAcento) ||
+               povoadoSemAcento.includes(termoSemAcento);
+      });
+      
+      if (resultados.length === 0) {
+        resultadosContainer.innerHTML = '<div class="povoados-no-results"><i class="fas fa-times-circle"></i><p>Nenhum povoado encontrado para: ' + termo + '</p></div>';
+        contador.textContent = 'Nenhum resultado encontrado';
+      } else {
+        let html = '';
+        resultados.forEach(povoado => {
+          // Destacar o termo de busca nos resultados (agora sem acento)
+          const responsavel = destacarTermo(povoado.responsavel, termo);
+          const cidade = destacarTermo(povoado.cidade, termo);
+          const povoadoNome = destacarTermo(povoado.povoado, termo);
+          
+          html += `
+            <div class="povoados-resultado" onclick="selecionarPovoado('${povoado.responsavel}', '${povoado.cidade}', '${povoado.povoado}')">
+              <div class="povoados-responsavel">${responsavel}</div>
+              <div class="povoados-cidade">${cidade}</div>
+              <div class="povoados-povoado">${povoadoNome}</div>
+            </div>
+          `;
+        });
+        
+        resultadosContainer.innerHTML = html;
+        contador.textContent = `${resultados.length} povoado(s) encontrado(s)`;
+      }
+    }
+    
+    function destacarTermo(texto, termo) {
+      const termoSemAcento = removerAcentos(termo);
+      const textoSemAcento = removerAcentos(texto);
+      const regex = new RegExp(`(${termoSemAcento})`, 'gi');
+      
+      return textoSemAcento.replace(regex, '<span class="highlight">$1</span>');
+    }
+    
+    function selecionarPovoado(responsavel, cidade, povoado) {
+      // Copiar as informações para a área de transferência
+      const texto = `Responsável: ${responsavel}\nCidade: ${cidade}\nPovoado: ${povoado}`;
+      copiarTextoDireto(texto);
+    }
+
+    // Funções para as outras abas - RESTAURADAS do S.I original
+    function toggleVencimento() {
+      const formaPagamento = document.getElementById("parcelas").value;
+      const vencimentoContainer = document.getElementById("vencimentoContainer");
+      
+      if (formaPagamento === "ISENTO") {
+        vencimentoContainer.classList.add("hidden");
+        document.getElementById("vencimento").required = false;
+      } else {
+        vencimentoContainer.classList.remove("hidden");
+        document.getElementById("vencimento").required = true;
+      }
+    }
+
+    function gerarTextoMudanca() {
+      const campos = {
+        "Cidade Antiga": "cidadeAntiga",
+        "Rua Antiga": "ruaAntiga",
+        "Bairro Antigo": "bairroAntigo",
+        "Número Antigo": "numeroAntigo",
+        "Referência Antiga": "referenciaAntiga",
+        "Cidade Nova": "cidadeNova",
+        "Rua Nova": "ruaNova",
+        "Bairro Novo": "bairroNova",
+        "Número Novo": "numeroNova",
+        "Referência Nova": "referenciaNova",
+        "Contatos": "contatos",
+        "Forma de Pagamento": "parcelas",
+        "Vencimento": "vencimento",
+        "Protocolo": "protocoloMudanca",
+        "Telefone de Atendimento": "telefoneAtendimento",
+        "Observações": "observacoes"
+      };
+
+      let camposVazios = [];
+      const valores = {};
+
+      for (const [nomeCampo, idCampo] of Object.entries(campos)) {
+        const elemento = document.getElementById(idCampo);
+        let valor = elemento ? elemento.value.trim() : '';
+        
+        // Se for isento, não validar vencimento
+        if (idCampo === "vencimento" && document.getElementById("parcelas").value === "ISENTO") {
+          valor = "ISENTO";
+        }
+        
+        // Observações é opcional, então não adicionamos à lista de campos obrigatórios
+        if (!valor && idCampo !== "referenciaAntiga" && idCampo !== "observacoes" &&
+            !(idCampo === "vencimento" && document.getElementById("parcelas").value === "ISENTO")) {
+          camposVazios.push(nomeCampo);
+        } else {
+          valores[idCampo] = valor.toUpperCase();
+        }
+      }
+
+      const erroDiv = document.getElementById("erroValidacaoMudanca");
+      if (camposVazios.length > 0) {
+        erroDiv.textContent = "Preencha os seguintes campos obrigatórios: " + camposVazios.join(", ");
+        erroDiv.style.display = 'block';
+        document.getElementById("resultadoHtmlMudanca").textContent = '';
+        
+        // Rola para o topo do formulário para mostrar o erro
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      } else {
+        erroDiv.style.display = 'none';
+      }
+
+      let frasePagamento = "";
+      let textoInicial = "";
+      
+      if (valores["parcelas"] === "ISENTO") {
+        textoInicial = "CLIENTE DESEJA MUDANÇA DE ENDEREÇO E ESTÁ ISENTO DA TAXA";
+        // Para ISENTO, não adicionamos nenhuma informação de pagamento
+      } else {
+        textoInicial = "CLIENTE DESEJA MUDANÇA DE ENDEREÇO E ESTA CIENTE DA TAXA DE R$ 70,00 REAIS";
+        if (valores["parcelas"] === "À VISTA") {
+          frasePagamento = `CLIENTE DESEJA PAGAR À VISTA COM VENCIMENTO DO BOLETO PARA O DIA ${valores["vencimento"]}`;
+        } else {
+          frasePagamento = `CLIENTE DESEJA PAGAR EM ${valores["parcelas"]} COM VENCIMENTO DO BOLETO PARA O DIA ${valores["vencimento"]}`;
+        }
+      }
+
+      // CORREÇÃO: Adicionar as observações na posição correta
+      const observacoesTexto = valores["observacoes"] ? `${valores["observacoes"]}<br>` : '';
+
+      // CORREÇÃO: Formatação final com quebra de linha adequada
+      const textoHtmlLiteral =
+`${textoInicial}<br>
+>>>ENDEREÇO ANTIGO<br>
+CIDADE: ${valores["cidadeAntiga"]}<br>
+RUA: ${valores["ruaAntiga"]}<br>
+BAIRRO: ${valores["bairroAntigo"]}
+<br>
+NÚMERO DA CARA: ${valores["numeroAntigo"]}<br>
+PONTOS DE REFERÊNCIA: ${valores["referenciaAntiga"] || 'NÃO INFORMADO'}
+<br>
+<br>
+>>>ENDEREÇO NOVO <br>
+CIDADE: ${valores["cidadeNova"]}<br>
+RUA: ${valores["ruaNova"]}
+<br>
+BAIRRO: ${valores["bairroNova"]}<br>
+NÚMERO DA CASA: ${valores["numeroNova"]}<br>
+DOIS PONTOS DE REFERÊNCIA: ${valores["referenciaNova"]}<br>
+DOIS NÚMEROS DE CONTATO: ${valores["contatos"]}<br>
+${frasePagamento}<br>
+${observacoesTexto}protocolo: ${valores["protocoloMudanca"]} // telefone: ${valores["telefoneAtendimento"]}`;
+
+      document.getElementById("resultadoHtmlMudanca").textContent = textoHtmlLiteral;
+      
+      document.getElementById('lembreteMudanca').style.display = 'block';
+      document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function gerarTextoBaixa() {
+      const dataPix = document.getElementById("dataPix").value;
+      let valorPix = document.getElementById("valorPix").value;
+      const mensalidade = document.getElementById("mensalidade").value;
+      const vencimentoBoleto = document.getElementById("vencimentoBoleto").value;
+      const numeroBoleto = document.getElementById("numeroBoleto").value;
+      let valorBoleto = document.getElementById("valorBoleto").value;
+      const protocolo = document.getElementById("protocoloBaixa").value;
+      const telefone = document.getElementById("telefoneBaixa").value;
+
+      // Adicionar R$ aos valores
+      if (valorPix && !valorPix.includes('R$')) {
+        valorPix = 'R$ ' + valorPix;
+      }
+      
+      if (valorBoleto && !valorBoleto.includes('R$')) {
+        valorBoleto = 'R$ ' + valorBoleto;
+      }
+
+      // Verificar campos obrigatórios
+      const camposObrigatorios = [
+        {nome: "Data do Pagamento", valor: dataPix},
+        {nome: "Valor do Pagamento", valor: valorPix},
+        {nome: "Mensalidade", valor: mensalidade},
+        {nome: "Vencimento do Boleto", valor: vencimentoBoleto},
+        {nome: "Número do Boleto", valor: numeroBoleto},
+        {nome: "Valor do Boleto", valor: valorBoleto},
+        {nome: "Protocolo", valor: protocolo},
+        {nome: "Telefone", valor: telefone}
+      ];
+
+      let camposVazios = [];
+      for (const campo of camposObrigatorios) {
+        if (!campo.valor.trim()) {
+          camposVazios.push(campo.nome);
+        }
+      }
+
+      const erroDiv = document.getElementById("erroValidacaoBaixa");
+      if (camposVazios.length > 0) {
+        erroDiv.textContent = "Preencha os seguintes campos obrigatórios: " + camposVazios.join(", ");
+        erroDiv.style.display = 'block';
+        document.getElementById("resultadoBaixa").textContent = '';
+        
+        // Rola para o topo do formulário para mostrar o erro
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      } else {
+        erroDiv.style.display = 'none';
+      }
+
+      // CORREÇÃO: Removidos os espaços no início das linhas
+      const texto = `CLIENTE EFETUOU TRANSFERENCIA VIA PIX EM ${dataPix}  VALOR DO PIX: ${valorPix} REF. MENSALIDADE: ${mensalidade} ---------- VENCIMENTO DO BOLETO: ${vencimentoBoleto} ---------
+Nº DO BOLETO: ${numeroBoleto} ------------ VALOR DO BOLETO: ${valorBoleto} ----------
+DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET TELECOM LTDA FOTO DO COMPROVANTE ANEXADO NO BANCO DE IMAGENS PRINCIPAL E NO DA O.S: protocolo: ${protocolo} // telefone: ${telefone}`;
+
+      document.getElementById("resultadoBaixa").textContent = texto;
+    }
+
+    // Busca na tabela de senhas
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      const tableRows = document.querySelectorAll('#equipmentsTable tr');
+      
+      tableRows.forEach(row => {
+        const rowText = row.textContent.toLowerCase();
+        if (rowText.includes(searchTerm)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      const tableRows = document.querySelectorAll('#equipmentsTable tr');
+      tableRows.forEach(row => {
+        row.style.display = '';
+      });
+    }
+
+    // ========== FUNÇÕES PARA A ABA DE ATENDIMENTO (ATF) ==========
+    
+function inicializarATF() {
+    // Elementos DOM do ATF
+    const ovNome = document.getElementById('ov-nome');
+    const ovData = document.getElementById('ov-data');
+    const ovAtend = document.getElementById('ov-atend');
+    const ovLig = document.getElementById('ov-lig');
+    const ovOS = document.getElementById('ov-os');
+
+    const inputNome = document.getElementById('inputNome');
+    const inputData = document.getElementById('inputData');
+    const inputAtend = document.getElementById('inputAtend');
+    const inputLig = document.getElementById('inputLig');
+    const inputOS = document.getElementById('inputOS');
+
+    const btnAtualizar = document.getElementById('btnAtualizar');
+    const btnReset = document.getElementById('btnReset');
+    const btnCopiarImagem = document.getElementById('btnCopiarImagem');
+    const atfMensagemElement = document.getElementById('atfMensagem');
+    const atfLoadingElement = document.getElementById('atfLoading');
+
+    // Definir nome padrão
+    inputNome.value = "ANTÔNIO WILSON DE SOUSA";
+    
+    // Inicializar data atual
+    const hoje = new Date();
+    const dia = String(hoje.getDate()).padStart(2,'0');
+    const mes = String(hoje.getMonth()+1).padStart(2,'0');
+    const ano = hoje.getFullYear();
+    inputData.value = `${ano}-${mes}-${dia}`;
+    
+    // CONVERSÃO AUTOMÁTICA PARA MAIÚSCULAS
+    inputNome.addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+    });
+
+    // Carregar dados salvos
+    carregarDadosSalvosATF();
+
+    // Função para carregar dados salvos
+    function carregarDadosSalvosATF() {
+        const dadosSalvos = localStorage.getItem('dadosAtendimento');
+        
+        if (dadosSalvos) {
+            const dados = JSON.parse(dadosSalvos);
+            
+            // Verificar se os dados salvos são do dia atual
+            const hoje = new Date().toDateString();
+            const dataSalva = new Date(dados.data).toDateString();
+            
+            if (hoje === dataSalva) {
+                inputNome.value = dados.nome || "ANTÔNIO WILSON DE SOUSA";
+                inputAtend.value = dados.atendimentos;
+                inputLig.value = dados.ligacoes;
+                inputOS.value = dados.os;
+                
+                atualizarDisplayATF();
+            }
+        }
+    }
+
+    // Função para salvar dados
+    function salvarDadosATF() {
+        const dados = {
+            nome: inputNome.value,
+            data: inputData.value,
+            atendimentos: inputAtend.value || 0,
+            ligacoes: inputLig.value || 0,
+            os: inputOS.value || 0
+        };
+        
+        localStorage.setItem('dadosAtendimento', JSON.stringify(dados));
+    }
+
+    // Função para atualizar a exibição
+    function atualizarDisplayATF() {
+        // Atualizar nome na visualização (CORREÇÃO: agora funciona)
+        if (ovNome) {
+            ovNome.textContent = inputNome.value;
+        }
+        
+        // Formatar data na visualização
+        const v = inputData.value;
+        if(v){
+            const [y,m,d] = v.split('-');
+            if (ovData) {
+                ovData.textContent = `${d}/${m}/${y}`;
+            }
+        } else {
+            if (ovData) {
+                ovData.textContent = '';
+            }
+        }
+        
+        // Atualizar números na visualização
+        if (ovAtend) ovAtend.textContent = (inputAtend.value || '0');
+        if (ovLig) ovLig.textContent = (inputLig.value || '0');
+        if (ovOS) ovOS.textContent = (inputOS.value || '0');
+    }
+
+    // Função para mostrar mensagem
+    function mostrarMensagemATF(texto) {
+        atfMensagemElement.textContent = texto;
+        atfMensagemElement.classList.add('mostrar');
+        
+        setTimeout(() => {
+            atfMensagemElement.classList.remove('mostrar');
+        }, 3000);
+    }
+
+    // Função para copiar a imagem com as informações
+    async function copiarImagemATF() {
+        try {
+            atfLoadingElement.style.display = 'block';
+            
+            // Criar um canvas temporário com o tamanho original da imagem
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            // Carregar a imagem original
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.src = 'https://i.imgur.com/HJZZSxl.png';
+            
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+            
+            // Definir o tamanho do canvas como o tamanho original da imagem
+            tempCanvas.width = img.naturalWidth;
+            tempCanvas.height = img.naturalHeight;
+            
+            // Desenhar a imagem de fundo
+            tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+            
+            // Posições ajustadas: números +1% para direita
+            const positions = {
+                nome: { x: tempCanvas.width * 0.4962, y: tempCanvas.height * 0.1567 },
+                data: { x: tempCanvas.width * 0.4739, y: tempCanvas.height * 0.2119 },
+                atend: { x: tempCanvas.width * 0.4739, y: tempCanvas.height * 0.3749 },
+                lig: { x: tempCanvas.width * 0.4793, y: tempCanvas.height * 0.5993 },
+                os: { x: tempCanvas.width * 0.4821, y: tempCanvas.height * 0.8222 }
+            };
+            
+            // Configurar estilos dos textos
+            tempCtx.textAlign = 'center';
+            tempCtx.textBaseline = 'middle';
+            tempCtx.shadowColor = 'rgba(0, 0, 0, 0.45)';
+            tempCtx.shadowBlur = 6;
+            tempCtx.shadowOffsetY = 6;
+            
+            // NOME - Century Gothic
+            tempCtx.font = '500 28px "Century Gothic", sans-serif'; // Normal
+            tempCtx.fillStyle = 'white';
+            tempCtx.fillText(inputNome.value, positions.nome.x, positions.nome.y);
+            
+            // DATA - Century Gothic
+            tempCtx.font = '300 28px "Century Gothic", sans-serif';
+            tempCtx.fillStyle = 'white';
+            
+            const dataValue = inputData.value;
+            if(dataValue){
+                const [y,m,d] = dataValue.split('-');
+                tempCtx.fillText(`${d}/${m}/${y}`, positions.data.x, positions.data.y);
+            }
+            
+            // NÚMEROS - Montserrat
+            tempCtx.font = '600 80px "Montserrat", sans-serif';
+            tempCtx.fillStyle = 'black';
+            tempCtx.fillText(inputAtend.value || '0', positions.atend.x, positions.atend.y);
+            tempCtx.fillText(inputLig.value || '0', positions.lig.x, positions.lig.y);
+            tempCtx.fillText(inputOS.value || '0', positions.os.x, positions.os.y);
+            
+            // Converter para blob e copiar
+            tempCanvas.toBlob(async (blob) => {
+                try {
+                    const item = new ClipboardItem({ 'image/png': blob });
+                    await navigator.clipboard.write([item]);
+                    mostrarMensagemATF('✅ Imagem copiada para a área de transferência!');
+                } catch (err) {
+                    // Fallback para download
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `atendimento-${new Date().toISOString().split('T')[0]}.png`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    mostrarMensagemATF('📥 Imagem salva como download!');
+                }
+            });
+            
+        } catch (error) {
+            console.error('Erro ao gerar imagem:', error);
+            mostrarMensagemATF('❌ Erro ao copiar imagem. Tente novamente.');
+        } finally {
+            atfLoadingElement.style.display = 'none';
+        }
+    }
+
+    // Event Listeners
+    btnAtualizar.addEventListener('click', () => {
+        if (!inputData.value) {
+            alert('Por favor, selecione uma data.');
+            return;
+        }
+        
+        atualizarDisplayATF();
+        salvarDadosATF();
+        mostrarMensagemATF('Dados atualizados com sucesso!');
+    });
+
+    btnReset.addEventListener('click', () => {
+        if (confirm('Tem certeza que deseja resetar todos os valores?')) {
+            inputNome.value = "ANTÔNIO WILSON DE SOUSA";
+            inputAtend.value = '';
+            inputLig.value = '';
+            inputOS.value = '';
+            
+            atualizarDisplayATF();
+            salvarDadosATF();
+            mostrarMensagemATF('Valores resetados com sucesso!');
+        }
+    });
+
+    btnCopiarImagem.addEventListener('click', copiarImagemATF);
+
+    // Atualizar com Enter
+    [inputNome, inputData, inputAtend, inputLig, inputOS].forEach(input => {
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                atualizarDisplayATF();
+                salvarDadosATF();
+                mostrarMensagemATF('Dados atualizados com sucesso!');
+            }
+        });
+    });
+
+    // Inicializar display
+    atualizarDisplayATF();
+}
+  </script>
+</body>
+</html>
