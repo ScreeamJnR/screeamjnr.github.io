@@ -117,7 +117,7 @@
 #atf-canvas {
     position: relative;
     display: block;
-    background-image: url('https://i.imgur.com/HJZZSxl.png');
+    background-image: url('https://i.imgur.com/O4XLB1H.png');
     background-position: center top;
     background-repeat: no-repeat;
     background-size: contain;
@@ -2753,7 +2753,7 @@ function inicializarATF() {
             // Carregar a imagem original
             const img = new Image();
             img.crossOrigin = 'anonymous';
-            img.src = 'https://i.imgur.com/HJZZSxl.png';
+            img.src = 'https://i.imgur.com/O4XLB1H.png';
             
             await new Promise((resolve, reject) => {
                 img.onload = resolve;
@@ -2799,7 +2799,7 @@ function inicializarATF() {
             }
             
             // NÚMEROS - Montserrat
-            tempCtx.font = '600 80px "Montserrat", sans-serif';
+            tempCtx.font = '600 60px "Montserrat", sans-serif';
             tempCtx.fillStyle = 'black';
             tempCtx.fillText(inputAtend.value || '0', positions.atend.x, positions.atend.y);
             tempCtx.fillText(inputLig.value || '0', positions.lig.x, positions.lig.y);
