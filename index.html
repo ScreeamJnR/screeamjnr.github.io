@@ -1788,9 +1788,7 @@
           <label for="inputLinkLoss">Link Loss</label>
           <input type="number" id="inputLinkLoss" placeholder="0" min="0">
           
-          <button class="atf-btn-primary" onclick="atualizarTudo()">
-            <i class="fas fa-sync-alt"></i> Atualizar
-          </button>
+          
           
           <button class="atf-btn-success" onclick="copiarImagemFinal()">
             <i class="fas fa-copy"></i> Copiar Imagem
@@ -2745,8 +2743,9 @@ function copiarCodigoDefinitivo() {
     });
 }
 
-// Sistema de arrastar elementos
+// Sistema de arrastar elementos E inicialização do ATF
 document.addEventListener('DOMContentLoaded', function() {
+    // Sistema de arrastar
     const elementosArrastaveis = document.querySelectorAll('.elemento-arrastavel');
     
     elementosArrastaveis.forEach(elemento => {
@@ -2759,6 +2758,28 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('touchmove', arrastarTouch);
     document.addEventListener('mouseup', finalizarArrasto);
     document.addEventListener('touchend', finalizarArrasto);
+
+    // ========== INICIALIZAÇÃO DO ATF ==========
+    // Configurar data automática
+    document.getElementById('inputData').value = obterDataAtual();
+    
+    // Configurar eventos para atualização automática
+    const inputs = ['inputAtend', 'inputLig', 'inputOS', 'inputGeral', 'inputLinkLoss', 'inputNome'];
+    inputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.addEventListener('input', atualizarTudo);
+        }
+    });
+    
+    // Nome em maiúsculas
+    document.getElementById('inputNome').addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+        atualizarTudo();
+    });
+    
+    // Aplicar visualização inicial
+    atualizarTudo();
 });
 
 function iniciarArrasto(e) {
@@ -2832,9 +2853,9 @@ function finalizarArrasto() {
 
 // CONFIGURAÇÃO DE TAMANHOS PARA A IMAGEM GERADA
 const TAMANHOS_IMAGEM = {
-    atend: 80,
-    lig: 80,  
-    os: 80,
+    atend: 68,
+    lig: 68,  
+    os: 68,
     geral: 35,
     linkloss: 35
 };
@@ -2918,7 +2939,7 @@ async function copiarImagemFinal() {
             geral: { x: canvas.width * 0.8611, y: canvas.height * 0.6944 },
             linkloss: { x: canvas.width * 0.8611, y: canvas.height * 0.7750 },
             nome: { x: canvas.width * 0.3372, y: canvas.height * 0.1434 },
-            data: { x: canvas.width * 0.5240, y: canvas.height * 0.2073 }
+            data: { x: canvas.width * 0.5140, y: canvas.height * 0.2073 }
         };
         
         const valores = {
@@ -2970,22 +2991,17 @@ async function copiarImagemFinal() {
         ctx.font = 'bold 24px Arial, sans-serif';
         ctx.fillText(valores.data, posicoes.data.x, posicoes.data.y);
         
-        // Converter para blob e copiar
-        canvas.toBlob(async (blob) => {
-            try {
-                const item = new ClipboardItem({ 'image/png': blob });
-                await navigator.clipboard.write([item]);
-                mostrarMensagem('✅ Imagem copiada para a área de transferência!');
-            } catch (err) {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `atendimento-${valores.data}.png`;
-                a.click();
-                URL.revokeObjectURL(url);
-                mostrarMensagem('📥 Imagem salva como download!');
-            }
-        });
+        // Tentar copiar para área de transferência
+        try {
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            const item = new ClipboardItem({ 'image/png': blob });
+            await navigator.clipboard.write([item]);
+            mostrarMensagem('✅ Imagem copiada para a área de transferência!');
+        } catch (clipboardError) {
+            console.log('Clipboard API não suportada, mostrando opção alternativa');
+            // Em vez de fazer download automático, mostrar mensagem informativa
+            mostrarMensagem('❌ Seu navegador não suporta copiar imagens. Use Print Screen (PrtScn) para capturar a tela.');
+        }
         
     } catch (error) {
         console.error('Erro ao gerar imagem:', error);
@@ -2995,43 +3011,6 @@ async function copiarImagemFinal() {
         if (loading) loading.style.display = 'none';
     }
 }
-
-// FUNÇÃO PARA RESETAR
-function resetarTudo() {
-    if (confirm('Resetar todos os valores?')) {
-        document.getElementById('inputAtend').value = '';
-        document.getElementById('inputLig').value = '';
-        document.getElementById('inputOS').value = '';
-        document.getElementById('inputGeral').value = '';
-        document.getElementById('inputLinkLoss').value = '';
-        atualizarTudo();
-        mostrarMensagem('Valores resetados!');
-    }
-}
-
-// INICIALIZAÇÃO DO ATF
-document.addEventListener('DOMContentLoaded', function() {
-    // Configurar data automática
-    document.getElementById('inputData').value = obterDataAtual();
-    
-    // Configurar eventos
-    const inputs = ['inputAtend', 'inputLig', 'inputOS', 'inputGeral', 'inputLinkLoss', 'inputNome'];
-    inputs.forEach(inputId => {
-        const input = document.getElementById(inputId);
-        if (input) {
-            input.addEventListener('input', atualizarTudo);
-        }
-    });
-    
-    // Nome em maiúsculas
-    document.getElementById('inputNome').addEventListener('input', function() {
-        this.value = this.value.toUpperCase();
-        atualizarTudo();
-    });
-    
-    // Aplicar visualização inicial
-    atualizarTudo();
-});
 </script>
 </body>
 </html>
