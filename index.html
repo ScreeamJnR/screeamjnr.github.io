@@ -3000,7 +3000,7 @@ async function copiarImagemFinal() {
             const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
             const item = new ClipboardItem({ 'image/png': blob });
             await navigator.clipboard.write([item]);
-            mostrarMensagem('✅ Imagem copiada para a área de transferência. Piãozinho!');
+            mostrarMensagem('✅ Imagem copiada para a área de transferência!');
         } catch (clipboardError) {
             console.log('Clipboard API não suportada, mostrando opção alternativa');
             // Em vez de fazer download automático, mostrar mensagem informativa
