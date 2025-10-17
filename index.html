@@ -117,7 +117,7 @@
 #atf-canvas {
     position: relative;
     display: block;
-    background-image: url('https://i.imgur.com/O4XLB1H.png');
+    background-image: url('https://i.imgur.com/QEvgDVZ.png');
     background-position: center top;
     background-repeat: no-repeat;
     background-size: contain;
@@ -1742,74 +1742,106 @@
       </div>
     </div>
 
-    <!-- NOVA ABA: Modelo de Atendimento (ATF) -->
-    <div id="atendimento" class="tab-content">
-      <div class="card">
-        <div class="card-header">
-          <i class="fas fa-headset"></i>
-          Modelo de Atendimento
-        </div>
-        <div class="card-body">
-          <div class="atf-wrap">
-            <!-- PAINEL À ESQUERDA (AGORA PRIMEIRO) -->
-            <div class="atf-panel">
-              <h2>Modelo de Atendimento</h2>
+    <!-- ABA ATENDIMENTO - VERSÃO SIMPLIFICADA -->
+<div id="atendimento" class="tab-content">
+  <div class="card">
+    <div class="card-header">
+      <i class="fas fa-headset"></i>
+      Modelo de Atendimento - Configuração de Posições
+    </div>
+    <div class="card-body">
+      
 
-              <label>Nome</label>
-              <input id="inputNome" type="text" value="ANTÔNIO W. ( JÚNIOR )">
-
-              <label>Data</label>
-              <input id="inputData" type="date">
-
-              <label>Atendimentos</label>
-              <input id="inputAtend" type="number" min="0" value="0">
-
-              <label>Ligações</label>
-              <input id="inputLig" type="number" min="0" value="0">
-
-              <label>O.S. Abertas</label>
-              <input id="inputOS" type="number" min="0" value="0">
-
-              <div class="row">
-                <button class="atf-btn-primary" id="btnAtualizar">Atualizar</button>
-                <button class="atf-btn-secondary" id="btnReset">Resetar Valores</button>
-              </div>
-
-              <button class="atf-btn-success" id="btnCopiarImagem" style="margin-top:15px;">
-                📋 Copiar Imagem com Informações
-              </button>
-
-              <div class="atf-credits">.</div>
+      <div class="atf-wrap">
+        <!-- PAINEL DE CONTROLE ATUALIZADO -->
+        <div class="atf-panel">
+          
+          
+          <label for="inputNome">Nome do Operador</label>
+          <input type="text" id="inputNome" placeholder="Digite seu nome" value="ANTÔNIO WILSON DE SOUSA">
+          
+          <label for="inputData">Data (Automática)</label>
+<input type="text" id="inputData" readonly style="background: #f8f9fa; cursor: not-allowed;">
+          
+          <div class="row">
+            <div>
+              <label for="inputAtend">Atendimentos</label>
+              <input type="number" id="inputAtend" placeholder="0" min="0">
             </div>
-
-            <!-- CANVAS À DIREITA (AGORA SEGUNDO) - COM VISUALIZAÇÃO MAIOR -->
-            <div class="atf-canvas-wrap">
-              <div id="atf-canvas" style="width:627px;height:313px;">
-    <!-- Overlays com posições fixas conforme suas configurações -->
-    
-    <!-- ADICIONE ESTA LINHA PARA O NOME -->
-    <div id="ov-nome" class="atf-overlay small" 
-         style="left:49.62%;top:15.67%">ANTÔNIO WILSON DE SOUSA</div>
-    
-    <div id="ov-data" class="atf-overlay small" 
-         style="left:47.39%;top:21.19%">00/00/0000</div>
-
-    <div id="ov-atend" class="atf-overlay big" 
-         style="left:47.39%;top:37.49%">0</div>
-    
-    <div id="ov-lig" class="atf-overlay big" 
-         style="left:47.93%;top:59.93%">0</div>
-    
-    <div id="ov-os" class="atf-overlay big" 
-         style="left:48.21%;top:82.22%">0</div>
-</div>
+            <div>
+              <label for="inputLig">Ligações</label>
+              <input type="number" id="inputLig" placeholder="0" min="0">
             </div>
           </div>
+          
+          <div class="row">
+            <div>
+              <label for="inputOS">O.S. Abertas</label>
+              <input type="number" id="inputOS" placeholder="0" min="0">
+            </div>
+            <div>
+              <label for="inputGeral">Geral</label>
+              <input type="number" id="inputGeral" placeholder="0" min="0">
+            </div>
+          </div>
+          
+          <label for="inputLinkLoss">Link Loss</label>
+          <input type="number" id="inputLinkLoss" placeholder="0" min="0">
+          
+          <button class="atf-btn-primary" onclick="atualizarTudo()">
+            <i class="fas fa-sync-alt"></i> Atualizar
+          </button>
+          
+          <button class="atf-btn-success" onclick="copiarImagemFinal()">
+            <i class="fas fa-copy"></i> Copiar Imagem
+          </button>
+
+          
+          
+          <button class="atf-btn-secondary" onclick="resetarTudo()">
+            <i class="fas fa-redo"></i> Resetar
+          </button>
+          
+          
+        </div>
+
+        <!-- ÁREA DE VISUALIZAÇÃO COM ELEMENTOS ARRASTÁVEIS -->
+        <div class="atf-canvas-wrap">
+          <div id="atf-canvas" style="width:627px;height:313px;position:relative;background:#333;cursor:default;">
+            <img src="https://i.imgur.com/QEvgDVZ.png" style="width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;">
+            
+            <!-- ELEMENTOS DE TEXTO COM POSIÇÕES DEFINITIVAS -->
+<div id="nome-visualizacao" class="atf-overlay small" 
+     style="left:50.72%;top:14.34%;font-size:14px;color:white;text-align:left;font-weight:bold;">ANTÔNIO WILSON DE SOUSA</div>
+
+<div id="data-visualizacao" class="atf-overlay small" 
+     style="left:52.40%;top:20.73%;font-size:12px;color:white;text-align:right;font-weight:bold;">16/10/2025</div>
+            
+            <!-- POSIÇÕES FIXAS DOS NÚMEROS -->
+            <div id="numero-atend" class="atf-overlay big" style="left:53.29%;top:32.70%;font-size:60px;">0</div>
+            <div id="numero-lig" class="atf-overlay big" style="left:53.35%;top:53.86%;font-size:60px;">0</div>
+            <div id="numero-os" class="atf-overlay big" style="left:53.47%;top:73.91%;font-size:60px;">0</div>
+            <div id="numero-geral" class="atf-overlay big" style="left:86.11%;top:69.44%;font-size:20px;">0</div>
+            <div id="numero-linkloss" class="atf-overlay big" style="left:86.11%;top:77.50%;font-size:20px;">0</div>
+          </div>
+          
+          
         </div>
       </div>
-    </div>
 
-    <div class="footer">
+      <!-- ÁREA PARA O CÓDIGO GERADO -->
+      <div id="areaCodigo" style="display:none;margin-top:20px;padding:15px;background:#f8f9fa;border-radius:8px;border:1px solid #dee2e6;">
+        <h4 style="color:#333;margin-bottom:10px;">Código Definitivo Gerado:</h4>
+        <textarea id="codigoDefinitivo" style="width:100%;height:200px;font-family:monospace;font-size:12px;padding:10px;border:1px solid #ccc;border-radius:4px;"></textarea>
+        <button class="btn btn-success" onclick="copiarCodigoDefinitivo()" style="margin-top:10px;">
+          <i class="fas fa-copy"></i> Copiar Código
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
       <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏᴅᴊᴀꜱ</p>
     </div>
   </div>
@@ -2269,23 +2301,28 @@ const povoados = [
       });
       
       // Inicializar a busca de povoados
-      document.getElementById('searchPovoado').addEventListener('input', buscarPovoados);
-      
-      // Inicializar o ATF
-      inicializarATF();
-      
-      // Permitir enviar formulário com Enter (Cancelamento)
-      const inputsCancelamento = document.querySelectorAll('#formulario-cancelamento input');
-      inputsCancelamento.forEach(input => {
-        input.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
+document.getElementById('searchPovoado').addEventListener('input', buscarPovoados);
+
+// Inicializar o ATF (linha problemática removida)
+
+// Permitir enviar formulário com Enter (Cancelamento)
+const inputsCancelamento = document.querySelectorAll('#formulario-cancelamento input');
+inputsCancelamento.forEach(input => {
+     input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
             e.preventDefault();
             gerarTextoCancelamento();
-          }
-        });
-      });
+        }
     });
+});
+}); // <--- LINHA ADICIONADA PARA FECHAR O DOMContentLoaded
 
+// Função para alterar o tamanho da fonte
+function changeFontSize() {
+  const fontSize = document.getElementById('font-size').value;
+  document.getElementById('editor').style.fontSize = fontSize;
+  localStorage.setItem('fontSize', fontSize);
+}
     // Função para alterar o tamanho da fonte
     function changeFontSize() {
       const fontSize = document.getElementById('font-size').value;
@@ -2629,249 +2666,372 @@ DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET
         row.style.display = '';
       });
     }
+// ========== SISTEMA DE ARRASTAR E CONFIGURAR POSIÇÕES ==========
 
-    // ========== FUNÇÕES PARA A ABA DE ATENDIMENTO (ATF) ==========
+// Variáveis para controle do arrasto
+let elementoArrastando = null;
+let offsetX = 0;
+let offsetY = 0;
+
+// Função para abrir modal de configuração
+function abrirModalPosicoes() {
+    document.getElementById('modalPosicoes').style.display = 'flex';
     
-function inicializarATF() {
-    // Elementos DOM do ATF
-    const ovNome = document.getElementById('ov-nome');
-    const ovData = document.getElementById('ov-data');
-    const ovAtend = document.getElementById('ov-atend');
-    const ovLig = document.getElementById('ov-lig');
-    const ovOS = document.getElementById('ov-os');
+    // Preencher valores atuais
+    document.getElementById('configNome').value = document.getElementById('inputNome').value;
+    document.getElementById('configData').value = document.getElementById('inputData').value;
+}
 
-    const inputNome = document.getElementById('inputNome');
-    const inputData = document.getElementById('inputData');
-    const inputAtend = document.getElementById('inputAtend');
-    const inputLig = document.getElementById('inputLig');
-    const inputOS = document.getElementById('inputOS');
+// Função para fechar modal
+function fecharModalPosicoes() {
+    document.getElementById('modalPosicoes').style.display = 'none';
+}
 
-    const btnAtualizar = document.getElementById('btnAtualizar');
-    const btnReset = document.getElementById('btnReset');
-    const btnCopiarImagem = document.getElementById('btnCopiarImagem');
-    const atfMensagemElement = document.getElementById('atfMensagem');
-    const atfLoadingElement = document.getElementById('atfLoading');
-
-    // Definir nome padrão
-    inputNome.value = "ANTÔNIO WILSON DE SOUSA";
+// Função para gerar código definitivo com as posições atuais
+function gerarCodigoDefinitivo() {
+    const nome = document.getElementById('configNome').value || 'ANTÔNIO WILSON DE SOUSA';
+    const data = document.getElementById('configData').value;
     
-    // Inicializar data atual
-    const hoje = new Date();
-    const dia = String(hoje.getDate()).padStart(2,'0');
-    const mes = String(hoje.getMonth()+1).padStart(2,'0');
-    const ano = hoje.getFullYear();
-    inputData.value = `${ano}-${mes}-${dia}`;
+    // Atualizar valores nos inputs principais
+    document.getElementById('inputNome').value = nome;
+    document.getElementById('inputData').value = data;
     
-    // CONVERSÃO AUTOMÁTICA PARA MAIÚSCULAS
-    inputNome.addEventListener('input', function() {
-        this.value = this.value.toUpperCase();
+    // Obter posições atuais dos elementos arrastáveis
+    const nomeElement = document.getElementById('nome-visualizacao');
+    const dataElement = document.getElementById('data-visualizacao');
+    
+    const estiloNome = window.getComputedStyle(nomeElement);
+    const estiloData = window.getComputedStyle(dataElement);
+    
+    // Calcular porcentagens baseadas no canvas
+    const canvas = document.getElementById('atf-canvas');
+    const canvasWidth = canvas.offsetWidth;
+    const canvasHeight = canvas.offsetHeight;
+    
+    const posNomeX = (parseFloat(estiloNome.left) / canvasWidth * 100).toFixed(2);
+    const posNomeY = (parseFloat(estiloNome.top) / canvasHeight * 100).toFixed(2);
+    const posDataX = (parseFloat(estiloData.left) / canvasWidth * 100).toFixed(2);
+    const posDataY = (parseFloat(estiloData.top) / canvasHeight * 100).toFixed(2);
+    
+    // Gerar código HTML com as posições
+    const codigo = `<!-- ELEMENTOS DE TEXTO COM POSIÇÕES DEFINITIVAS -->
+<div id="nome-visualizacao" class="atf-overlay small" 
+     style="left:${posNomeX}%;top:${posNomeY}%;font-size:14px;color:white;text-align:left;font-weight:bold;">${nome}</div>
+
+<div id="data-visualizacao" class="atf-overlay small" 
+     style="left:${posDataX}%;top:${posDataY}%;font-size:12px;color:white;text-align:right;font-weight:bold;">${formatarData(data)}</div>`;
+    
+    // Mostrar código na área dedicada
+    document.getElementById('codigoDefinitivo').value = codigo;
+    document.getElementById('areaCodigo').style.display = 'block';
+    
+    // Fechar modal
+    fecharModalPosicoes();
+    
+    // Atualizar visualização
+    atualizarTudo();
+    
+    // Rolar para a área do código
+    document.getElementById('areaCodigo').scrollIntoView({ behavior: 'smooth' });
+    
+    mostrarMensagem('Código gerado com sucesso!');
+}
+
+// Função para copiar código definitivo
+function copiarCodigoDefinitivo() {
+    const codigo = document.getElementById('codigoDefinitivo').value;
+    navigator.clipboard.writeText(codigo).then(() => {
+        mostrarMensagem('Código copiado para a área de transferência!');
     });
+}
 
-    // Carregar dados salvos
-    carregarDadosSalvosATF();
+// Sistema de arrastar elementos
+document.addEventListener('DOMContentLoaded', function() {
+    const elementosArrastaveis = document.querySelectorAll('.elemento-arrastavel');
+    
+    elementosArrastaveis.forEach(elemento => {
+        // Início do arrasto
+        elemento.addEventListener('mousedown', iniciarArrasto);
+        elemento.addEventListener('touchstart', iniciarArrastoTouch);
+    });
+    
+    document.addEventListener('mousemove', arrastar);
+    document.addEventListener('touchmove', arrastarTouch);
+    document.addEventListener('mouseup', finalizarArrasto);
+    document.addEventListener('touchend', finalizarArrasto);
+});
 
-    // Função para carregar dados salvos
-    function carregarDadosSalvosATF() {
-        const dadosSalvos = localStorage.getItem('dadosAtendimento');
-        
-        if (dadosSalvos) {
-            const dados = JSON.parse(dadosSalvos);
-            
-            // Verificar se os dados salvos são do dia atual
-            const hoje = new Date().toDateString();
-            const dataSalva = new Date(dados.data).toDateString();
-            
-            if (hoje === dataSalva) {
-                inputNome.value = dados.nome || "ANTÔNIO WILSON DE SOUSA";
-                inputAtend.value = dados.atendimentos;
-                inputLig.value = dados.ligacoes;
-                inputOS.value = dados.os;
-                
-                atualizarDisplayATF();
-            }
-        }
+function iniciarArrasto(e) {
+    elementoArrastando = e.target;
+    const rect = elementoArrastando.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    
+    elementoArrastando.style.zIndex = '1000';
+    e.preventDefault();
+}
+
+function iniciarArrastoTouch(e) {
+    if (e.touches.length !== 1) return;
+    
+    elementoArrastando = e.target;
+    const rect = elementoArrastando.getBoundingClientRect();
+    const touch = e.touches[0];
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+    
+    elementoArrastando.style.zIndex = '1000';
+    e.preventDefault();
+}
+
+function arrastar(e) {
+    if (!elementoArrastando) return;
+    
+    const canvas = document.getElementById('atf-canvas');
+    const canvasRect = canvas.getBoundingClientRect();
+    
+    let x = e.clientX - canvasRect.left - offsetX;
+    let y = e.clientY - canvasRect.top - offsetY;
+    
+    // Limitar dentro do canvas
+    x = Math.max(0, Math.min(x, canvasRect.width - elementoArrastando.offsetWidth));
+    y = Math.max(0, Math.min(y, canvasRect.height - elementoArrastando.offsetHeight));
+    
+    elementoArrastando.style.left = x + 'px';
+    elementoArrastando.style.top = y + 'px';
+}
+
+function arrastarTouch(e) {
+    if (!elementoArrastando || e.touches.length !== 1) return;
+    
+    const canvas = document.getElementById('atf-canvas');
+    const canvasRect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    
+    let x = touch.clientX - canvasRect.left - offsetX;
+    let y = touch.clientY - canvasRect.top - offsetY;
+    
+    // Limitar dentro do canvas
+    x = Math.max(0, Math.min(x, canvasRect.width - elementoArrastando.offsetWidth));
+    y = Math.max(0, Math.min(y, canvasRect.height - elementoArrastando.offsetHeight));
+    
+    elementoArrastando.style.left = x + 'px';
+    elementoArrastando.style.top = y + 'px';
+    
+    e.preventDefault();
+}
+
+function finalizarArrasto() {
+    if (elementoArrastando) {
+        elementoArrastando.style.zIndex = '';
+        elementoArrastando = null;
     }
+}
+    
+// ========== SISTEMA FINAL SIMPLIFICADO ==========
 
-    // Função para salvar dados
-    function salvarDadosATF() {
-        const dados = {
-            nome: inputNome.value,
-            data: inputData.value,
-            atendimentos: inputAtend.value || 0,
-            ligacoes: inputLig.value || 0,
-            os: inputOS.value || 0
+// CONFIGURAÇÃO DE TAMANHOS PARA A IMAGEM GERADA
+const TAMANHOS_IMAGEM = {
+    atend: 80,
+    lig: 80,  
+    os: 80,
+    geral: 35,
+    linkloss: 35
+};
+
+// CONFIGURAÇÃO DE TAMANHOS PARA A VISUALIZAÇÃO NA TELA
+const TAMANHOS_VISUALIZACAO = {
+    atend: 35,
+    lig: 35,  
+    os: 35,
+    geral: 20,
+    linkloss: 20
+};
+
+// FUNÇÃO PARA OBTER DATA ATUAL
+function obterDataAtual() {
+    const hoje = new Date();
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const ano = hoje.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
+// FUNÇÃO PARA ATUALIZAR VISUALIZAÇÃO NA TELA
+function atualizarTudo() {
+    const valores = {
+        atend: document.getElementById('inputAtend').value || '0',
+        lig: document.getElementById('inputLig').value || '0',
+        os: document.getElementById('inputOS').value || '0',
+        geral: document.getElementById('inputGeral').value || '0',
+        linkloss: document.getElementById('inputLinkLoss').value || '0',
+        nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
+        data: obterDataAtual()
+    };
+    
+    // Atualizar textos
+    document.getElementById('numero-atend').textContent = valores.atend;
+    document.getElementById('numero-lig').textContent = valores.lig;
+    document.getElementById('numero-os').textContent = valores.os;
+    document.getElementById('numero-geral').textContent = valores.geral;
+    document.getElementById('numero-linkloss').textContent = valores.linkloss;
+    document.getElementById('nome-visualizacao').textContent = valores.nome;
+    document.getElementById('data-visualizacao').textContent = valores.data;
+    
+    // Aplicar tamanhos
+    document.getElementById('numero-atend').style.fontSize = TAMANHOS_VISUALIZACAO.atend + 'px';
+    document.getElementById('numero-lig').style.fontSize = TAMANHOS_VISUALIZACAO.lig + 'px';
+    document.getElementById('numero-os').style.fontSize = TAMANHOS_VISUALIZACAO.os + 'px';
+    document.getElementById('numero-geral').style.fontSize = TAMANHOS_VISUALIZACAO.geral + 'px';
+    document.getElementById('numero-linkloss').style.fontSize = TAMANHOS_VISUALIZACAO.linkloss + 'px';
+    
+    mostrarMensagem('Visualização atualizada!');
+}
+
+// FUNÇÃO PARA COPIAR IMAGEM
+async function copiarImagemFinal() {
+    try {
+        const loading = document.getElementById('atfLoading');
+        if (loading) loading.style.display = 'block';
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = 'https://i.imgur.com/QEvgDVZ.png';
+        
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+        });
+        
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // POSIÇÕES FIXAS
+        const posicoes = {
+            atend: { x: canvas.width * 0.5329, y: canvas.height * 0.3270 },
+            lig: { x: canvas.width * 0.5335, y: canvas.height * 0.5386 },
+            os: { x: canvas.width * 0.5347, y: canvas.height * 0.7391 },
+            geral: { x: canvas.width * 0.8611, y: canvas.height * 0.6944 },
+            linkloss: { x: canvas.width * 0.8611, y: canvas.height * 0.7750 },
+            nome: { x: canvas.width * 0.3372, y: canvas.height * 0.1434 },
+            data: { x: canvas.width * 0.5240, y: canvas.height * 0.2073 }
         };
         
-        localStorage.setItem('dadosAtendimento', JSON.stringify(dados));
-    }
-
-    // Função para atualizar a exibição
-    function atualizarDisplayATF() {
-        // Atualizar nome na visualização (CORREÇÃO: agora funciona)
-        if (ovNome) {
-            ovNome.textContent = inputNome.value;
-        }
+        const valores = {
+            atend: document.getElementById('inputAtend').value || '0',
+            lig: document.getElementById('inputLig').value || '0',
+            os: document.getElementById('inputOS').value || '0',
+            geral: document.getElementById('inputGeral').value || '0',
+            linkloss: document.getElementById('inputLinkLoss').value || '0',
+            nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
+            data: document.getElementById('inputData').value || obterDataAtual()
+        };
         
-        // Formatar data na visualização
-        const v = inputData.value;
-        if(v){
-            const [y,m,d] = v.split('-');
-            if (ovData) {
-                ovData.textContent = `${d}/${m}/${y}`;
-            }
-        } else {
-            if (ovData) {
-                ovData.textContent = '';
-            }
-        }
+        // DESENHAR NÚMEROS
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 6;
+        ctx.fillStyle = 'black';
         
-        // Atualizar números na visualização
-        if (ovAtend) ovAtend.textContent = (inputAtend.value || '0');
-        if (ovLig) ovLig.textContent = (inputLig.value || '0');
-        if (ovOS) ovOS.textContent = (inputOS.value || '0');
-    }
-
-    // Função para mostrar mensagem
-    function mostrarMensagemATF(texto) {
-        atfMensagemElement.textContent = texto;
-        atfMensagemElement.classList.add('mostrar');
+        ctx.font = `600 ${TAMANHOS_IMAGEM.atend}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.atend, posicoes.atend.x, posicoes.atend.y);
         
-        setTimeout(() => {
-            atfMensagemElement.classList.remove('mostrar');
-        }, 3000);
-    }
-
-    // Função para copiar a imagem com as informações
-    async function copiarImagemATF() {
-        try {
-            atfLoadingElement.style.display = 'block';
-            
-            // Criar um canvas temporário com o tamanho original da imagem
-            const tempCanvas = document.createElement('canvas');
-            const tempCtx = tempCanvas.getContext('2d');
-            
-            // Carregar a imagem original
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.src = 'https://i.imgur.com/O4XLB1H.png';
-            
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-            });
-            
-            // Definir o tamanho do canvas como o tamanho original da imagem
-            tempCanvas.width = img.naturalWidth;
-            tempCanvas.height = img.naturalHeight;
-            
-            // Desenhar a imagem de fundo
-            tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
-            
-            // Posições ajustadas: números +1% para direita
-            const positions = {
-                nome: { x: tempCanvas.width * 0.4962, y: tempCanvas.height * 0.1567 },
-                data: { x: tempCanvas.width * 0.4739, y: tempCanvas.height * 0.2119 },
-                atend: { x: tempCanvas.width * 0.4739, y: tempCanvas.height * 0.3749 },
-                lig: { x: tempCanvas.width * 0.4793, y: tempCanvas.height * 0.5993 },
-                os: { x: tempCanvas.width * 0.4821, y: tempCanvas.height * 0.8222 }
-            };
-            
-            // Configurar estilos dos textos
-            tempCtx.textAlign = 'center';
-            tempCtx.textBaseline = 'middle';
-            tempCtx.shadowColor = 'rgba(0, 0, 0, 0.45)';
-            tempCtx.shadowBlur = 6;
-            tempCtx.shadowOffsetY = 6;
-            
-            // NOME - Century Gothic
-            tempCtx.font = '500 28px "Century Gothic", sans-serif'; // Normal
-            tempCtx.fillStyle = 'white';
-            tempCtx.fillText(inputNome.value, positions.nome.x, positions.nome.y);
-            
-            // DATA - Century Gothic
-            tempCtx.font = '300 28px "Century Gothic", sans-serif';
-            tempCtx.fillStyle = 'white';
-            
-            const dataValue = inputData.value;
-            if(dataValue){
-                const [y,m,d] = dataValue.split('-');
-                tempCtx.fillText(`${d}/${m}/${y}`, positions.data.x, positions.data.y);
-            }
-            
-            // NÚMEROS - Montserrat
-            tempCtx.font = '600 60px "Montserrat", sans-serif';
-            tempCtx.fillStyle = 'black';
-            tempCtx.fillText(inputAtend.value || '0', positions.atend.x, positions.atend.y);
-            tempCtx.fillText(inputLig.value || '0', positions.lig.x, positions.lig.y);
-            tempCtx.fillText(inputOS.value || '0', positions.os.x, positions.os.y);
-            
-            // Converter para blob e copiar
-            tempCanvas.toBlob(async (blob) => {
-                try {
-                    const item = new ClipboardItem({ 'image/png': blob });
-                    await navigator.clipboard.write([item]);
-                    mostrarMensagemATF('✅ Imagem copiada para a área de transferência!');
-                } catch (err) {
-                    // Fallback para download
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `atendimento-${new Date().toISOString().split('T')[0]}.png`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                    mostrarMensagemATF('📥 Imagem salva como download!');
-                }
-            });
-            
-        } catch (error) {
-            console.error('Erro ao gerar imagem:', error);
-            mostrarMensagemATF('❌ Erro ao copiar imagem. Tente novamente.');
-        } finally {
-            atfLoadingElement.style.display = 'none';
-        }
-    }
-
-    // Event Listeners
-    btnAtualizar.addEventListener('click', () => {
-        if (!inputData.value) {
-            alert('Por favor, selecione uma data.');
-            return;
-        }
+        ctx.font = `600 ${TAMANHOS_IMAGEM.lig}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.lig, posicoes.lig.x, posicoes.lig.y);
         
-        atualizarDisplayATF();
-        salvarDadosATF();
-        mostrarMensagemATF('Dados atualizados com sucesso!');
-    });
-
-    btnReset.addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja resetar todos os valores?')) {
-            inputNome.value = "ANTÔNIO WILSON DE SOUSA";
-            inputAtend.value = '';
-            inputLig.value = '';
-            inputOS.value = '';
-            
-            atualizarDisplayATF();
-            salvarDadosATF();
-            mostrarMensagemATF('Valores resetados com sucesso!');
-        }
-    });
-
-    btnCopiarImagem.addEventListener('click', copiarImagemATF);
-
-    // Atualizar com Enter
-    [inputNome, inputData, inputAtend, inputLig, inputOS].forEach(input => {
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                atualizarDisplayATF();
-                salvarDadosATF();
-                mostrarMensagemATF('Dados atualizados com sucesso!');
+        ctx.font = `600 ${TAMANHOS_IMAGEM.os}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.os, posicoes.os.x, posicoes.os.y);
+        
+        ctx.font = `600 ${TAMANHOS_IMAGEM.geral}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.geral, posicoes.geral.x, posicoes.geral.y);
+        
+        ctx.font = `600 ${TAMANHOS_IMAGEM.linkloss}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.linkloss, posicoes.linkloss.x, posicoes.linkloss.y);
+        
+        // DESENHAR NOME E DATA
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+        ctx.shadowBlur = 3;
+        ctx.shadowOffsetY = 3;
+        ctx.fillStyle = 'white';
+        
+        // Nome
+        ctx.textAlign = 'left';
+        ctx.font = 'bold 28px Arial, sans-serif';
+        ctx.fillText(valores.nome, posicoes.nome.x, posicoes.nome.y);
+        
+        // Data
+        ctx.textAlign = 'right';
+        ctx.font = 'bold 24px Arial, sans-serif';
+        ctx.fillText(valores.data, posicoes.data.x, posicoes.data.y);
+        
+        // Converter para blob e copiar
+        canvas.toBlob(async (blob) => {
+            try {
+                const item = new ClipboardItem({ 'image/png': blob });
+                await navigator.clipboard.write([item]);
+                mostrarMensagem('✅ Imagem copiada para a área de transferência!');
+            } catch (err) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `atendimento-${valores.data}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+                mostrarMensagem('📥 Imagem salva como download!');
             }
         });
-    });
-
-    // Inicializar display
-    atualizarDisplayATF();
+        
+    } catch (error) {
+        console.error('Erro ao gerar imagem:', error);
+        mostrarMensagem('❌ Erro ao copiar imagem. Tente novamente.');
+    } finally {
+        const loading = document.getElementById('atfLoading');
+        if (loading) loading.style.display = 'none';
+    }
 }
-  </script>
+
+// FUNÇÃO PARA RESETAR
+function resetarTudo() {
+    if (confirm('Resetar todos os valores?')) {
+        document.getElementById('inputAtend').value = '';
+        document.getElementById('inputLig').value = '';
+        document.getElementById('inputOS').value = '';
+        document.getElementById('inputGeral').value = '';
+        document.getElementById('inputLinkLoss').value = '';
+        atualizarTudo();
+        mostrarMensagem('Valores resetados!');
+    }
+}
+
+// INICIALIZAÇÃO DO ATF
+document.addEventListener('DOMContentLoaded', function() {
+    // Configurar data automática
+    document.getElementById('inputData').value = obterDataAtual();
+    
+    // Configurar eventos
+    const inputs = ['inputAtend', 'inputLig', 'inputOS', 'inputGeral', 'inputLinkLoss', 'inputNome'];
+    inputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.addEventListener('input', atualizarTudo);
+        }
+    });
+    
+    // Nome em maiúsculas
+    document.getElementById('inputNome').addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+        atualizarTudo();
+    });
+    
+    // Aplicar visualização inicial
+    atualizarTudo();
+});
+</script>
 </body>
 </html>
