@@ -9,14 +9,14 @@
   <style>
     /* TODOS OS ESTILOS ORIGINAIS MANTIDOS, EXCETO OS DA ABA ATENDIMENTO */
 
-    /* Estilos para a aba de Atendimento (ATF) - CORRIGIDOS */
+            /* Estilos para a aba de Atendimento (ATF) - LAYOUT REORGANIZADO */
     .atf-wrap {
       max-width: 100%;
       margin: 18px auto;
       display: flex;
       gap: 18px;
       align-items: flex-start;
-      justify-content: flex-start; /* Alterado para alinhar à esquerda */
+      justify-content: flex-start; /* CORREÇÃO: Mantém na esquerda */
       padding-bottom: 30px;
     }
 
@@ -27,7 +27,7 @@
       padding: 12px;
       border-radius: 10px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-      order: 1; /* Painel primeiro (esquerda) */
+      order: 1; /* CORREÇÃO: Painel na esquerda */
     }
     
     .atf-panel h2 {
@@ -44,30 +44,54 @@
     }
     
     .atf-panel input[type="text"],
-    .atf-panel input[type="date"],
-    .atf-panel input[type="number"] {
+.atf-panel input[type="date"],
+.atf-panel input[type="number"] {
+  width: 100%;
+  padding: 6px 8px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: white; /* ← MUDE PARA BRANCO */
+  color: black; /* ← JÁ ESTÁ CERTO */
+  font-weight: 700;
+  font-size: 12px;
+}
+    .atf-panel input[type="text"]:focus,
+.atf-panel input[type="date"]:focus,
+.atf-panel input[type="number"]:focus {
+  background: white; /* ← MANTÉM BRANCO */
+  color: black; /* ← MUDE PARA PRETO */
+  outline: none;
+  border-color: rgba(255,255,255,0.3);
+}
+    
+    /* NOVO: Estilo para os campos lado a lado */
+    .atf-panel .row-duo {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    
+    .atf-panel .duo-item {
+      flex: 1;
+    }
+    
+    .atf-panel .duo-item label {
+      display: block;
+      margin-top: 0;
+      font-size: 12px;
+    }
+    
+    .atf-panel .duo-item input {
       width: 100%;
       padding: 6px 8px;
       margin-top: 4px;
       border-radius: 6px;
       border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      color: white;
+      background: white;
+      color: black;
       font-weight: 700;
       font-size: 12px;
-    }
-    .atf-panel input[type="text"]:focus,
-    .atf-panel input[type="date"]:focus,
-    .atf-panel input[type="number"]:focus {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    outline: none;
-    border-color: rgba(255,255,255,0.3);
-}
-    
-    .atf-panel .row {
-      display: flex;
-      gap: 6px;
     }
     
     .atf-panel button {
@@ -108,12 +132,11 @@
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    max-width: 741px; /* Diminuído 5% (780 → 741) */
+    max-width: 741px;
     overflow: hidden;
-    order: 2;
+    order: 2; /* CORREÇÃO: Canvas na direita */
 }
 
-/* AUMENTAR AINDA MAIS A VISUALIZAÇÃO */
 #atf-canvas {
     position: relative;
     display: block;
@@ -124,8 +147,8 @@
     overflow: hidden;
     touch-action: none;
     user-select: none;
-    width: 627px;      /* AUMENTADO de 500px para 627px */
-    height: 313px;     /* AUMENTADO de 250px para 313px */
+    width: 627px;
+    height: 313px;
 }
 
     .atf-overlay {
@@ -151,41 +174,27 @@
       font-family: 'Montserrat', sans-serif;
     }
 
-    /* Posições originais mantidas */
-    #ov-atend.atf-overlay.big {
-      left: 47.39% !important;
-      top: 37.49% !important;
-    }
-
-    #ov-lig.atf-overlay.big {
-      left: 47.93% !important;
-      top: 59.93% !important;
-    }
-
-    #ov-os.atf-overlay.big {
-      left: 48.21% !important;
-      top: 82.22% !important;
-    }
-
     .atf-mensagem {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 200, 0, 0.9);
-      color: white;
-      padding: 12px 25px;
-      border-radius: 5px;
-      font-weight: 700;
-      z-index: 1000;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    
-    .atf-mensagem.mostrar {
-      opacity: 1;
-    }
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 700;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+}
+
+.atf-mensagem.mostrar {
+  opacity: 1;
+}
 
     .atf-loading {
       position: fixed;
@@ -198,13 +207,6 @@
       border-radius: 10px;
       z-index: 1001;
       display: none;
-    }
-    
-    .atf-credits {
-      font-size: 10px;
-      color: #bbb;
-      margin-top: 8px;
-      text-align: center;
     }
 
     /* Estilos para a aba de Cancelamento */
@@ -1742,102 +1744,92 @@
       </div>
     </div>
 
-    <!-- ABA ATENDIMENTO - VERSÃO SIMPLIFICADA -->
-<div id="atendimento" class="tab-content">
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-headset"></i>
-      Modelo de Atendimento - Configuração de Posições
-    </div>
-    <div class="card-body">
-      
-
-      <div class="atf-wrap">
-        <!-- PAINEL DE CONTROLE ATUALIZADO -->
-        <div class="atf-panel">
+                <!-- ABA ATENDIMENTO - LAYOUT REORGANIZADO -->
+    <div id="atendimento" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-headset"></i>
+          Modelo de Atendimento - Configuração de Posições
+        </div>
+        <div class="card-body">
           
-          
-          <label for="inputNome">Nome do Operador</label>
-          <input type="text" id="inputNome" placeholder="Digite seu nome" value="ANTÔNIO WILSON DE SOUSA">
-          
-          <label for="inputData">Data (Automática)</label>
-<input type="text" id="inputData" readonly style="background: #f8f9fa; cursor: not-allowed;">
-          
-          <div class="row">
-            <div>
+          <div class="atf-wrap">
+            <!-- PAINEL DE CONTROLE COM NOVO LAYOUT (ESQUERDA) -->
+            <div class="atf-panel">
+              <h2>CONTROLE DE ATENDIMENTO</h2>
+              
+              <label for="inputNome">Nome do Operador</label>
+              <input type="text" id="inputNome" placeholder="Digite seu nome" value="ANTÔNIO WILSON DE SOUSA">
+              
+              <label for="inputData">Data (Automática)</label>
+              <input type="text" id="inputData" readonly style="background: #f8f9fa; cursor: not-allowed;">
+              
               <label for="inputAtend">Atendimentos</label>
               <input type="number" id="inputAtend" placeholder="0" min="0">
-            </div>
-            <div>
+              
               <label for="inputLig">Ligações</label>
               <input type="number" id="inputLig" placeholder="0" min="0">
-            </div>
-          </div>
-          
-          <div class="row">
-            <div>
+              
               <label for="inputOS">O.S. Abertas</label>
               <input type="number" id="inputOS" placeholder="0" min="0">
+              
+              <!-- NOVO: GERAL E LINK LOSS LADO A LADO -->
+              <div class="row-duo">
+                <div class="duo-item">
+                  <label for="inputGeral">Geral</label>
+                  <input type="number" id="inputGeral" placeholder="0" min="0">
+                </div>
+                <div class="duo-item">
+                  <label for="inputLinkLoss">Link Loss</label>
+                  <input type="number" id="inputLinkLoss" placeholder="0" min="0">
+                </div>
+              </div>
+              
+              <!-- BOTÕES NO ESTILO ORIGINAL -->
+              <button class="atf-btn-success" onclick="copiarImagemFinal()">
+                <i class="fas fa-copy"></i> Copiar Imagem
+              </button>
+              
+              <button class="atf-btn-secondary" onclick="resetarTudo()">
+                <i class="fas fa-redo"></i> Resetar
+              </button>
+              
+              <!-- REMOVIDO: Desenvolvido por Scream Tecnologias -->
             </div>
-            <div>
-              <label for="inputGeral">Geral</label>
-              <input type="number" id="inputGeral" placeholder="0" min="0">
+
+            <!-- ÁREA DE VISUALIZAÇÃO (DIREITA) -->
+            <div class="atf-canvas-wrap">
+              <div id="atf-canvas" style="width:627px;height:313px;position:relative;background:#333;cursor:default;">
+                <img src="https://i.imgur.com/QEvgDVZ.png" style="width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;">
+                
+                <!-- ELEMENTOS DE TEXTO COM POSIÇÕES DEFINITIVAS -->
+                <div id="nome-visualizacao" class="atf-overlay small" 
+                     style="left:50.72%;top:14.34%;font-size:14px;color:white;text-align:left;font-weight:bold;">ANTÔNIO WILSON DE SOUSA</div>
+
+                <div id="data-visualizacao" class="atf-overlay small" 
+                     style="left:52.40%;top:20.73%;font-size:12px;color:white;text-align:right;font-weight:bold;">16/10/2025</div>
+                
+                <!-- POSIÇÕES FIXAS DOS NÚMEROS -->
+                <div id="numero-atend" class="atf-overlay big" style="left:53.29%;top:32.70%;font-size:60px;">0</div>
+                <div id="numero-lig" class="atf-overlay big" style="left:53.35%;top:53.86%;font-size:60px;">0</div>
+                <div id="numero-os" class="atf-overlay big" style="left:53.47%;top:73.91%;font-size:60px;">0</div>
+                <div id="numero-geral" class="atf-overlay big" style="left:86.11%;top:69.44%;font-size:20px;">0</div>
+                <div id="numero-linkloss" class="atf-overlay big" style="left:86.11%;top:77.50%;font-size:20px;">0</div>
+              </div>
             </div>
           </div>
-          
-          <label for="inputLinkLoss">Link Loss</label>
-          <input type="number" id="inputLinkLoss" placeholder="0" min="0">
-          
-          
-          
-          <button class="atf-btn-success" onclick="copiarImagemFinal()">
-            <i class="fas fa-copy"></i> Copiar Imagem
-          </button>
 
-          
-          
-          <button class="atf-btn-secondary" onclick="resetarTudo()">
-            <i class="fas fa-redo"></i> Resetar
-          </button>
-          
-          
-        </div>
-
-        <!-- ÁREA DE VISUALIZAÇÃO COM ELEMENTOS ARRASTÁVEIS -->
-        <div class="atf-canvas-wrap">
-          <div id="atf-canvas" style="width:627px;height:313px;position:relative;background:#333;cursor:default;">
-            <img src="https://i.imgur.com/QEvgDVZ.png" style="width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;">
-            
-            <!-- ELEMENTOS DE TEXTO COM POSIÇÕES DEFINITIVAS -->
-<div id="nome-visualizacao" class="atf-overlay small" 
-     style="left:50.72%;top:14.34%;font-size:14px;color:white;text-align:left;font-weight:bold;">ANTÔNIO WILSON DE SOUSA</div>
-
-<div id="data-visualizacao" class="atf-overlay small" 
-     style="left:52.40%;top:20.73%;font-size:12px;color:white;text-align:right;font-weight:bold;">16/10/2025</div>
-            
-            <!-- POSIÇÕES FIXAS DOS NÚMEROS -->
-            <div id="numero-atend" class="atf-overlay big" style="left:53.29%;top:32.70%;font-size:60px;">0</div>
-            <div id="numero-lig" class="atf-overlay big" style="left:53.35%;top:53.86%;font-size:60px;">0</div>
-            <div id="numero-os" class="atf-overlay big" style="left:53.47%;top:73.91%;font-size:60px;">0</div>
-            <div id="numero-geral" class="atf-overlay big" style="left:86.11%;top:69.44%;font-size:20px;">0</div>
-            <div id="numero-linkloss" class="atf-overlay big" style="left:86.11%;top:77.50%;font-size:20px;">0</div>
+          <!-- ÁREA PARA O CÓDIGO GERADO (MANTIDA IGUAL) -->
+          <div id="areaCodigo" style="display:none;margin-top:20px;padding:15px;background:#f8f9fa;border-radius:8px;border:1px solid #dee2e6;">
+            <h4 style="color:#333;margin-bottom:10px;">Código Definitivo Gerado:</h4>
+            <textarea id="codigoDefinitivo" style="width:100%;height:200px;font-family:monospace;font-size:12px;padding:10px;border:1px solid #ccc;border-radius:4px;"></textarea>
+            <button class="btn btn-success" onclick="copiarCodigoDefinitivo()" style="margin-top:10px;">
+              <i class="fas fa-copy"></i> Copiar Código
+            </button>
           </div>
-          
-          
         </div>
-      </div>
-
-      <!-- ÁREA PARA O CÓDIGO GERADO -->
-      <div id="areaCodigo" style="display:none;margin-top:20px;padding:15px;background:#f8f9fa;border-radius:8px;border:1px solid #dee2e6;">
-        <h4 style="color:#333;margin-bottom:10px;">Código Definitivo Gerado:</h4>
-        <textarea id="codigoDefinitivo" style="width:100%;height:200px;font-family:monospace;font-size:12px;padding:10px;border:1px solid #ccc;border-radius:4px;"></textarea>
-        <button class="btn btn-success" onclick="copiarCodigoDefinitivo()" style="margin-top:10px;">
-          <i class="fas fa-copy"></i> Copiar Código
-        </button>
       </div>
     </div>
-  </div>
-</div>
 
 <div class="footer">
       <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏᴅᴊᴀꜱ</p>
@@ -1853,8 +1845,7 @@
     <span id="notificationText">Texto copiado com sucesso!</span>
   </div>
 
-  <!-- Loading para ATF -->
-  <div class="atf-loading" id="atfLoading">Gerando imagem... Aguarde.</div>
+  
 
   <!-- Mensagem para ATF -->
   <div class="atf-mensagem" id="atfMensagem"></div>
@@ -2848,6 +2839,19 @@ function finalizarArrasto() {
         elementoArrastando = null;
     }
 }
+
+// ========== FUNÇÃO PARA MENSAGENS DO ATF ==========
+function mostrarMensagem(mensagem) {
+    const mensagemDiv = document.getElementById('atfMensagem');
+    mensagemDiv.textContent = mensagem;
+    mensagemDiv.classList.add('mostrar');
+    
+    setTimeout(() => {
+        mensagemDiv.classList.remove('mostrar');
+    }, 5000);
+}
+
+// ========== SISTEMA FINAL SIMPLIFICADO ==========
     
 // ========== SISTEMA FINAL SIMPLIFICADO ==========
 
@@ -2996,7 +3000,7 @@ async function copiarImagemFinal() {
             const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
             const item = new ClipboardItem({ 'image/png': blob });
             await navigator.clipboard.write([item]);
-            mostrarMensagem('✅ Imagem copiada para a área de transferência!');
+            mostrarMensagem('✅ Imagem copiada para a área de transferência. Piãozinho!');
         } catch (clipboardError) {
             console.log('Clipboard API não suportada, mostrando opção alternativa');
             // Em vez de fazer download automático, mostrar mensagem informativa
