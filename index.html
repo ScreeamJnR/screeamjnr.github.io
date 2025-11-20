@@ -7,235 +7,41 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
   <style>
-    /* TODOS OS ESTILOS ORIGINAIS MANTIDOS, EXCETO OS DA ABA ATENDIMENTO */
+    /* TODOS OS ESTILOS ORIGINAIS MANTIDOS */
 
-            /* Estilos para a aba de Atendimento (ATF) - LAYOUT REORGANIZADO */
-    .atf-wrap {
-      max-width: 100%;
-      margin: 18px auto;
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-      justify-content: flex-start; /* CORREÇÃO: Mantém na esquerda */
-      padding-bottom: 30px;
-    }
-
-    .atf-panel {
-      width: 280px;
-      background: rgba(0,0,0,0.65);
-      color: white;
-      padding: 12px;
-      border-radius: 10px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-      order: 1; /* CORREÇÃO: Painel na esquerda */
-    }
-    
-    .atf-panel h2 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      text-align: center;
-      color: #ff6600;
-    }
-    
-    .atf-panel label {
-      display: block;
-      margin-top: 8px;
-      font-size: 12px;
-    }
-    
-    .atf-panel input[type="text"],
-.atf-panel input[type="date"],
-.atf-panel input[type="number"] {
-  width: 100%;
-  padding: 6px 8px;
-  margin-top: 4px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: white; /* ← MUDE PARA BRANCO */
-  color: black; /* ← JÁ ESTÁ CERTO */
-  font-weight: 700;
-  font-size: 12px;
-}
-    .atf-panel input[type="text"]:focus,
-.atf-panel input[type="date"]:focus,
-.atf-panel input[type="number"]:focus {
-  background: white; /* ← MANTÉM BRANCO */
-  color: black; /* ← MUDE PARA PRETO */
-  outline: none;
-  border-color: rgba(255,255,255,0.3);
-}
-    
-    /* NOVO: Estilo para os campos lado a lado */
-    .atf-panel .row-duo {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    
-    .atf-panel .duo-item {
-      flex: 1;
-    }
-    
-    .atf-panel .duo-item label {
-      display: block;
-      margin-top: 0;
-      font-size: 12px;
-    }
-    
-    .atf-panel .duo-item input {
-      width: 100%;
-      padding: 6px 8px;
-      margin-top: 4px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: white;
-      color: black;
-      font-weight: 700;
-      font-size: 12px;
-    }
-    
-    .atf-panel button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 8px;
-      font-weight: 900;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 12px;
-    }
-    
-    .atf-panel button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    
-    .atf-btn-primary {
-      background: #ff6600;
-      color: #fff;
-    }
-    
-    .atf-btn-secondary {
-      background: #0aa0b0;
-      color: #fff;
-    }
-    
-    .atf-btn-success {
-      background: #28a745;
-      color: #fff;
-    }
-
-    .atf-canvas-wrap {
-    position: relative;
-    background: #333;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    max-width: 741px;
-    overflow: hidden;
-    order: 2; /* CORREÇÃO: Canvas na direita */
-}
-
-#atf-canvas {
-    position: relative;
-    display: block;
-    background-image: url('https://i.imgur.com/QEvgDVZ.png');
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: contain;
-    overflow: hidden;
-    touch-action: none;
-    user-select: none;
-    width: 627px;
-    height: 313px;
-}
-
-    .atf-overlay {
-      position: absolute;
-      color: white;
-      text-shadow: 0 6px 18px rgba(0,0,0,0.45);
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-      user-select: none;
-      font-family: Arial, sans-serif;
-    }
-    
-    .atf-overlay.small {
-      font-size: 13px;
-      font-weight: 550;
-      font-family: "Century Gothic", "CenturyGothic", AppleGothic, sans-serif;
-    }
-    
-    .atf-overlay.big {
-      font-size: 40px;
-      color: black;
-      font-weight: 500;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .atf-mensagem {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: 700;
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 14px;
-}
-
-.atf-mensagem.mostrar {
-  opacity: 1;
-}
-
-    .atf-loading {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      z-index: 1001;
+    /* NOVO ESTILO: Campo condicional na aba Notas */
+    .conditional-field {
       display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
     }
 
-    /* Estilos para a aba de Cancelamento */
-    .radio-group {
-      display: flex;
-      gap: 20px;
-      margin-top: 5px;
+    .conditional-field.show {
+      display: block;
     }
 
-    .radio-option {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .radio-option input[type="radio"] {
-      width: auto;
-      margin-right: 5px;
-    }
-
-    .checkbox-group {
+    .checkbox-container {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 5px;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
     }
 
-    .checkbox-group input[type="checkbox"] {
+    .checkbox-container input[type="checkbox"] {
       width: auto;
+    }
+
+    /* MODIFICAÇÃO: Área de texto pré-definido com o dobro do tamanho */
+    .texto-predefinido-container {
+      min-height: 800px !important; /* DOBRO do tamanho original (400px) */
+      max-height: 1000px !important;
+      overflow-y: auto;
     }
 
     /* Restante do CSS original mantido intacto */
@@ -626,16 +432,16 @@
     }
     
     .credential-text {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.85rem;
-    font-weight: 510;
-}
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 510;
+    }
 
-#equipmentsTable td:first-child {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.85rem;
-    font-weight: 550;
-}
+    #equipmentsTable td:first-child {
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 550;
+    }
     
     .copy-icon {
       color: var(--primary);
@@ -764,120 +570,234 @@
       font-size: 0.85rem;
       margin: 5px 0;
     }
-    
-    /* Estilos para a aba de Povoados */
-    .povoados-search-container {
-      padding: 15px;
-      background-color: #f8fafc;
-      border-radius: var(--border-radius);
-      margin-bottom: 15px;
-    }
-    
-    .povoados-search-box {
-      position: relative;
+
+    /* Estilos para a aba de Atendimento (ATF) - LAYOUT REORGANIZADO */
+    .atf-wrap {
+      max-width: 100%;
+      margin: 18px auto;
       display: flex;
-      align-items: center;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-bottom: 30px;
+    }
+
+    .atf-panel {
+      width: 280px;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      order: 1;
     }
     
-    .povoados-search-icon {
-      position: absolute;
-      left: 15px;
-      color: var(--gray);
-      z-index: 2;
-    }
-    
-    .povoados-results-container {
-      max-height: 500px;
-      overflow-y: auto;
-      border: 1px solid #e2e8f0;
-      border-radius: var(--border-radius);
-      background: white;
-    }
-    
-    .povoados-result-count {
-      margin: 10px 15px;
-      color: var(--secondary);
-      font-size: 0.9rem;
-      padding: 5px 0;
-      border-bottom: 1px dashed #ddd;
-    }
-    
-    .povoados-resultado {
-      background-color: white;
-      padding: 15px;
-      margin: 8px;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      border-left: 4px solid var(--primary);
-      transition: var(--transition);
-      cursor: pointer;
-    }
-    
-    .povoados-resultado:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      border-left-color: var(--accent);
-    }
-    
-    .povoados-responsavel {
-      font-size: 1rem;
-      font-weight: bold;
-      color: var(--dark);
-      margin-bottom: 5px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .povoados-responsavel::before {
-      content: '👤';
-      margin-right: 8px;
-      font-size: 0.9rem;
-    }
-    
-    .povoados-cidade {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--gray);
-      margin-bottom: 3px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .povoados-cidade::before {
-      content: '🏙️';
-      margin-right: 8px;
-      font-size: 0.85rem;
-    }
-    
-    .povoados-povoado {
-      font-size: 0.9rem;
-      color: var(--dark);
-      display: flex;
-      align-items: center;
-    }
-    
-    .povoados-povoado::before {
-      content: '📍';
-      margin-right: 8px;
-      font-size: 0.85rem;
-    }
-    
-    .povoados-no-results {
+    .atf-panel h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
       text-align: center;
-      padding: 30px;
-      color: var(--gray);
+      color: #ff6600;
     }
     
-    .povoados-no-results i {
-      font-size: 48px;
-      margin-bottom: 15px;
-      color: #ddd;
+    .atf-panel label {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
     }
     
-    .highlight {
-      background-color: #ffeaa7;
-      padding: 0 2px;
-      border-radius: 3px;
+    .atf-panel input[type="text"],
+    .atf-panel input[type="date"],
+    .atf-panel input[type="number"] {
+      width: 100%;
+      padding: 6px 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: white;
+      color: black;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    
+    .atf-panel input[type="text"]:focus,
+    .atf-panel input[type="date"]:focus,
+    .atf-panel input[type="number"]:focus {
+      background: white;
+      color: black;
+      outline: none;
+      border-color: rgba(255,255,255,0.3);
+    }
+    
+    .atf-panel .row-duo {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    
+    .atf-panel .duo-item {
+      flex: 1;
+    }
+    
+    .atf-panel .duo-item label {
+      display: block;
+      margin-top: 0;
+      font-size: 12px;
+    }
+    
+    .atf-panel .duo-item input {
+      width: 100%;
+      padding: 6px 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: white;
+      color: black;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    
+    .atf-panel button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px;
+      font-weight: 900;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 12px;
+    }
+    
+    .atf-panel button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .atf-btn-primary {
+      background: #ff6600;
+      color: #fff;
+    }
+    
+    .atf-btn-secondary {
+      background: #0aa0b0;
+      color: #fff;
+    }
+    
+    .atf-btn-success {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .atf-canvas-wrap {
+      position: relative;
+      background: #333;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      max-width: 741px;
+      overflow: hidden;
+      order: 2;
+    }
+
+    #atf-canvas {
+      position: relative;
+      display: block;
+      background-image: url('https://i.imgur.com/QEvgDVZ.png');
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-size: contain;
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+      width: 627px;
+      height: 313px;
+    }
+
+    .atf-overlay {
+      position: absolute;
+      color: white;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      user-select: none;
+      font-family: Arial, sans-serif;
+    }
+    
+    .atf-overlay.small {
+      font-size: 13px;
+      font-weight: 550;
+      font-family: "Century Gothic", "CenturyGothic", AppleGothic, sans-serif;
+    }
+    
+    .atf-overlay.big {
+      font-size: 40px;
+      color: black;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .atf-mensagem {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 700;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+    }
+
+    .atf-mensagem.mostrar {
+      opacity: 1;
+    }
+
+    .atf-loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1001;
+      display: none;
+    }
+
+    /* Estilos para a aba de Cancelamento */
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 5px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
     }
     
     .footer {
@@ -922,22 +842,6 @@
       
       .add-color-form {
         flex-direction: column;
-      }
-      
-      .povoados-resultado {
-        padding: 12px;
-      }
-      
-      .povoados-responsavel {
-        font-size: 0.95rem;
-      }
-      
-      .povoados-cidade {
-        font-size: 0.9rem;
-      }
-      
-      .povoados-povoado {
-        font-size: 0.85rem;
       }
       
       .atf-wrap {
@@ -999,9 +903,6 @@
       </button>
       <button class="tab-button" onclick="openTab('cores')">
         <i class="fas fa-palette"></i> Cores
-      </button>
-      <button class="tab-button" onclick="openTab('povoados')">
-        <i class="fas fa-map-marker-alt"></i> Povoados
       </button>
       <!-- Nova aba para Cancelamento -->
       <button class="tab-button" onclick="openTab('cancelamento')">
@@ -1399,7 +1300,7 @@
       </div>
     </div>
 
-    <!-- Aba de Bloco de Notas -->
+    <!-- Aba de Bloco de Notas - MODIFICADA COM CHECKBOX -->
     <div id="notas" class="tab-content">
       <div class="card">
         <div class="card-header">
@@ -1415,184 +1316,224 @@
               <option value="18px">Grande</option>
               <option value="20px">Muito Grande</option>
             </select>
+            
+            <!-- NOVO: Checkbox para mostrar/ocultar texto fixo -->
+            <div class="checkbox-container">
+              <input type="checkbox" id="mostrar-texto-fixo" onchange="toggleTextoFixo()">
+              <label for="mostrar-texto-fixo" style="margin-bottom: 0; font-weight: 600;">INFORMAÇÕES</label>
+            </div>
           </div>
           
-          <div class="editor-container">
-            <textarea id="editor" placeholder="Digite suas notas aqui..."></textarea>
+          <!-- NOVO: Área com texto fixo que só aparece quando o checkbox está marcado -->
+          <div id="texto-fixo" class="conditional-field">
+            <div class="form-group">
+              <label><i class="fas fa-file-alt input-icon"></i>Avisos // Informações</label>
+              <div class="result-content texto-predefinido-container" style="background: #e9ecef;">
+                <!-- MODIFICAÇÃO SOLICITADA: Texto pré-definido atualizado -->
+Escala de Horários — Suporte N1 😑
+
+
+Turno A
+Entrada: <span style="color: #0066cc; font-weight: bold;">07:00</span>
+Saída: <span style="color: red; font-weight: bold;">17:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">11:00</span> às <span style="color: red; font-weight: bold;">13:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">08:00</span> às <span style="color: red; font-weight: bold;">09:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">14:00</span> às <span style="color: red; font-weight: bold;">15:00</span>
+
+Turno B
+Entrada: <span style="color: #0066cc; font-weight: bold;">08:00</span>
+Saída: <span style="color: red; font-weight: bold;">18:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">12:00</span> às <span style="color: red; font-weight: bold;">14:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">09:00</span> às <span style="color: red; font-weight: bold;">10:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">15:00</span> às <span style="color: red; font-weight: bold;">16:00</span>
+
+Turno C
+Entrada: <span style="color: #0066cc; font-weight: bold;">10:00</span>
+Saída: <span style="color: red; font-weight: bold;">20:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">14:00</span> às <span style="color: red; font-weight: bold;">16:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">12:00</span> às <span style="color: red; font-weight: bold;">13:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">18:00</span> às <span style="color: red; font-weight: bold;">19:00</span>
+
+Turno D
+Entrada: <span style="color: #0066cc; font-weight: bold;">12:00</span>
+Saída: <span style="color: red; font-weight: bold;">22:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">16:00</span> às <span style="color: red; font-weight: bold;">18:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">15:00</span> às <span style="color: red; font-weight: bold;">16:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">19:00</span> às <span style="color: red; font-weight: bold;">20:00</span>
+
+Turno E
+Entrada: <span style="color: #0066cc; font-weight: bold;">14:00</span>
+Saída: <span style="color: red; font-weight: bold;">00:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">18:00</span> às <span style="color: red; font-weight: bold;">20:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">16:00</span> às <span style="color: red; font-weight: bold;">17:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">21:00</span> às <span style="color: red; font-weight: bold;">22:00</span>
+
+LINKS ÚTEIS
+
+Painel Comercial: <a href="https://www.appsheet.com/start/" target="_blank" style="color: #2563eb; text-decoration: underline;">https://www.appsheet.com/start/</a>
+
+Portal do Assinante: <a href="https://www.portaldoassinante.com/maranet/home" target="_blank" style="color: #2563eb; text-decoration: underline;">https://www.portaldoassinante.com/maranet/home</a>
+
+Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCwafZWSYdxapnR/edit?gid=1013945962#gid=1013945962" target="_blank" style="color: #2563eb; text-decoration: underline;">https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCwafZWSYdxapnR/edit?gid=1013945962#gid=1013945962</a>
+</div>
+
+              </div>
+              <!-- BOTÃO REMOVIDO: Copiar Texto Fixo -->
+            </div>
+          </div>
+          
+          <!-- Área normal de notas (fica oculta quando o checkbox está marcado) -->
+          <div id="area-notas-normal">
+            <div class="editor-container">
+              <textarea id="editor" placeholder="Digite suas notas aqui..."></textarea>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Aba de Cores -->
-<div id="cores" class="tab-content">
-    <div class="card">
-        <div class="card-header">
-            <i class="fas fa-palette"></i>
-            Tabela de Cores para Anotações
-        </div>
-        <div class="card-body">
-            <div class="add-color-form">
-                <div class="form-group">
-                    <label for="hexCode"><i class="fas fa-tint input-icon"></i>Digite o código hexadecimal da cor</label>
-                    <input type="text" id="hexCode" placeholder="Ex: #0000FF (azul)" maxlength="7">
-                </div>
-                <button class="btn" onclick="adicionarCorPersonalizada()">
-                    <i class="fas fa-plus"></i> Adicionar Cor
-                </button>
-            </div>
-            
-            <div class="table-container">
-                <table id="coresTable">
-                    <thead>
-                        <tr>
-                            <th>Cor</th>
-                            <th>Nome</th>
-                            <th>Código</th>
-                            <th>Exemplo</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #FF0000;"></div></td>
-                            <td>Vermelho</td>
-                            <td>#FF0000</td>
-                            <td class="code-example" id="codigo-vermelho">&lt;mark style="background-color: #FF0000; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-vermelho')"> <!-- CORRIGIDO -->
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #FF7F7F;"></div></td>
-                            <td>Vermelho Claro</td>
-                            <td>#FF7F7F</td>
-                            <td class="code-example" id="codigo-vermelho-claro">&lt;mark style="background-color: #FF7F7F; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td> <!-- CORRIGIDO -->
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-vermelho-claro')"> <!-- CORRIGIDO -->
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #FF4C4C;"></div></td>
-                            <td>Rosa Avermelhado</td>
-                            <td>#FF4C4C</td>
-                            <td class="code-example" id="codigo-rosa">&lt;mark style="background-color: #FF4C4C; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-rosa')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #FFA07A;"></div></td>
-                            <td>Salmão Claro</td>
-                            <td>#FFA07A</td>
-                            <td class="code-example" id="codigo-salmao">&lt;mark style="background-color: #FFA07A; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-salmao')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #E6F0FF;"></div></td>
-                            <td>Azul Lavanda</td>
-                            <td>#E6F0FF</td>
-                            <td class="code-example" id="codigo-azul">&lt;mark style="background-color: #E6F0FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-azul')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #FFFF99;"></div></td>
-                            <td>Amarelo Marcador</td>
-                            <td>#FFFF99</td>
-                            <td class="code-example" id="codigo-amarelo">&lt;mark style="background-color: #FFFF99; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-amarelo')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #B6FFB6;"></div></td>
-                            <td>Verde Marcador</td>
-                            <td>#B6FFB6</td>
-                            <td class="code-example" id="codigo-verde">&lt;mark style="background-color: #B6FFB6; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-verde')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #A7D8FF;"></div></td>
-                            <td>Azul Marcador</td>
-                            <td>#A7D8FF</td>
-                            <td class="code-example" id="codigo-azul-marcador">&lt;mark style="background-color: #A7D8FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-azul-marcador')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #FFA500;"></div></td>
-                            <td>Laranja</td>
-                            <td>#FFA500</td>
-                            <td class="code-example" id="codigo-laranja">&lt;mark style="background-color: #FFA500; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-laranja')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="color-sample" style="background-color: #D3D3D3;"></div></td>
-                            <td>Cinza Claro</td>
-                            <td>#D3D3D3</td>
-                            <td class="code-example" id="codigo-cinza">&lt;mark style="background-color: #D3D3D3; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
-                            <td>
-                                <button class="btn" onclick="copiarExemplo('codigo-cinza')">
-                                    <i class="fas fa-copy"></i> Copiar
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Aba de Povoados -->
-    <div id="povoados" class="tab-content">
+    <div id="cores" class="tab-content">
       <div class="card">
         <div class="card-header">
-          <i class="fas fa-map-marker-alt"></i>
-          Pesquisa de Povoados
+          <i class="fas fa-palette"></i>
+          Tabela de Cores para Anotações
         </div>
         <div class="card-body">
-          <div class="povoados-search-container">
-            <div class="povoados-search-box">
-              <i class="fas fa-search povoados-search-icon"></i>
-              <input type="text" id="searchPovoado" class="search-input" placeholder="Digite o nome do povoado, cidade ou responsável..." style="padding-left: 40px;">
+          <div class="add-color-form">
+            <div class="form-group">
+              <label for="hexCode"><i class="fas fa-tint input-icon"></i>Digite o código hexadecimal da cor</label>
+              <input type="text" id="hexCode" placeholder="Ex: #0000FF (azul)" maxlength="7">
             </div>
+            <button class="btn" onclick="adicionarCorPersonalizada()">
+              <i class="fas fa-plus"></i> Adicionar Cor
+            </button>
           </div>
           
-          <div class="povoados-result-count" id="resultCountPovoados">Digite acima para iniciar a pesquisa</div>
-          
-          <div class="povoados-results-container" id="povoadosResults">
-            <div class="povoados-no-results">
-              <i class="fas fa-search"></i>
-              <p>Digite o nome de um povoado, cidade ou responsável para buscar</p>
-            </div>
+          <div class="table-container">
+            <table id="coresTable">
+              <thead>
+                <tr>
+                  <th>Cor</th>
+                  <th>Nome</th>
+                  <th>Código</th>
+                  <th>Exemplo</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FF0000;"></div></td>
+                  <td>Vermelho</td>
+                  <td>#FF0000</td>
+                  <td class="code-example" id="codigo-vermelho">&lt;mark style="background-color: #FF0000; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-vermelho')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FF7F7F;"></div></td>
+                  <td>Vermelho Claro</td>
+                  <td>#FF7F7F</td>
+                  <td class="code-example" id="codigo-vermelho-claro">&lt;mark style="background-color: #FF7F7F; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-vermelho-claro')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FF4C4C;"></div></td>
+                  <td>Rosa Avermelhado</td>
+                  <td>#FF4C4C</td>
+                  <td class="code-example" id="codigo-rosa">&lt;mark style="background-color: #FF4C4C; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-rosa')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FFA07A;"></div></td>
+                  <td>Salmão Claro</td>
+                  <td>#FFA07A</td>
+                  <td class="code-example" id="codigo-salmao">&lt;mark style="background-color: #FFA07A; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-salmao')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #E6F0FF;"></div></td>
+                  <td>Azul Lavanda</td>
+                  <td>#E6F0FF</td>
+                  <td class="code-example" id="codigo-azul">&lt;mark style="background-color: #E6F0FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-azul')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FFFF99;"></div></td>
+                  <td>Amarelo Marcador</td>
+                  <td>#FFFF99</td>
+                  <td class="code-example" id="codigo-amarelo">&lt;mark style="background-color: #FFFF99; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-amarelo')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #B6FFB6;"></div></td>
+                  <td>Verde Marcador</td>
+                  <td>#B6FFB6</td>
+                  <td class="code-example" id="codigo-verde">&lt;mark style="background-color: #B6FFB6; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-verde')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #A7D8FF;"></div></td>
+                  <td>Azul Marcador</td>
+                  <td>#A7D8FF</td>
+                  <td class="code-example" id="codigo-azul-marcador">&lt;mark style="background-color: #A7D8FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-azul-marcador')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FFA500;"></div></td>
+                  <td>Laranja</td>
+                  <td>#FFA500</td>
+                  <td class="code-example" id="codigo-laranja">&lt;mark style="background-color: #FFA500; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-laranja')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #D3D3D3;"></div></td>
+                  <td>Cinza Claro</td>
+                  <td>#D3D3D3</td>
+                  <td class="code-example" id="codigo-cinza">&lt;mark style="background-color: #D3D3D3; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-cinza')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -1615,7 +1556,7 @@
             <div class="form-grid">
               <div class="form-group">
                 <label for="clienteCancelamento" class="required"><i class="fas fa-user input-icon"></i>Nome do Cliente</label>
-                <input type="text" id="clienteCancelamento" placeholder="Ex: MARIA APARECIDA" oninput="this.value = this.value.toUpperCase()">
+                <input type="text" id="clienteCancelamento" placeholder="Ex: JUBISCLEITON" oninput="this.value = this.value.toUpperCase()">
               </div>
               
               <div class="form-group">
@@ -1701,7 +1642,7 @@
               
               <div class="form-group">
                 <label for="atendenteCancelamento" class="required"><i class="fas fa-headset input-icon"></i>Nome do Atendente</label>
-                <input type="text" id="atendenteCancelamento" placeholder="Ex: THENIEL" oninput="this.value = this.value.toUpperCase()">
+                <input type="text" id="atendenteCancelamento" placeholder="Ex: THENIEL 🤣" oninput="this.value = this.value.toUpperCase()">
               </div>
             </div>
 
@@ -1744,7 +1685,7 @@
       </div>
     </div>
 
-                <!-- ABA ATENDIMENTO - LAYOUT REORGANIZADO -->
+    <!-- ABA ATENDIMENTO - LAYOUT REORGANIZADO -->
     <div id="atendimento" class="tab-content">
       <div class="card">
         <div class="card-header">
@@ -1758,8 +1699,8 @@
             <div class="atf-panel">
               <h2>CONTROLE DE ATENDIMENTO</h2>
               
-              <label for="inputNome">Nome do Operador</label>
-              <input type="text" id="inputNome" placeholder="Digite seu nome" value="ANTÔNIO WILSON DE SOUSA">
+              <label for="inputNome">Nome</label>
+              <input type="text" id="inputNome" placeholder="Digite seu nome" value="ANTÔNIO WILSON ( Júnior )">
               
               <label for="inputData">Data (Automática)</label>
               <input type="text" id="inputData" readonly style="background: #f8f9fa; cursor: not-allowed;">
@@ -1793,8 +1734,6 @@
               <button class="atf-btn-secondary" onclick="resetarTudo()">
                 <i class="fas fa-redo"></i> Resetar
               </button>
-              
-              <!-- REMOVIDO: Desenvolvido por Scream Tecnologias -->
             </div>
 
             <!-- ÁREA DE VISUALIZAÇÃO (DIREITA) -->
@@ -1831,8 +1770,8 @@
       </div>
     </div>
 
-<div class="footer">
-      <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏᴅᴊᴀꜱ</p>
+    <div class="footer">
+      <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏᴅᴊᴀꜱ ᴠᴇʀ. + ᴅᴇ 8.000</p>
     </div>
   </div>
 
@@ -1845,12 +1784,25 @@
     <span id="notificationText">Texto copiado com sucesso!</span>
   </div>
 
-  
-
   <!-- Mensagem para ATF -->
   <div class="atf-mensagem" id="atfMensagem"></div>
 
   <script>
+    // ========== NOVAS FUNÇÕES PARA A ABA NOTAS ==========
+    function toggleTextoFixo() {
+      const checkbox = document.getElementById('mostrar-texto-fixo');
+      const textoFixo = document.getElementById('texto-fixo');
+      const areaNotasNormal = document.getElementById('area-notas-normal');
+      
+      if (checkbox.checked) {
+        textoFixo.classList.add('show');
+        areaNotasNormal.style.display = 'none';
+      } else {
+        textoFixo.classList.remove('show');
+        areaNotasNormal.style.display = 'block';
+      }
+    }
+
     // ========== FUNÇÕES DO CANCELAMENTO ==========
     
     // Função para gerar texto de cancelamento
@@ -1954,234 +1906,6 @@
 
     // ========== FUNÇÕES EXISTENTES DO INDEX ==========
     
-    // Dados reais dos povoados - LISTA COMPLETA E ATUALIZADA
-const povoados = [
-    // RESPONSÁVEL: YARA HENRIQUE - CIDADE: ALTO ALEGRE
-    {povoado: "Bacuri", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Nova Brasília", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Centro das Rosas", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Boneca do Botelho", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Boneca do Massau", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Timbira do Bógea", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Bidório", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Celestino", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Diócino", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Nova Olinda", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "São Raimundo da Piaba", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Centro dos Paulos", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Centro do Vital", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Jacamim", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Mineirinho", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-    {povoado: "Morada Nova", cidade: "Alto Alegre", responsavel: "YARA HENRIQUE"},
-
-    // RESPONSÁVEL: ANA CAROLINE - CIDADE: BELA VISTA
-    {povoado: "Alto do Bonito", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Cajueiro", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Igarapé dos Bois", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Vila Bela", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Estaca Zero", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Juçaral dos Mendonça", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Lago do Caboclo Morto", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Centro do Zé Félix", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Aratauí", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-    {povoado: "Tocantins", cidade: "Bela Vista", responsavel: "ANA CAROLINE"},
-
-    // RESPONSÁVEL: ANDERSON LUCAS - CIDADE: BOM JARDIM
-    {povoado: "São João dos Crentes", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Boa Esperança", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Tirirical", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Zé Boeiro", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Santa Luz", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Vila Abreu", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Rosário", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Traíra", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Vila Bandeirantes", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Rapadurinha", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Centro dos Casimiros", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Barrote", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Galego dos Fernandes", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Campinas / Km 18", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Novo Carú", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-    {povoado: "Igarapé Grande", cidade: "Bom Jardim", responsavel: "ANDERSON LUCAS"},
-
-    // RESPONSÁVEL: EDVALDO AIRES // DANIELLE SAMPAIO - CIDADE: IGARAPÉ DO MEIO
-    {povoado: "Juçaralzinho", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Fazenda União", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Vila Diamante", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Vila Primavera", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Vila Falcão", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Puraqueu", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Andirobalzinho / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Gameleira / Cajari", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Marabá / Cajari", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Rita / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Patrício", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Goiaba", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Passarinho", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Tarumã", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "São Benedito", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Alto do Piquizeiro", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "São Vicente", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Centro dos Pinaços", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Beira do Campo", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Fazenda Nova", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Toari", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Lajes Compridas", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Alto São João", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Morada Nova / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Morros / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Serrote / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-    {povoado: "Baixa do Arroz / Monção", cidade: "Igarapé do Meio", responsavel: "EDVALDO AIRES // DANIELLE SAMPAIO"},
-
-    // RESPONSÁVEL: KARINE - CIDADE: MONÇÃO
-    {povoado: "São José dos Cocais", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Santa Helena", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Vila Nova / Vila Cajá", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Santa Maria", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Martiliano", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Margarida Alves I", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Margarida Alves II", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Vila São João", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Santa Rita", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Castelo", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Jeju", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Vila da Paz", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Ananazal", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Cordeiro", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Rodagem", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Conceição", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Mata Boi", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Outeiro", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Jacareí", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Pedras", cidade: "Monção", responsavel: "KARINE"},
-    {povoado: "Buragica", cidade: "Monção", responsavel: "KARINE"},
-
-    // RESPONSÁVEL: TORRE DE CONTROLE - VÁRIAS CIDADES
-    {povoado: "Areias", cidade: "Vários", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Boi Montado", cidade: "Vários", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Trizidela / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Juçareira / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Morada Nova (República) / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Centrinho / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Acará-Mirim / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Lameiro Grande / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Areia Branca / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Ponte de Terra / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Cafezal / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Centro Seco / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Severino / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Nova Morada / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Cara de Pau / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "São José / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Fugido / Monção", cidade: "Monção", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Lages / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Gata / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Colônia Pimentel / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Bambu / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Morada Nova / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Olho d'Água dos Carneiros / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "São Raimundo / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Vila Jorim / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Calango Novo / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Franco / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Sítio do Elias / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Igarapé do Cavalo / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Vieira / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Café Merenda / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Mucuri / Pindaré-Mirim", cidade: "Pindaré-Mirim", responsavel: "TORRE DE CONTROLE"},
-
-    // RESPONSÁVEL: MIKAELLY NETO - CIDADE: PIO XII
-    {povoado: "Centro do Mezaque", cidade: "Pio XII", responsavel: "MIKAELLY NETO"},
-    {povoado: "Centro dos Torres", cidade: "Pio XII", responsavel: "MIKAELLY NETO"},
-
-    // RESPONSÁVEL: LARISSA VALÉRIA - CIDADE: PINDARÉ
-    {povoado: "Areias", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
-    {povoado: "Santa Helena", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
-    {povoado: "Trizidela", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
-    {povoado: "Boi Montado", cidade: "Pindaré", responsavel: "LARISSA VALÉRIA"},
-
-    // RESPONSÁVEL: TORRE DE CONTROLE - CIDADE: SANTA INÊS
-    {povoado: "Ladeira do Gato", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Juçaral do Capistrano", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Santa Filomena", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Encruzilhada", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Barradiço", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Vieiras", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Barros Filho", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Alto da Cruz", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Distrito Rural", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Barro Vermelho", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Garrote", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Lago Verde", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Porção da Juçara", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "São José do Aterrado", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Colônia Pimentel", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Mandiocal", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-    {povoado: "Marfim", cidade: "Santa Inês", responsavel: "TORRE DE CONTROLE"},
-
-    // RESPONSÁVEL: CLARA - CIDADE: SANTA LUZIA
-    {povoado: "Fazendinha", cidade: "Santa Luzia", responsavel: "CLARA"},
-    {povoado: "Manguari", cidade: "Santa Luzia", responsavel: "CLARA"},
-    {povoado: "Alto do Leandro", cidade: "Santa Luzia", responsavel: "CLARA"},
-    {povoado: "Roça Grande", cidade: "Santa Luzia", responsavel: "CLARA"},
-    {povoado: "Centro do Meio", cidade: "Santa Luzia", responsavel: "CLARA"},
-    {povoado: "Maria Ferreira", cidade: "Santa Luzia", responsavel: "CLARA"},
-    {povoado: "Beradão", cidade: "Santa Luzia", responsavel: "CLARA"},
-    {povoado: "Jabota", cidade: "Santa Luzia", responsavel: "CLARA"},
-
-    // RESPONSÁVEL: E. CARVALHO - CIDADE: SÃO JOÃO DO CARÚ
-    {povoado: "Santana", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
-    {povoado: "Muchins", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
-    {povoado: "Jabuti", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
-    {povoado: "Bacuri", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
-    {povoado: "Valdemiro", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
-    {povoado: "Centro do Josino", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
-    {povoado: "Igarapé dos Índios", cidade: "São João do Carú", responsavel: "E. CARVALHO"},
-
-    // RESPONSÁVEL: CLARA - CIDADE: TUFILÂNDIA
-    {povoado: "Sumaúma", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Sumaúma II", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Novo Anajá", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Novo Anajá Velho", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Pimenta", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Santa Teresa", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Água Bela", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Lagoa Nova", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Vila Esperança", cidade: "Tufilândia", responsavel: "CLARA"},
-    {povoado: "Centro dos Brancos", cidade: "Tufilândia", responsavel: "CLARA"},
-
-    // RESPONSÁVEL: ALAN - CIDADE: VITÓRIA DO MEARIM
-    {povoado: "Acoque", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Vila Nova", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Boa Vista", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Mato Grosso", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Barras", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Louro", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Tirirical", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Jacaraí", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Jaguari", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Piçarreira", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "São Lourenço", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Alto das Preguiças", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Cafezal", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "João Diogo", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Pedras", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Escondido", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Todo Dia", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Arirana / Via Rádio", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-    {povoado: "Caçoada", cidade: "Vitória do Mearim", responsavel: "ALAN ( shinei )"},
-
-    // RESPONSÁVEL: ANDREIA - CIDADE: NEWTON BELO
-    {povoado: "Newton Belo", cidade: "Newton Belo", responsavel: "ANDREIA"},
-
-    // RESPONSÁVEL: SHAYANE - CIDADE: ZÉ DOCA
-    {povoado: "Bom Viver", cidade: "Zé Doca", responsavel: "SHAYANE"},
-    {povoado: "Quadra São Luís", cidade: "Zé Doca", responsavel: "SHAYANE"},
-    {povoado: "Alto Alegre / Quebra", cidade: "Zé Doca", responsavel: "SHAYANE"},
-    {povoado: "Rosilândia", cidade: "Zé Doca", responsavel: "SHAYANE"},
-    {povoado: "Quadra São José", cidade: "Zé Doca", responsavel: "SHAYANE"}
-];
-
     // Sistema de abas
     function openTab(tabName) {
       // Esconder todas as abas
@@ -2256,7 +1980,7 @@ const povoados = [
     document.addEventListener('DOMContentLoaded', function() {
       // Inicializar o seletor de vencimento
       const vencimentoSelect = document.getElementById('vencimento');
-      for (let i = 1; i <= 31; i++) {
+      for (let i = 1; i <= 30; i++) {
         const option = document.createElement('option');
         option.value = i;
         option.textContent = i;
@@ -2289,29 +2013,40 @@ const povoados = [
         }
       });
       
-      // Inicializar a busca de povoados
-document.getElementById('searchPovoado').addEventListener('input', buscarPovoados);
-
-// Inicializar o ATF (linha problemática removida)
-
-// Permitir enviar formulário com Enter (Cancelamento)
-const inputsCancelamento = document.querySelectorAll('#formulario-cancelamento input');
-inputsCancelamento.forEach(input => {
-     input.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
+      // Permitir enviar formulário com Enter (Cancelamento)
+      const inputsCancelamento = document.querySelectorAll('#formulario-cancelamento input');
+      inputsCancelamento.forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
             e.preventDefault();
             gerarTextoCancelamento();
-        }
-    });
-});
-}); // <--- LINHA ADICIONADA PARA FECHAR O DOMContentLoaded
+          }
+        });
+      });
 
-// Função para alterar o tamanho da fonte
-function changeFontSize() {
-  const fontSize = document.getElementById('font-size').value;
-  document.getElementById('editor').style.fontSize = fontSize;
-  localStorage.setItem('fontSize', fontSize);
-}
+      // ========== INICIALIZAÇÃO DO ATF ==========
+      // Configurar data automática
+      document.getElementById('inputData').value = obterDataAtual();
+      
+      // Configurar eventos para atualização automática
+      const inputs = ['inputAtend', 'inputLig', 'inputOS', 'inputGeral', 'inputLinkLoss', 'inputNome'];
+      inputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        if (input) {
+          input.addEventListener('input', atualizarTudo);
+        }
+      });
+      
+      // Nome em maiúsculas
+      document.getElementById('inputNome').addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+        atualizarTudo();
+      });
+      
+      // Aplicar visualização inicial
+      atualizarTudo();
+    });
+
     // Função para alterar o tamanho da fonte
     function changeFontSize() {
       const fontSize = document.getElementById('font-size').value;
@@ -2390,73 +2125,6 @@ function changeFontSize() {
       }
       
       document.body.removeChild(textarea);
-    }
-
-    // Função para remover acentos e caracteres especiais
-    function removerAcentos(texto) {
-      return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    }
-
-    // Busca de povoados - CORRIGIDA para ignorar acentuação
-    function buscarPovoados() {
-      const termo = document.getElementById('searchPovoado').value;
-      const termoSemAcento = removerAcentos(termo);
-      const resultadosContainer = document.getElementById('povoadosResults');
-      const contador = document.getElementById('resultCountPovoados');
-      
-      if (termo.length < 2) {
-        resultadosContainer.innerHTML = '<div class="povoados-no-results"><i class="fas fa-search"></i><p>Digite pelo menos 2 caracteres para buscar</p></div>';
-        contador.textContent = 'Digite acima para buscar povoados';
-        return;
-      }
-      
-      const resultados = povoados.filter(povoado => {
-        const responsavelSemAcento = removerAcentos(povoado.responsavel);
-        const cidadeSemAcento = removerAcentos(povoado.cidade);
-        const povoadoSemAcento = removerAcentos(povoado.povoado);
-        
-        return responsavelSemAcento.includes(termoSemAcento) ||
-               cidadeSemAcento.includes(termoSemAcento) ||
-               povoadoSemAcento.includes(termoSemAcento);
-      });
-      
-      if (resultados.length === 0) {
-        resultadosContainer.innerHTML = '<div class="povoados-no-results"><i class="fas fa-times-circle"></i><p>Nenhum povoado encontrado para: ' + termo + '</p></div>';
-        contador.textContent = 'Nenhum resultado encontrado';
-      } else {
-        let html = '';
-        resultados.forEach(povoado => {
-          // Destacar o termo de busca nos resultados (agora sem acento)
-          const responsavel = destacarTermo(povoado.responsavel, termo);
-          const cidade = destacarTermo(povoado.cidade, termo);
-          const povoadoNome = destacarTermo(povoado.povoado, termo);
-          
-          html += `
-            <div class="povoados-resultado" onclick="selecionarPovoado('${povoado.responsavel}', '${povoado.cidade}', '${povoado.povoado}')">
-              <div class="povoados-responsavel">${responsavel}</div>
-              <div class="povoados-cidade">${cidade}</div>
-              <div class="povoados-povoado">${povoadoNome}</div>
-            </div>
-          `;
-        });
-        
-        resultadosContainer.innerHTML = html;
-        contador.textContent = `${resultados.length} povoado(s) encontrado(s)`;
-      }
-    }
-    
-    function destacarTermo(texto, termo) {
-      const termoSemAcento = removerAcentos(termo);
-      const textoSemAcento = removerAcentos(texto);
-      const regex = new RegExp(`(${termoSemAcento})`, 'gi');
-      
-      return textoSemAcento.replace(regex, '<span class="highlight">$1</span>');
-    }
-    
-    function selecionarPovoado(responsavel, cidade, povoado) {
-      // Copiar as informações para a área de transferência
-      const texto = `Responsável: ${responsavel}\nCidade: ${cidade}\nPovoado: ${povoado}`;
-      copiarTextoDireto(texto);
     }
 
     // Funções para as outras abas - RESTAURADAS do S.I original
@@ -2655,236 +2323,39 @@ DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET
         row.style.display = '';
       });
     }
-// ========== SISTEMA DE ARRASTAR E CONFIGURAR POSIÇÕES ==========
 
-// Variáveis para controle do arrasto
-let elementoArrastando = null;
-let offsetX = 0;
-let offsetY = 0;
+    // ========== SISTEMA FINAL SIMPLIFICADO ==========
 
-// Função para abrir modal de configuração
-function abrirModalPosicoes() {
-    document.getElementById('modalPosicoes').style.display = 'flex';
-    
-    // Preencher valores atuais
-    document.getElementById('configNome').value = document.getElementById('inputNome').value;
-    document.getElementById('configData').value = document.getElementById('inputData').value;
-}
+    // CONFIGURAÇÃO DE TAMANHOS PARA A IMAGEM GERADA
+    const TAMANHOS_IMAGEM = {
+      atend: 68,
+      lig: 68,  
+      os: 68,
+      geral: 35,
+      linkloss: 35
+    };
 
-// Função para fechar modal
-function fecharModalPosicoes() {
-    document.getElementById('modalPosicoes').style.display = 'none';
-}
+    // CONFIGURAÇÃO DE TAMANHOS PARA A VISUALIZAÇÃO NA TELA
+    const TAMANHOS_VISUALIZACAO = {
+      atend: 35,
+      lig: 35,  
+      os: 35,
+      geral: 20,
+      linkloss: 20
+    };
 
-// Função para gerar código definitivo com as posições atuais
-function gerarCodigoDefinitivo() {
-    const nome = document.getElementById('configNome').value || 'ANTÔNIO WILSON DE SOUSA';
-    const data = document.getElementById('configData').value;
-    
-    // Atualizar valores nos inputs principais
-    document.getElementById('inputNome').value = nome;
-    document.getElementById('inputData').value = data;
-    
-    // Obter posições atuais dos elementos arrastáveis
-    const nomeElement = document.getElementById('nome-visualizacao');
-    const dataElement = document.getElementById('data-visualizacao');
-    
-    const estiloNome = window.getComputedStyle(nomeElement);
-    const estiloData = window.getComputedStyle(dataElement);
-    
-    // Calcular porcentagens baseadas no canvas
-    const canvas = document.getElementById('atf-canvas');
-    const canvasWidth = canvas.offsetWidth;
-    const canvasHeight = canvas.offsetHeight;
-    
-    const posNomeX = (parseFloat(estiloNome.left) / canvasWidth * 100).toFixed(2);
-    const posNomeY = (parseFloat(estiloNome.top) / canvasHeight * 100).toFixed(2);
-    const posDataX = (parseFloat(estiloData.left) / canvasWidth * 100).toFixed(2);
-    const posDataY = (parseFloat(estiloData.top) / canvasHeight * 100).toFixed(2);
-    
-    // Gerar código HTML com as posições
-    const codigo = `<!-- ELEMENTOS DE TEXTO COM POSIÇÕES DEFINITIVAS -->
-<div id="nome-visualizacao" class="atf-overlay small" 
-     style="left:${posNomeX}%;top:${posNomeY}%;font-size:14px;color:white;text-align:left;font-weight:bold;">${nome}</div>
-
-<div id="data-visualizacao" class="atf-overlay small" 
-     style="left:${posDataX}%;top:${posDataY}%;font-size:12px;color:white;text-align:right;font-weight:bold;">${formatarData(data)}</div>`;
-    
-    // Mostrar código na área dedicada
-    document.getElementById('codigoDefinitivo').value = codigo;
-    document.getElementById('areaCodigo').style.display = 'block';
-    
-    // Fechar modal
-    fecharModalPosicoes();
-    
-    // Atualizar visualização
-    atualizarTudo();
-    
-    // Rolar para a área do código
-    document.getElementById('areaCodigo').scrollIntoView({ behavior: 'smooth' });
-    
-    mostrarMensagem('Código gerado com sucesso!');
-}
-
-// Função para copiar código definitivo
-function copiarCodigoDefinitivo() {
-    const codigo = document.getElementById('codigoDefinitivo').value;
-    navigator.clipboard.writeText(codigo).then(() => {
-        mostrarMensagem('Código copiado para a área de transferência!');
-    });
-}
-
-// Sistema de arrastar elementos E inicialização do ATF
-document.addEventListener('DOMContentLoaded', function() {
-    // Sistema de arrastar
-    const elementosArrastaveis = document.querySelectorAll('.elemento-arrastavel');
-    
-    elementosArrastaveis.forEach(elemento => {
-        // Início do arrasto
-        elemento.addEventListener('mousedown', iniciarArrasto);
-        elemento.addEventListener('touchstart', iniciarArrastoTouch);
-    });
-    
-    document.addEventListener('mousemove', arrastar);
-    document.addEventListener('touchmove', arrastarTouch);
-    document.addEventListener('mouseup', finalizarArrasto);
-    document.addEventListener('touchend', finalizarArrasto);
-
-    // ========== INICIALIZAÇÃO DO ATF ==========
-    // Configurar data automática
-    document.getElementById('inputData').value = obterDataAtual();
-    
-    // Configurar eventos para atualização automática
-    const inputs = ['inputAtend', 'inputLig', 'inputOS', 'inputGeral', 'inputLinkLoss', 'inputNome'];
-    inputs.forEach(inputId => {
-        const input = document.getElementById(inputId);
-        if (input) {
-            input.addEventListener('input', atualizarTudo);
-        }
-    });
-    
-    // Nome em maiúsculas
-    document.getElementById('inputNome').addEventListener('input', function() {
-        this.value = this.value.toUpperCase();
-        atualizarTudo();
-    });
-    
-    // Aplicar visualização inicial
-    atualizarTudo();
-});
-
-function iniciarArrasto(e) {
-    elementoArrastando = e.target;
-    const rect = elementoArrastando.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    
-    elementoArrastando.style.zIndex = '1000';
-    e.preventDefault();
-}
-
-function iniciarArrastoTouch(e) {
-    if (e.touches.length !== 1) return;
-    
-    elementoArrastando = e.target;
-    const rect = elementoArrastando.getBoundingClientRect();
-    const touch = e.touches[0];
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
-    
-    elementoArrastando.style.zIndex = '1000';
-    e.preventDefault();
-}
-
-function arrastar(e) {
-    if (!elementoArrastando) return;
-    
-    const canvas = document.getElementById('atf-canvas');
-    const canvasRect = canvas.getBoundingClientRect();
-    
-    let x = e.clientX - canvasRect.left - offsetX;
-    let y = e.clientY - canvasRect.top - offsetY;
-    
-    // Limitar dentro do canvas
-    x = Math.max(0, Math.min(x, canvasRect.width - elementoArrastando.offsetWidth));
-    y = Math.max(0, Math.min(y, canvasRect.height - elementoArrastando.offsetHeight));
-    
-    elementoArrastando.style.left = x + 'px';
-    elementoArrastando.style.top = y + 'px';
-}
-
-function arrastarTouch(e) {
-    if (!elementoArrastando || e.touches.length !== 1) return;
-    
-    const canvas = document.getElementById('atf-canvas');
-    const canvasRect = canvas.getBoundingClientRect();
-    const touch = e.touches[0];
-    
-    let x = touch.clientX - canvasRect.left - offsetX;
-    let y = touch.clientY - canvasRect.top - offsetY;
-    
-    // Limitar dentro do canvas
-    x = Math.max(0, Math.min(x, canvasRect.width - elementoArrastando.offsetWidth));
-    y = Math.max(0, Math.min(y, canvasRect.height - elementoArrastando.offsetHeight));
-    
-    elementoArrastando.style.left = x + 'px';
-    elementoArrastando.style.top = y + 'px';
-    
-    e.preventDefault();
-}
-
-function finalizarArrasto() {
-    if (elementoArrastando) {
-        elementoArrastando.style.zIndex = '';
-        elementoArrastando = null;
+    // FUNÇÃO PARA OBTER DATA ATUAL
+    function obterDataAtual() {
+      const hoje = new Date();
+      const dia = String(hoje.getDate()).padStart(2, '0');
+      const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+      const ano = hoje.getFullYear();
+      return `${dia}/${mes}/${ano}`;
     }
-}
 
-// ========== FUNÇÃO PARA MENSAGENS DO ATF ==========
-function mostrarMensagem(mensagem) {
-    const mensagemDiv = document.getElementById('atfMensagem');
-    mensagemDiv.textContent = mensagem;
-    mensagemDiv.classList.add('mostrar');
-    
-    setTimeout(() => {
-        mensagemDiv.classList.remove('mostrar');
-    }, 5000);
-}
-
-// ========== SISTEMA FINAL SIMPLIFICADO ==========
-    
-// ========== SISTEMA FINAL SIMPLIFICADO ==========
-
-// CONFIGURAÇÃO DE TAMANHOS PARA A IMAGEM GERADA
-const TAMANHOS_IMAGEM = {
-    atend: 68,
-    lig: 68,  
-    os: 68,
-    geral: 35,
-    linkloss: 35
-};
-
-// CONFIGURAÇÃO DE TAMANHOS PARA A VISUALIZAÇÃO NA TELA
-const TAMANHOS_VISUALIZACAO = {
-    atend: 35,
-    lig: 35,  
-    os: 35,
-    geral: 20,
-    linkloss: 20
-};
-
-// FUNÇÃO PARA OBTER DATA ATUAL
-function obterDataAtual() {
-    const hoje = new Date();
-    const dia = String(hoje.getDate()).padStart(2, '0');
-    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-    const ano = hoje.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-}
-
-// FUNÇÃO PARA ATUALIZAR VISUALIZAÇÃO NA TELA
-function atualizarTudo() {
-    const valores = {
+    // FUNÇÃO PARA ATUALIZAR VISUALIZAÇÃO NA TELA
+    function atualizarTudo() {
+      const valores = {
         atend: document.getElementById('inputAtend').value || '0',
         lig: document.getElementById('inputLig').value || '0',
         os: document.getElementById('inputOS').value || '0',
@@ -2892,30 +2363,30 @@ function atualizarTudo() {
         linkloss: document.getElementById('inputLinkLoss').value || '0',
         nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
         data: obterDataAtual()
-    };
-    
-    // Atualizar textos
-    document.getElementById('numero-atend').textContent = valores.atend;
-    document.getElementById('numero-lig').textContent = valores.lig;
-    document.getElementById('numero-os').textContent = valores.os;
-    document.getElementById('numero-geral').textContent = valores.geral;
-    document.getElementById('numero-linkloss').textContent = valores.linkloss;
-    document.getElementById('nome-visualizacao').textContent = valores.nome;
-    document.getElementById('data-visualizacao').textContent = valores.data;
-    
-    // Aplicar tamanhos
-    document.getElementById('numero-atend').style.fontSize = TAMANHOS_VISUALIZACAO.atend + 'px';
-    document.getElementById('numero-lig').style.fontSize = TAMANHOS_VISUALIZACAO.lig + 'px';
-    document.getElementById('numero-os').style.fontSize = TAMANHOS_VISUALIZACAO.os + 'px';
-    document.getElementById('numero-geral').style.fontSize = TAMANHOS_VISUALIZACAO.geral + 'px';
-    document.getElementById('numero-linkloss').style.fontSize = TAMANHOS_VISUALIZACAO.linkloss + 'px';
-    
-    mostrarMensagem('Visualização atualizada!');
-}
+      };
+      
+      // Atualizar textos
+      document.getElementById('numero-atend').textContent = valores.atend;
+      document.getElementById('numero-lig').textContent = valores.lig;
+      document.getElementById('numero-os').textContent = valores.os;
+      document.getElementById('numero-geral').textContent = valores.geral;
+      document.getElementById('numero-linkloss').textContent = valores.linkloss;
+      document.getElementById('nome-visualizacao').textContent = valores.nome;
+      document.getElementById('data-visualizacao').textContent = valores.data;
+      
+      // Aplicar tamanhos
+      document.getElementById('numero-atend').style.fontSize = TAMANHOS_VISUALIZACAO.atend + 'px';
+      document.getElementById('numero-lig').style.fontSize = TAMANHOS_VISUALIZACAO.lig + 'px';
+      document.getElementById('numero-os').style.fontSize = TAMANHOS_VISUALIZACAO.os + 'px';
+      document.getElementById('numero-geral').style.fontSize = TAMANHOS_VISUALIZACAO.geral + 'px';
+      document.getElementById('numero-linkloss').style.fontSize = TAMANHOS_VISUALIZACAO.linkloss + 'px';
+      
+      mostrarMensagem('Visualização atualizada!');
+    }
 
-// FUNÇÃO PARA COPIAR IMAGEM
-async function copiarImagemFinal() {
-    try {
+    // FUNÇÃO PARA COPIAR IMAGEM
+    async function copiarImagemFinal() {
+      try {
         const loading = document.getElementById('atfLoading');
         if (loading) loading.style.display = 'block';
         
@@ -2927,8 +2398,8 @@ async function copiarImagemFinal() {
         img.src = 'https://i.imgur.com/QEvgDVZ.png';
         
         await new Promise((resolve, reject) => {
-            img.onload = resolve;
-            img.onerror = reject;
+          img.onload = resolve;
+          img.onerror = reject;
         });
         
         canvas.width = img.naturalWidth;
@@ -2937,23 +2408,23 @@ async function copiarImagemFinal() {
         
         // POSIÇÕES FIXAS
         const posicoes = {
-            atend: { x: canvas.width * 0.5329, y: canvas.height * 0.3270 },
-            lig: { x: canvas.width * 0.5335, y: canvas.height * 0.5386 },
-            os: { x: canvas.width * 0.5347, y: canvas.height * 0.7391 },
-            geral: { x: canvas.width * 0.8611, y: canvas.height * 0.6944 },
-            linkloss: { x: canvas.width * 0.8611, y: canvas.height * 0.7750 },
-            nome: { x: canvas.width * 0.3372, y: canvas.height * 0.1434 },
-            data: { x: canvas.width * 0.5140, y: canvas.height * 0.2073 }
+          atend: { x: canvas.width * 0.5329, y: canvas.height * 0.3270 },
+          lig: { x: canvas.width * 0.5335, y: canvas.height * 0.5386 },
+          os: { x: canvas.width * 0.5347, y: canvas.height * 0.7391 },
+          geral: { x: canvas.width * 0.8611, y: canvas.height * 0.6944 },
+          linkloss: { x: canvas.width * 0.8611, y: canvas.height * 0.7750 },
+          nome: { x: canvas.width * 0.3372, y: canvas.height * 0.1434 },
+          data: { x: canvas.width * 0.5140, y: canvas.height * 0.2073 }
         };
         
         const valores = {
-            atend: document.getElementById('inputAtend').value || '0',
-            lig: document.getElementById('inputLig').value || '0',
-            os: document.getElementById('inputOS').value || '0',
-            geral: document.getElementById('inputGeral').value || '0',
-            linkloss: document.getElementById('inputLinkLoss').value || '0',
-            nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
-            data: document.getElementById('inputData').value || obterDataAtual()
+          atend: document.getElementById('inputAtend').value || '0',
+          lig: document.getElementById('inputLig').value || '0',
+          os: document.getElementById('inputOS').value || '0',
+          geral: document.getElementById('inputGeral').value || '0',
+          linkloss: document.getElementById('inputLinkLoss').value || '0',
+          nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
+          data: document.getElementById('inputData').value || obterDataAtual()
         };
         
         // DESENHAR NÚMEROS
@@ -2997,24 +2468,54 @@ async function copiarImagemFinal() {
         
         // Tentar copiar para área de transferência
         try {
-            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-            const item = new ClipboardItem({ 'image/png': blob });
-            await navigator.clipboard.write([item]);
-            mostrarMensagem('✅ Imagem copiada para a área de transferência!');
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          const item = new ClipboardItem({ 'image/png': blob });
+          await navigator.clipboard.write([item]);
+          mostrarMensagem('✅ Imagem copiada para a área de transferência!');
         } catch (clipboardError) {
-            console.log('Clipboard API não suportada, mostrando opção alternativa');
-            // Em vez de fazer download automático, mostrar mensagem informativa
-            mostrarMensagem('❌ Seu navegador não suporta copiar imagens. Use Print Screen (PrtScn) para capturar a tela.');
+          console.log('Clipboard API não suportada, mostrando opção alternativa');
+          // Em vez de fazer download automático, mostrar mensagem informativa
+          mostrarMensagem('❌ Seu navegador não suporta copiar imagens. Use Print Screen (PrtScn) para capturar a tela.');
         }
         
-    } catch (error) {
+      } catch (error) {
         console.error('Erro ao gerar imagem:', error);
         mostrarMensagem('❌ Erro ao copiar imagem. Tente novamente.');
-    } finally {
+      } finally {
         const loading = document.getElementById('atfLoading');
         if (loading) loading.style.display = 'none';
+      }
     }
-}
-</script>
+
+    // ========== FUNÇÃO PARA MENSAGENS DO ATF ==========
+    function mostrarMensagem(mensagem) {
+      const mensagemDiv = document.getElementById('atfMensagem');
+      mensagemDiv.textContent = mensagem;
+      mensagemDiv.classList.add('mostrar');
+      
+      setTimeout(() => {
+        mensagemDiv.classList.remove('mostrar');
+      }, 5000);
+    }
+
+    // Função para resetar tudo
+    function resetarTudo() {
+      document.getElementById('inputAtend').value = '0';
+      document.getElementById('inputLig').value = '0';
+      document.getElementById('inputOS').value = '0';
+      document.getElementById('inputGeral').value = '0';
+      document.getElementById('inputLinkLoss').value = '0';
+      atualizarTudo();
+      mostrarMensagem('Valores resetados!');
+    }
+
+    // Função para copiar código definitivo
+    function copiarCodigoDefinitivo() {
+      const codigo = document.getElementById('codigoDefinitivo').value;
+      navigator.clipboard.writeText(codigo).then(() => {
+        mostrarMensagem('Código copiado para a área de transferência!');
+      });
+    }
+  </script>
 </body>
 </html>
