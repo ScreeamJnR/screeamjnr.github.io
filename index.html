@@ -799,6 +799,36 @@
     .checkbox-group input[type="checkbox"] {
       width: auto;
     }
+
+    /* Estilos para a aba MAC */
+    .mac-simple-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .mac-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 2px solid #dee2e6;
+      text-align: center;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mac-found {
+    background: #e6f2ff;  /* Azul céu muito claro */
+    border-color: #89c2d9; /* Azul céu suave */
+}
+    
+    .mac-not-found {
+      background: #ffeaea;
+      border-color: #dc3545;
+    }
     
     .footer {
       text-align: center;
@@ -907,6 +937,10 @@
       <!-- Nova aba para Cancelamento -->
       <button class="tab-button" onclick="openTab('cancelamento')">
         <i class="fas fa-times-circle"></i> Cancelamento
+      </button>
+      <!-- NOVA ABA: MAC -->
+      <button class="tab-button" onclick="openTab('mac')">
+        <i class="fas fa-network-wired"></i> MAC
       </button>
       <!-- Aba para o Modelo de Atendimento -->
       <button class="tab-button" onclick="openTab('atendimento')">
@@ -1685,6 +1719,39 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       </div>
     </div>
 
+    <!-- NOVA ABA: MAC -->
+    <div id="mac" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-network-wired"></i>
+          Consulta de Fabricante por MAC Address da Deep Web
+        </div>
+        <div class="card-body">
+          <div class="mac-simple-container">
+            <div class="form-group">
+              <label for="macInput">
+                <i class="fas fa-ethernet input-icon"></i>Digite o MAC Address
+              </label>
+              <input type="text" id="macInput" placeholder="Ex: 50:28:73:80:30:8D" 
+                     style="font-family: 'Courier New', monospace; font-size: 1.1rem; text-align: center;">
+              <div class="exemplo">Ainda em fase de implementação</div>
+            </div>
+            
+            <button class="btn" onclick="consultarMAC()" style="width: 100%;">
+              <i class="fas fa-search"></i> Consultar Fabricante
+            </button>
+            
+            <div class="mac-result" id="macResult">
+              <div style="color: var(--gray);">
+                <i class="fas fa-info-circle fa-2x"></i><br><br>
+                Digite um MAC address para consultar o fabricante
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ABA ATENDIMENTO - LAYOUT REORGANIZADO -->
     <div id="atendimento" class="tab-content">
       <div class="card">
@@ -1788,6 +1855,460 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
   <div class="atf-mensagem" id="atfMensagem"></div>
 
   <script>
+// ========== SISTEMA DE CONSULTA MAC ==========
+    
+    // Banco de dados de MACs
+    const macDatabase = {
+"001882": "HUAWEI TECHNOLOGIES CO.,LTD",
+"001E10": "HUAWEI TECHNOLOGIES CO.,LTD",
+"002568": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00259E": "HUAWEI TECHNOLOGIES CO.,LTD",
+"002EC7": "HUAWEI TECHNOLOGIES CO.,LTD",
+"0034FE": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00464B": "HUAWEI TECHNOLOGIES CO.,LTD",
+"004F1A": "HUAWEI TECHNOLOGIES CO.,LTD",
+"005A13": "HUAWEI TECHNOLOGIES CO.,LTD",
+"006151": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00664B": "HUAWEI TECHNOLOGIES CO.,LTD",
+"006B6F": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00991D": "HUAWEI TECHNOLOGIES CO.,LTD",
+"009ACD": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00A91D": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00BE3B": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00E0FC": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00E12F": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00E406": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00F5FD": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00F7AD": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00F81C": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00F952": "HUAWEI TECHNOLOGIES CO.,LTD",
+"04021F": "HUAWEI TECHNOLOGIES CO.,LTD",
+"042758": "HUAWEI TECHNOLOGIES CO.,LTD",
+"043389": "HUAWEI TECHNOLOGIES CO.,LTD",
+"044A6C": "HUAWEI TECHNOLOGIES CO.,LTD",
+"0455B8": "HUAWEI TECHNOLOGIES CO.,LTD",
+"046E0B": "HUAWEI TECHNOLOGIES CO.,LTD",
+"04749E": "HUAWEI TECHNOLOGIES CO.,LTD",
+"048CF8": "HUAWEI TECHNOLOGIES CO.,LTD",
+"049FCA": "HUAWEI TECHNOLOGIES CO.,LTD",
+"04A81C": "HUAWEI TECHNOLOGIES CO.,LTD",
+"04F03E": "HUAWEI TECHNOLOGIES CO.,LTD",
+"04F169": "HUAWEI TECHNOLOGIES CO.,LTD",
+"04F352": "HUAWEI TECHNOLOGIES CO.,LTD",
+"04F938": "HUAWEI TECHNOLOGIES CO.,LTD",
+"08FA28": "HUAWEI TECHNOLOGIES CO.,LTD",
+"10A4DA": "HUAWEI TECHNOLOGIES CO.,LTD",
+"10C3AB": "HUAWEI TECHNOLOGIES CO.,LTD",
+"10DA49": "HUAWEI TECHNOLOGIES CO.,LTD",
+"14CF92": "HUAWEI TECHNOLOGIES CO.,LTD",
+"17A6F2": "HUAWEI TECHNOLOGIES CO.,LTD",
+"24E924": "HUAWEI TECHNOLOGIES CO.,LTD",
+"24264A": "HUAWEI TECHNOLOGIES CO.,LTD",
+"24E13F": "HUAWEI TECHNOLOGIES CO.,LTD",
+"282392": "HUAWEI TECHNOLOGIES CO.,LTD",
+"2CAA8E": "HUAWEI TECHNOLOGIES CO.,LTD",
+"341A4C": "HUAWEI TECHNOLOGIES CO.,LTD",
+"3476C5": "HUAWEI TECHNOLOGIES CO.,LTD",
+"3C2C94": "HUAWEI TECHNOLOGIES CO.,LTD",
+"40F52E": "HUAWEI TECHNOLOGIES CO.,LTD",
+"441CA8": "HUAWEI TECHNOLOGIES CO.,LTD",
+"502873": "Huawei Device Co., Ltd.",
+"547459": "HUAWEI TECHNOLOGIES CO.,LTD",
+"5475D0": "HUAWEI TECHNOLOGIES CO.,LTD",
+"5475F7": "HUAWEI TECHNOLOGIES CO.,LTD",
+"58B035": "HUAWEI TECHNOLOGIES CO.,LTD",
+"5C4AAB": "HUAWEI TECHNOLOGIES CO.,LTD",
+"60E327": "HUAWEI TECHNOLOGIES CO.,LTD",
+"641CA8": "HUAWEI TECHNOLOGIES CO.,LTD",
+"6CEDFB": "HUAWEI TECHNOLOGIES CO.,LTD",
+"7C1CF1": "HUAWEI TECHNOLOGIES CO.,LTD",
+"7CD1C3": "HUAWEI TECHNOLOGIES CO.,LTD",
+"7C96D2": "HUAWEI TECHNOLOGIES CO.,LTD",
+"8C01F6": "HUAWEI TECHNOLOGIES CO.,LTD",
+"98D6BB": "HUAWEI TECHNOLOGIES CO.,LTD",
+"9C1D58": "HUAWEI TECHNOLOGIES CO.,LTD",
+"9CE374": "HUAWEI TECHNOLOGIES CO.,LTD",
+"A01781": "HUAWEI TECHNOLOGIES CO.,LTD",
+"A04EF9": "HUAWEI TECHNOLOGIES CO.,LTD",
+"A0F3C1": "HUAWEI TECHNOLOGIES CO.,LTD",
+"B4975A": "HUAWEI TECHNOLOGIES CO.,LTD",
+"C8AB37": "HUAWEI TECHNOLOGIES CO.,LTD",
+"CC3A61": "HUAWEI TECHNOLOGIES CO.,LTD",
+"CC73F9": "HUAWEI TECHNOLOGIES CO.,LTD",
+"D0C1B1": "HUAWEI TECHNOLOGIES CO.,LTD",
+"D4258B": "HUAWEI TECHNOLOGIES CO.,LTD",
+"DC1EA3": "HUAWEI TECHNOLOGIES CO.,LTD",
+"DC4EDE": "HUAWEI TECHNOLOGIES CO.,LTD",
+"EC2334": "HUAWEI TECHNOLOGIES CO.,LTD",
+"F02929": "HUAWEI TECHNOLOGIES CO.,LTD",
+"F0F279": "HUAWEI TECHNOLOGIES CO.,LTD",
+"F48C50": "HUAWEI TECHNOLOGIES CO.,LTD",
+"F88DEF": "HUAWEI TECHNOLOGIES CO.,LTD",
+"00AD24": "D-Link International",
+"085A11": "D-Link International",
+"0C0E76": "D-Link International",
+"0CB6D2": "D-Link International",
+"1062EB": "D-Link International",
+"10BEF5": "D-Link International",
+"14D64D": "D-Link International",
+"180F76": "D-Link International",
+"1C5F2B": "D-Link International",
+"1C7EE5": "D-Link International",
+"1CAFF7": "D-Link International",
+"1CBDB9": "D-Link International",
+"28107B": "D-Link International",
+"283B82": "D-Link International",
+"340A33": "D-Link International",
+"3C1E04": "D-Link International",
+"409BCD": "D-Link International",
+"48EE0C": "D-Link International",
+"54B80A": "D-Link International",
+"58D56E": "D-Link International",
+"60634C": "D-Link International",
+"6C198F": "D-Link International",
+"6C7220": "D-Link International",
+"7062B8": "D-Link International",
+"74DADA": "D-Link International",
+"78321B": "D-Link International",
+"78542E": "D-Link International",
+"7898E8": "D-Link International",
+"802689": "D-Link International",
+"84C9B2": "D-Link International",
+"908D78": "D-Link International",
+"9094E4": "D-Link International",
+"9CD643": "D-Link International",
+"A0A3F0": "D-Link International",
+"A0AB1B": "D-Link International",
+"A42A95": "D-Link International",
+"A8637D": "D-Link International",
+"ACF1DF": "D-Link International",
+"B0C554": "D-Link International",
+"B8A386": "D-Link International",
+"BC0F9A": "D-Link International",
+"BC2228": "D-Link International",
+"BCF685": "D-Link International",
+"C0A0BB": "D-Link International",
+"C412F5": "D-Link International",
+"C4A81D": "D-Link International",
+"C4E90A": "D-Link International",
+"C8BE19": "D-Link International",
+"C8D3A3": "D-Link International",
+"CCB255": "D-Link International",
+"D8FEE3": "D-Link International",
+"E01CFC": "D-Link International",
+"E46F13": "D-Link International",
+"E8CC18": "D-Link International",
+"EC2280": "D-Link International",
+"ECADE0": "D-Link International",
+"F0B4D2": "D-Link International",
+"F48CEB": "D-Link International",
+"F8E903": "D-Link International",
+"FC7516": "D-Link International",
+"002FD9": "Fiberhome Telecommunication Technologies Co.,LTD",
+"006762": "Fiberhome Telecommunication Technologies Co.,LTD",
+"00BE9E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"04A2F3": "Fiberhome Telecommunication Technologies Co.,LTD",
+"04C1B9": "Fiberhome Telecommunication Technologies Co.,LTD",
+"04ECBB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"0830CE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"0846C7": "Fiberhome Telecommunication Technologies Co.,LTD",
+"087458": "Fiberhome Telecommunication Technologies Co.,LTD",
+"0C2A86": "Fiberhome Telecommunication Technologies Co.,LTD",
+"0C35FE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"0C6ABC": "Fiberhome Telecommunication Technologies Co.,LTD",
+"0C7474": "Fiberhome Telecommunication Technologies Co.,LTD",
+"0C8447": "Fiberhome Telecommunication Technologies Co.,LTD",
+"10071D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"104C43": "Fiberhome Telecommunication Technologies Co.,LTD",
+"105887": "Fiberhome Telecommunication Technologies Co.,LTD",
+"1077B0": "Fiberhome Telecommunication Technologies Co.,LTD",
+"1088CE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"10DC4A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"14172A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"142233": "Fiberhome Telecommunication Technologies Co.,LTD",
+"142D79": "Fiberhome Telecommunication Technologies Co.,LTD",
+"14E9B2": "Fiberhome Telecommunication Technologies Co.,LTD",
+"185282": "Fiberhome Telecommunication Technologies Co.,LTD",
+"18A3E8": "Fiberhome Telecommunication Technologies Co.,LTD",
+"18D225": "Fiberhome Telecommunication Technologies Co.,LTD",
+"1C398A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"1C60D2": "Fiberhome Telecommunication Technologies Co.,LTD",
+"1CD1BA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"1CDE57": "Fiberhome Telecommunication Technologies Co.,LTD",
+"2025D2": "Fiberhome Telecommunication Technologies Co.,LTD",
+"205D0D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"20896F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"24B7DA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"24CACB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"24E3A4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"24E4C8": "Fiberhome Telecommunication Technologies Co.,LTD",
+"28172E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"28563A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"286DDA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"28BF89": "Fiberhome Telecommunication Technologies Co.,LTD",
+"28F7D6": "Fiberhome Telecommunication Technologies Co.,LTD",
+"3085EB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"3086F1": "Fiberhome Telecommunication Technologies Co.,LTD",
+"30A176": "Fiberhome Telecommunication Technologies Co.,LTD",
+"341A35": "Fiberhome Telecommunication Technologies Co.,LTD",
+"342DA3": "Fiberhome Telecommunication Technologies Co.,LTD",
+"344B3D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"34BF90": "Fiberhome Telecommunication Technologies Co.,LTD",
+"38144E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"383D5B": "Fiberhome Telecommunication Technologies Co.,LTD",
+"38637F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"387A3C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"38A89B": "Fiberhome Telecommunication Technologies Co.,LTD",
+"3C1060": "Fiberhome Telecommunication Technologies Co.,LTD",
+"3CFB5C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"444B7E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"48555F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"485AEA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"48A0F8": "Fiberhome Telecommunication Technologies Co.,LTD",
+"48F97C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"50C6AD": "Fiberhome Telecommunication Technologies Co.,LTD",
+"540A77": "Fiberhome Telecommunication Technologies Co.,LTD",
+"543E64": "Fiberhome Telecommunication Technologies Co.,LTD",
+"54DF24": "Fiberhome Telecommunication Technologies Co.,LTD",
+"54E005": "Fiberhome Telecommunication Technologies Co.,LTD",
+"58239B": "Fiberhome Telecommunication Technologies Co.,LTD",
+"583BD9": "Fiberhome Telecommunication Technologies Co.,LTD",
+"58AEF1": "Fiberhome Telecommunication Technologies Co.,LTD",
+"58C57E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"5C7DF3": "Fiberhome Telecommunication Technologies Co.,LTD",
+"5CA4A4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"5CE3B6": "Fiberhome Telecommunication Technologies Co.,LTD",
+"60B617": "Fiberhome Telecommunication Technologies Co.,LTD",
+"649CF3": "Fiberhome Telecommunication Technologies Co.,LTD",
+"64B2B4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"68403C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"685811": "Fiberhome Telecommunication Technologies Co.,LTD",
+"689A21": "Fiberhome Telecommunication Technologies Co.,LTD",
+"68B76B": "Fiberhome Telecommunication Technologies Co.,LTD",
+"68DECE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"68E905": "Fiberhome Telecommunication Technologies Co.,LTD",
+"68FEDA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"6C09BF": "Fiberhome Telecommunication Technologies Co.,LTD",
+"6C3845": "Fiberhome Telecommunication Technologies Co.,LTD",
+"6C48A6": "Fiberhome Telecommunication Technologies Co.,LTD",
+"6C9E7C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"6CA4D1": "Fiberhome Telecommunication Technologies Co.,LTD",
+"6CA858": "Fiberhome Telecommunication Technologies Co.,LTD",
+"6CD719": "Fiberhome Telecommunication Technologies Co.,LTD",
+"70B921": "Fiberhome Telecommunication Technologies Co.,LTD",
+"70D51E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"7412BB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"741E93": "Fiberhome Telecommunication Technologies Co.,LTD",
+"7430AF": "Fiberhome Telecommunication Technologies Co.,LTD",
+"745D68": "Fiberhome Telecommunication Technologies Co.,LTD",
+"74C9A3": "Fiberhome Telecommunication Technologies Co.,LTD",
+"74CC39": "Fiberhome Telecommunication Technologies Co.,LTD",
+"74E19A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"74EC42": "Fiberhome Telecommunication Technologies Co.,LTD",
+"78465F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"7CC74A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"7CC77E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"7CF9A0": "Fiberhome Telecommunication Technologies Co.,LTD",
+"7CFCFD": "Fiberhome Telecommunication Technologies Co.,LTD",
+"803AF4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"809FAB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"80C7C5": "Fiberhome Telecommunication Technologies Co.,LTD",
+"8406FA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"844DBE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"848102": "Fiberhome Telecommunication Technologies Co.,LTD",
+"882067": "Fiberhome Telecommunication Technologies Co.,LTD",
+"88238C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"88659F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"88947E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"88B2AB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"8C5FAD": "Fiberhome Telecommunication Technologies Co.,LTD",
+"8C73A0": "Fiberhome Telecommunication Technologies Co.,LTD",
+"903CDA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"903E7F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"9055DE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"9070D3": "Fiberhome Telecommunication Technologies Co.,LTD",
+"90837E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"94AA0A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"94D505": "Fiberhome Telecommunication Technologies Co.,LTD",
+"98EDCA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"9C6865": "Fiberhome Telecommunication Technologies Co.,LTD",
+"9C88AD": "Fiberhome Telecommunication Technologies Co.,LTD",
+"9CA6D8": "Fiberhome Telecommunication Technologies Co.,LTD",
+"9CFEA1": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A013CB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A0D83D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A0E06D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A41908": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A844AA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A8CEE7": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A8E705": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A8EA71": "Fiberhome Telecommunication Technologies Co.,LTD",
+"A8FECE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"AC4E65": "Fiberhome Telecommunication Technologies Co.,LTD",
+"AC80AE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"ACC25D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"ACC4A9": "Fiberhome Telecommunication Technologies Co.,LTD",
+"ACCB36": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B0104B": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B05C16": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B0A7D2": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B0E2E5": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B4608C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B49F4D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B8C716": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B8DFD4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"B8F774": "Fiberhome Telecommunication Technologies Co.,LTD",
+"BC0004": "Fiberhome Telecommunication Technologies Co.,LTD",
+"BC4632": "Fiberhome Telecommunication Technologies Co.,LTD",
+"BC9889": "Fiberhome Telecommunication Technologies Co.,LTD",
+"BCAA82": "Fiberhome Telecommunication Technologies Co.,LTD",
+"BCC00F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C03656": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C096A4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C464B7": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C4F0EC": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C84029": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C8741B": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C8E07A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"C8F6C8": "Fiberhome Telecommunication Technologies Co.,LTD",
+"CC0677": "Fiberhome Telecommunication Technologies Co.,LTD",
+"CC500A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"CC77C9": "Fiberhome Telecommunication Technologies Co.,LTD",
+"CCB071": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D00492": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D041C9": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D05995": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D069FF": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D07880": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D092FA": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D40068": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D45800": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D467E7": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D49F29": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D4AD2D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D4F786": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D4FC13": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D89ED4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"D8F507": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E00ECE": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E02AE6": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E0604A": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E096E8": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E0F678": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E42F26": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E8018D": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E85AD1": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E8910F": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E8B3EF": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E8C417": "Fiberhome Telecommunication Technologies Co.,LTD",
+"E8D099": "Fiberhome Telecommunication Technologies Co.,LTD",
+"EC8AC7": "Fiberhome Telecommunication Technologies Co.,LTD",
+"ECE6A2": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F0407B": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F08CFB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F0ABF3": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F4573E": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F46FED": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F84D33": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F8AFDB": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F8C96C": "Fiberhome Telecommunication Technologies Co.,LTD",
+"F8E4A4": "Fiberhome Telecommunication Technologies Co.,LTD",
+"FC61E9": "Fiberhome Telecommunication Technologies Co.,LTD",
+"FCA6CD": "Fiberhome Telecommunication Technologies Co.,LTD",
+"FCF647": "Fiberhome Telecommunication Technologies Co.,LTD"
+
+    };
+
+    // Função para consultar MAC
+    function consultarMAC() {
+      const macInput = document.getElementById('macInput').value.trim();
+      const macResult = document.getElementById('macResult');
+      
+      if (!macInput) {
+        macResult.innerHTML = `
+          <div style="color: var(--accent); text-align: center;">
+            <i class="fas fa-exclamation-triangle fa-2x"></i><br><br>
+            Digite um MAC address para consultar
+          </div>
+        `;
+        macResult.className = 'mac-result mac-not-found';
+        return;
+      }
+      
+      // Extrair apenas os 6 primeiros dígitos hexadecimais
+      const macLimpo = macInput.replace(/[:\-]/g, '').toUpperCase();
+      const oui = macLimpo.substring(0, 6);
+      
+      if (oui.length !== 6) {
+        macResult.innerHTML = `
+          <div style="color: var(--accent); text-align: center;">
+            <i class="fas fa-exclamation-triangle fa-2x"></i><br><br>
+            MAC address inválido<br>
+            <small>Digite pelo menos 6 caracteres hexadecimais</small>
+          </div>
+        `;
+        macResult.className = 'mac-result mac-not-found';
+        return;
+      }
+      
+      // Buscar fabricante
+      const fabricante = macDatabase[oui];
+      
+      if (fabricante) {
+        macResult.innerHTML = `
+          <div style="text-align: center;">
+            <div style="font-size: 3rem; color: var(--success); margin-bottom: 10px;">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div style="font-size: 1.3rem; font-weight: bold; color: var(--success); margin-bottom: 15px;">
+              FABRICANTE ENCONTRADO
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>MAC Digitado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${macInput}</code>
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>OUI Consultado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${formatarOUI(oui)}</code>
+            </div>
+            <div style="margin: 15px 0; padding: 15px; background: #e6f2ff; border-radius: 6px; font-size: 1.3rem;">
+              <strong>Fabricante 👇</strong><br>
+              <span style="font-weight: 900; font-size: 1.4rem; color: #000000;">${fabricante}</span>
+            </div>
+          </div>
+        `;
+        macResult.className = 'mac-result mac-found';
+      } else {
+        macResult.innerHTML = `
+          <div style="text-align: center;">
+            <div style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <div style="font-size: 1.3rem; font-weight: bold; color: var(--accent); margin-bottom: 15px;">
+              FABRICANTE DESCONHECIDO
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>MAC Digitado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${macInput}</code>
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>OUI Consultado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${formatarOUI(oui)}</code>
+            </div>
+            <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 6px;">
+              Fabricante não cadastrado no sistema
+            </div>
+          </div>
+        `;
+        macResult.className = 'mac-result mac-not-found';
+      }
+    }
+
+    // Função para formatar OUI (XX:XX:XX)
+    function formatarOUI(oui) {
+      return oui.replace(/(.{2})/g, '$1:').slice(0, -1);
+    }
+
     // ========== NOVAS FUNÇÕES PARA A ABA NOTAS ==========
     function toggleTextoFixo() {
       const checkbox = document.getElementById('mostrar-texto-fixo');
@@ -2022,6 +2543,13 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
             gerarTextoCancelamento();
           }
         });
+      });
+
+      // Permitir consulta MAC com Enter
+      document.getElementById('macInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          consultarMAC();
+        }
       });
 
       // ========== INICIALIZAÇÃO DO ATF ==========
