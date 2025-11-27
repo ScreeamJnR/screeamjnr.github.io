@@ -1,455 +1,3073 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transferência de Titularidade</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .form-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .form-section {
-            flex: 1;
-            min-width: 300px;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .form-section:hover {
-            transform: translateY(-5px);
-        }
-        
-        .transferir {
-            border-top: 4px solid #0073aa;
-        }
-        
-        .receber {
-            border-top: 4px solid #46b450;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .transferir h2 {
-            color: #0073aa;
-        }
-        
-        .receber h2 {
-            color: #46b450;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-            text-transform: uppercase;
-        }
-        
-        input[type="text"]:focus,
-        select:focus {
-            border-color: #2a5298;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(42, 82, 152, 0.2);
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 5px;
-        }
-        
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        button {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        button:hover {
-            background: linear-gradient(135deg, #2a5298, #1e3c72);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .resultado {
-            margin-top: 30px;
-            padding: 25px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-        
-        .resultado.mostrar {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .resultado h3 {
-            margin-bottom: 15px;
-            color: #1e3c72;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        
-        .anotacao {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            border-left: 4px solid #1e3c72;
-            white-space: pre-line;
-            line-height: 1.8;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .copy-btn {
-            background: #46b450;
-            width: auto;
-            margin-top: 15px;
-        }
-        
-        .copy-btn:hover {
-            background: #3da345;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @media (max-width: 768px) {
-            .form-container {
-                flex-direction: column;
-            }
-            
-            .form-section {
-                min-width: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistemas Integrados</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+  <style>
+    /* TODOS OS ESTILOS ORIGINAIS MANTIDOS */
+
+    /* NOVO ESTILO: Campo condicional na aba Notas */
+    .conditional-field {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
+    }
+
+    .conditional-field.show {
+      display: block;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      width: auto;
+    }
+
+    /* MODIFICAÇÃO: Área de texto pré-definido com o dobro do tamanho */
+    .texto-predefinido-container {
+      min-height: 800px !important; /* DOBRO do tamanho original (400px) */
+      max-height: 1000px !important;
+      overflow-y: auto;
+    }
+
+    /* Restante do CSS original mantido intacto */
+    :root {
+      --primary: #2563eb;
+      --secondary: #1e40af;
+      --accent: #dc2626;
+      --success: #059669;
+      --light: #f8fafc;
+      --dark: #1e293b;
+      --gray: #64748b;
+      --border-radius: 8px;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.5;
+      padding: 15px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .logo-icon {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    
+    h1 {
+      font-size: 1.8rem;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    
+    /* Sistema de abas */
+    .tabs {
+      display: flex;
+      background: white;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      margin-bottom: 0;
+    }
+    
+    .tab-button {
+      flex: 1;
+      padding: 12px;
+      background: #e9ecef;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .tab-button:hover {
+      background: #dde1e6;
+    }
+    
+    .tab-button.active {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .card {
+      background: white;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .card-header {
+      background: var(--primary);
+      color: white;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      color: var(--secondary);
+      margin: 20px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.95rem;
+    }
+    
+    .input-icon {
+      color: var(--primary);
+      width: 16px;
+      font-size: 0.9rem;
+    }
+    
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      background-color: #f8fafc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .btn:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+    
+    .btn-success {
+      background: var(--success);
+    }
+    
+    .btn-success:hover {
+      background: #047857;
+    }
+    
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    
+    .result-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    
+    .result-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .result-content {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e0;
+      border-radius: 6px;
+      padding: 15px;
+      min-height: 200px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      max-height: 300px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    .result-content.html-result {
+      background: #f0f9ff;
+      border: 2px dashed #7dd3fc;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 12px 18px;
+      background: var(--success);
+      color: white;
+      border-radius: 6px;
+      box-shadow: var(--box-shadow);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      font-size: 0.9rem;
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+    }
+    
+    .required::after {
+      content: " *";
+      color: var(--accent);
+    }
+    
+    .error-message {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .lembrete {
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #92400e;
+      display: none;
+    }
+    
+    .vencimento-container {
+      display: block;
+    }
+    
+    .vencimento-container.hidden {
+      display: none;
+    }
+    
+    .exemplo {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 5px;
+      font-style: italic;
+    }
+    
+    /* Estilos para a tabela de senhas */
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: var(--secondary);
+      position: sticky;
+      top: 0;
+    }
+    
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    
+    .credential {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    
+    .credential:hover {
+      background-color: #e6f7ff;
+    }
+    
+    .credential-text {
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 510;
+    }
+
+    #equipmentsTable td:first-child {
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 0.85rem;
+      font-weight: 550;
+    }
+    
+    .copy-icon {
+      color: var(--primary);
+      opacity: 0.7;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+    
+    .credential:hover .copy-icon {
+      opacity: 1;
+    }
+    
+    .search-container {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      background-color: #f8fafc;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 20px;
+      color: var(--gray);
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+    
+    /* Estilos para o bloco de notas */
+    .editor-container {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e0;
+      border-radius: 6px;
+      padding: 15px;
+      min-height: 400px;
+    }
+    
+    #editor {
+      width: 100%;
+      height: 70vh;
+      min-height: 350px;
+      resize: vertical;
+      padding: 16px 18px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      background-color: #f8fafc;
+      transition: var(--transition);
+    }
+    
+    #editor:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    #editor::placeholder {
+      color: var(--gray);
+      font-style: italic;
+    }
+    
+    /* Controles de fonte */
+    .font-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+    
+    .font-controls label {
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .font-size-select {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      background: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    
+    /* Estilos para a aba de Cores */
+    .add-color-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: flex-end;
+    }
+    
+    .color-sample {
+      width: 80px;
+      height: 40px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    
+    .code-example {
+      font-family: 'Courier New', monospace;
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+      margin: 5px 0;
+    }
+
+    /* Estilos para a aba de Atendimento (ATF) - LAYOUT REORGANIZADO */
+    .atf-wrap {
+      max-width: 100%;
+      margin: 18px auto;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-bottom: 30px;
+    }
+
+    .atf-panel {
+      width: 280px;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      order: 1;
+    }
+    
+    .atf-panel h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      text-align: center;
+      color: #ff6600;
+    }
+    
+    .atf-panel label {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+    
+    .atf-panel input[type="text"],
+    .atf-panel input[type="date"],
+    .atf-panel input[type="number"] {
+      width: 100%;
+      padding: 6px 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: white;
+      color: black;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    
+    .atf-panel input[type="text"]:focus,
+    .atf-panel input[type="date"]:focus,
+    .atf-panel input[type="number"]:focus {
+      background: white;
+      color: black;
+      outline: none;
+      border-color: rgba(255,255,255,0.3);
+    }
+    
+    .atf-panel .row-duo {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    
+    .atf-panel .duo-item {
+      flex: 1;
+    }
+    
+    .atf-panel .duo-item label {
+      display: block;
+      margin-top: 0;
+      font-size: 12px;
+    }
+    
+    .atf-panel .duo-item input {
+      width: 100%;
+      padding: 6px 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: white;
+      color: black;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    
+    .atf-panel button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px;
+      font-weight: 900;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 12px;
+    }
+    
+    .atf-panel button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .atf-btn-primary {
+      background: #ff6600;
+      color: #fff;
+    }
+    
+    .atf-btn-secondary {
+      background: #0aa0b0;
+      color: #fff;
+    }
+    
+    .atf-btn-success {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .atf-canvas-wrap {
+      position: relative;
+      background: #333;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      max-width: 741px;
+      overflow: hidden;
+      order: 2;
+    }
+
+    #atf-canvas {
+      position: relative;
+      display: block;
+      background-image: url('https://i.imgur.com/QEvgDVZ.png');
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-size: contain;
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+      width: 627px;
+      height: 313px;
+    }
+
+    .atf-overlay {
+      position: absolute;
+      color: white;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      user-select: none;
+      font-family: Arial, sans-serif;
+    }
+    
+    .atf-overlay.small {
+      font-size: 13px;
+      font-weight: 550;
+      font-family: "Century Gothic", "CenturyGothic", AppleGothic, sans-serif;
+    }
+    
+    .atf-overlay.big {
+      font-size: 40px;
+      color: black;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .atf-mensagem {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 700;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+    }
+
+    .atf-mensagem.mostrar {
+      opacity: 1;
+    }
+
+    .atf-loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1001;
+      display: none;
+    }
+
+    /* Estilos para a aba de Transferência de Titularidade */
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 5px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+    }
+
+    /* Estilos para a aba MAC */
+    .mac-simple-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .mac-result {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 2px solid #dee2e6;
+      text-align: center;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mac-found {
+    background: #e6f2ff;  /* Azul céu muito claro */
+    border-color: #89c2d9; /* Azul céu suave */
+}
+    
+    .mac-not-found {
+      background: #ffeaea;
+      border-color: #dc3545;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    @media (max-width: 768px) {
+      th, td {
+        padding: 8px 10px;
+      }
+      
+      .card-body {
+        padding: 15px;
+      }
+      
+      .tabs {
+        flex-direction: column;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      #editor {
+        min-height: 300px;
+      }
+      
+      .font-controls {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .color-sample {
+        width: 60px;
+        height: 30px;
+      }
+      
+      .add-color-form {
+        flex-direction: column;
+      }
+      
+      .atf-wrap {
+        flex-direction: column;
+      }
+      
+      .atf-panel {
+        width: 100%;
+      }
+      
+      #atf-canvas {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 250px;
+      }
+      
+      .atf-overlay.big {
+        font-size: 60px;
+      }
+      
+      .atf-overlay.small {
+        font-size: 14px;
+      }
+      
+      .radio-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    
+    #areaCopia {
+      position: absolute;
+      left: -9999px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Transferência de Titularidade</h1>
-            <p class="subtitle">Sistema para transferir a titularidade de serviços entre pessoas físicas ou jurídicas</p>
-        </header>
-        
-        <div class="form-container">
-            <div class="form-section transferir">
-                <h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 8l4 4-4 4"></path>
-                        <path d="M21 12H3"></path>
-                    </svg>
-                    Quem irá Transferir
-                </h2>
-                <form id="form-transferir">
-                    <div class="form-group">
-                        <label for="transferir_genero">Gênero de quem TRANSFERE:</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="transferir_feminino" name="transferir_genero" value="feminino" checked>
-                                <label for="transferir_feminino">Feminino (A cliente)</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="transferir_masculino" name="transferir_genero" value="masculino">
-                                <label for="transferir_masculino">Masculino (O cliente)</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="receber_genero_transf">Gênero de quem RECEBE:</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="receber_feminino_transf" name="receber_genero_transf" value="feminino" checked>
-                                <label for="receber_feminino_transf">Feminino</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="receber_masculino_transf" name="receber_genero_transf" value="masculino">
-                                <label for="receber_masculino_transf">Masculino</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="transferir_nome">Nome/Razão Social:</label>
-                        <input type="text" id="transferir_nome" name="transferir_nome" placeholder="EX: A NORDESTINA MOVEIS LTDA" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="transferir_cpf_cnpj">CPF/CNPJ:</label>
-                        <input type="text" id="transferir_cpf_cnpj" name="transferir_cpf_cnpj" placeholder="EX: 22.202.872/0001-75" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="receber_nome">Nome/Razão Social do Novo Titular:</label>
-                        <input type="text" id="receber_nome" name="receber_nome" placeholder="EX: SOEIRO MATOS" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="receber_cpf_cnpj">CPF/CNPJ do Novo Titular:</label>
-                        <input type="text" id="receber_cpf_cnpj" name="receber_cpf_cnpj" placeholder="EX: 46.411.149/0001-64" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="telefone_contato">Telefone para Contato:</label>
-                        <input type="text" id="telefone_contato" name="telefone_contato" placeholder="EX: (98) 98309-1379" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="protocolo_transf">Protocolo:</label>
-                        <input type="text" id="protocolo_transf" name="protocolo" placeholder="EX: 202400001" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="telefone_atendimento">Telefone de Atendimento:</label>
-                        <input type="text" id="telefone_atendimento" name="telefone_atendimento" placeholder="EX: (11) 4004-0000" required>
-                    </div>
-                    
-                    <button type="submit">Gerar Anotação de Transferência</button>
-                </form>
-            </div>
-            
-            <div class="form-section receber">
-                <h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
-                    </svg>
-                    Quem irá Receber
-                </h2>
-                <form id="form-receber">
-                    <div class="form-group">
-                        <label for="receber_genero">Gênero de quem RECEBE:</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="receber_feminino" name="receber_genero" value="feminino" checked>
-                                <label for="receber_feminino">Feminino (A cliente)</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="receber_masculino" name="receber_genero" value="masculino">
-                                <label for="receber_masculino">Masculino (O cliente)</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="transferir_genero_receb">Gênero de quem TRANSFERE:</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="transferir_feminino_receb" name="transferir_genero_receb" value="feminino" checked>
-                                <label for="transferir_feminino_receb">Feminino</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="transferir_masculino_receb" name="transferir_genero_receb" value="masculino">
-                                <label for="transferir_masculino_receb">Masculino</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="receber_nome_receb">Nome/Razão Social:</label>
-                        <input type="text" id="receber_nome_receb" name="receber_nome" placeholder="EX: SOEIRO MATOS" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="receber_cpf_cnpj_receb">CPF/CNPJ:</label>
-                        <input type="text" id="receber_cpf_cnpj_receb" name="receber_cpf_cnpj" placeholder="EX: 46.411.149/0001-64" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="transferir_nome_receb">Nome/Razão Social do Titular Anterior:</label>
-                        <input type="text" id="transferir_nome_receb" name="transferir_nome" placeholder="EX: A NORDESTINA MOVEIS LTDA" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="transferir_cpf_cnpj_receb">CPF/CNPJ do Titular Anterior:</label>
-                        <input type="text" id="transferir_cpf_cnpj_receb" name="transferir_cpf_cnpj" placeholder="EX: 22.202.872/0001-75" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="telefone_contato_receb">Telefone para Contato:</label>
-                        <input type="text" id="telefone_contato_receb" name="telefone_contato" placeholder="EX: (98) 98309-1379" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="protocolo_receb">Protocolo:</label>
-                        <input type="text" id="protocolo_receb" name="protocolo" placeholder="EX: 202400001" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="telefone_atendimento_receb">Telefone de Atendimento:</label>
-                        <input type="text" id="telefone_atendimento_receb" name="telefone_atendimento" placeholder="EX: (11) 4004-0000" required>
-                    </div>
-                    
-                    <button type="submit">Gerar Anotação de Recebimento</button>
-                </form>
-            </div>
-        </div>
-        
-        <div class="resultado" id="resultado">
-            <h3>Anotação Gerada:</h3>
-            <div class="anotacao" id="anotacao"></div>
-            <button class="copy-btn" id="copy-btn">Copiar Anotação</button>
-        </div>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-tools logo-icon"></i>
+        <h1>Sistemas Integrados</h1>
+      </div>
+    </header>
+
+    <!-- Sistema de abas -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="openTab('mudanca')">
+        <i class="fas fa-truck-moving"></i> Mudança
+      </button>
+      <button class="tab-button" onclick="openTab('baixa')">
+        <i class="fas fa-money-bill-wave"></i> Baixa
+      </button>
+      <button class="tab-button" onclick="openTab('senhas')">
+        <i class="fas fa-key"></i> Senhas
+      </button>
+      <button class="tab-button" onclick="openTab('notas')">
+        <i class="fas fa-sticky-note"></i> Notas
+      </button>
+      <button class="tab-button" onclick="openTab('cores')">
+        <i class="fas fa-palette"></i> Cores
+      </button>
+      <!-- NOVA ABA: Transferência de Titularidade -->
+      <button class="tab-button" onclick="openTab('titularidade')">
+        <i class="fas fa-exchange-alt"></i> Titularidade
+      </button>
+      <!-- NOVA ABA: MAC -->
+      <button class="tab-button" onclick="openTab('mac')">
+        <i class="fas fa-network-wired"></i> MAC
+      </button>
+      <!-- Aba para o Modelo de Atendimento -->
+      <button class="tab-button" onclick="openTab('atendimento')">
+        <i class="fas fa-headset"></i> Atendimento
+      </button>
     </div>
 
-    <script>
-        // Função para converter texto para maiúsculas
-        function toUpperCaseInputs() {
-            const inputs = document.querySelectorAll('input[type="text"]');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    this.value = this.value.toUpperCase();
-                });
-            });
-        }
+    <!-- Aba de Mudança de Endereço -->
+    <div id="mudanca" class="tab-content active">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-edit"></i>
+          Formulário de Mudança
+        </div>
+        <div class="card-body">
+          <form id="formulario-mudanca">
+            <div class="section-title">
+              <i class="fas fa-map-marker-alt"></i>
+              Endereço Antigo
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cidadeAntiga" class="required"><i class="fas fa-city input-icon"></i>Cidade</label>
+                <input type="text" id="cidadeAntiga" placeholder="Ex: SANTA INÊS - MA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="ruaAntiga" class="required"><i class="fas fa-road input-icon"></i>Rua</label>
+                <input type="text" id="ruaAntiga" placeholder="Ex: SANTO ANTÔNIO" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="bairroAntigo" class="required"><i class="fas fa-map-marker-alt input-icon"></i>Bairro</label>
+                <input type="text" id="bairroAntigo" placeholder="Ex: CENTRO" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="numeroAntigo" class="required"><i class="fas fa-house input-icon"></i>Número da Casa</label>
+                <input type="text" id="numeroAntigo" placeholder="Ex: 123" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="referenciaAntiga"><i class="fas fa-map-pin input-icon"></i>Pontos de Referência</label>
+                <input type="text" id="referenciaAntiga" placeholder="Ex: PRÓXIMO AO SHOPPING" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
 
-        // Chamar a função quando a página carregar
-        document.addEventListener('DOMContentLoaded', toUpperCaseInputs);
+            <div class="section-title">
+              <i class="fas fa-map-marked-alt"></i>
+              Endereço Novo
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cidadeNova" class="required"><i class="fas fa-city input-icon"></i>Cidade</label>
+                <input type="text" id="cidadeNova" placeholder="Ex: MONÇÃO - MA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="ruaNova" class="required"><i class="fas fa-road input-icon"></i>Rua</label>
+                <input type="text" id="ruaNova" placeholder="Ex: LARANJEIRAS" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="bairroNova" class="required"><i class="fas fa-map-marker-alt input-icon"></i>Bairro</label>
+                <input type="text" id="bairroNova" placeholder="Ex: CENTRO" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="numeroNova" class="required"><i class="fas fa-house input-icon"></i>Número da Casa</label>
+                <input type="text" id="numeroNova" placeholder="Ex: 456" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="referenciaNova" class="required"><i class="fas fa-map-pin input-icon"></i>Dois Pontos de Referência</label>
+                <input type="text" id="referenciaNova" placeholder="Ex: PRÓXIMO A UBS E A RODOVIÁRIA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
 
-        document.getElementById('form-transferir').addEventListener('submit', function(e) {
-            e.preventDefault();
+            <div class="section-title">
+              <i class="fas fa-money-bill-wave"></i>
+              Informações de Pagamento e Contato
+            </div>
             
-            const transferirGenero = document.querySelector('input[name="transferir_genero"]:checked').value;
-            const receberGenero = document.querySelector('input[name="receber_genero_transf"]:checked').value;
-            const protocolo = document.getElementById('protocolo_transf').value;
-            const transferirNome = document.getElementById('transferir_nome').value;
-            const transferirCpfCnpj = document.getElementById('transferir_cpf_cnpj').value;
-            const receberNome = document.getElementById('receber_nome').value;
-            const receberCpfCnpj = document.getElementById('receber_cpf_cnpj').value;
-            const telefone = document.getElementById('telefone_contato').value;
-            const telefoneAtendimento = document.getElementById('telefone_atendimento').value;
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="contatos" class="required"><i class="fas fa-phone input-icon"></i>Dois Números de Contato</label>
+                <input type="text" id="contatos" placeholder="Ex: (98) 99999-9999 / (98) 98888-8888" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="parcelas" class="required"><i class="fas fa-credit-card input-icon"></i>Forma de Pagamento</label>
+                <select id="parcelas" onchange="toggleVencimento()">
+                  <option value="">SELECIONE</option>
+                  <option value="ISENTO">ISENTO</option>
+                  <option value="À VISTA">À VISTA</option>
+                  <option value="2 VEZES">2 VEZES</option>
+                </select>
+              </div>
+              
+              <div class="form-group vencimento-container" id="vencimentoContainer">
+                <label for="vencimento" class="required"><i class="fas fa-calendar-alt input-icon"></i>Vencimento do Boleto</label>
+                <select id="vencimento">
+                  <option value="">SELECIONE O DIA</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-info-circle"></i>
+              Informações de Atendimento
+            </div>
             
-            const artigoTransferir = transferirGenero === 'feminino' ? 'A' : 'O';
-            const portadorTransferir = transferirGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
-            const portadorReceber = receberGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
-            const novoTitular = receberGenero === 'feminino' ? 'DA NOVA TITULAR' : 'DO NOVO TITULAR';
-            const entrarContato = receberGenero === 'feminino' ? 'A NOVA TITULAR IRA' : 'O NOVO TITULAR IRA';
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="protocoloMudanca" class="required"><i class="fas fa-file-alt input-icon"></i>Número de Protocolo</label>
+                <input type="text" id="protocoloMudanca" placeholder="Ex: 90390001087992" oninput="this.value = this.value.toUpperCase()">
+              </div>
+              
+              <div class="form-group">
+                <label for="telefoneAtendimento" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento</label>
+                <input type="text" id="telefoneAtendimento" placeholder="Ex: (98) 98582-6633" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+
+            <!-- NOVO CAMPO DE OBSERVAÇÕES -->
+            <div class="section-title">
+              <i class="fas fa-sticky-note"></i>
+              Observações Adicionais
+            </div>
             
-            const anotacao = `${artigoTransferir} CLIENTE ${transferirNome} ${portadorTransferir} DO CPF/CNPJ: ${transferirCpfCnpj}\n` +
-                            `DESEJA PASSAR A TITULARIDADE DO SERVICO PARA ${receberNome} ${portadorReceber} DO CPF/CNPJ: ${receberCpfCnpj}\n` +
-                            `- NÚMERO PARA CONTATO ${novoTitular} TELEFONE: ${telefone}. ${entrarContato} ENTRAR EM CONTATO PARA O RECEBIMENTO DO SERVICO.\n` +
-                            `protocolo: ${protocolo} // telefone: ${telefoneAtendimento}`;
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="observacoes"><i class="fas fa-comment input-icon"></i>Observações (Opcional)</label>
+                <input type="text" id="observacoes" placeholder="Ex: FOTO SELFIE ANEXADA, CLIENTE CIENTE QUE DEVE LEVAR O EQUIPAMENTO PARA A NOVA RESIDÊNCIA" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+
+            <div class="form-group" id="erroValidacaoMudanca" style="color: var(--accent); text-align: center; display: none;"></div>
+
+            <div class="actions">
+              <button type="button" class="btn" onclick="gerarTextoMudanca()">
+                <i class="fas fa-file-alt"></i> Gerar Texto
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Resultado apenas da Anotação DuoBox (removida a Ordem de Serviço) -->
+      <div class="result-container">
+        <div class="card">
+          <div class="result-header">
+            <div class="result-title"><i class="fas fa-clipboard-list"></i> Anotação DuoBox</div>
+            <button class="btn btn-success" onclick="copiarTexto('resultadoHtmlMudanca')">
+              <i class="fas fa-copy"></i> Copiar
+            </button>
+          </div>
+          <div class="result-content html-result" id="resultadoHtmlMudanca"></div>
+        </div>
+      </div>
+
+      <div class="lembrete" id="lembreteMudanca">
+        <strong><i class="fas fa-exclamation-circle"></i> Lembrete:</strong> Lembre-se de solicitar a foto selfie do titular com algum documento de identificação ao lado do rosto e a foto da nova residência.
+      </div>
+    </div>
+
+    <!-- Aba de Baixa Bancária -->
+    <div id="baixa" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-edit"></i>
+          Formulário de Baixa Bancária
+        </div>
+        <div class="card-body">
+          <form id="formulario-baixa">
+            <div class="section-title">
+              <i class="fas fa-money-check"></i>
+              Informações do Pagamento
+            </div>
             
-            document.getElementById('anotacao').textContent = anotacao;
-            document.getElementById('resultado').classList.add('mostrar');
-        });
-        
-        document.getElementById('form-receber').addEventListener('submit', function(e) {
-            e.preventDefault();
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="dataPix" class="required"><i class="fas fa-calendar-day input-icon"></i>Data do Pagamento</label>
+                <input type="text" id="dataPix" placeholder="Ex: 26/02/2025">
+                <div class="exemplo">Exemplo: 26/02/2025</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="valorPix" class="required"><i class="fas fa-money-bill input-icon"></i>Valor do Pagamento</label>
+                <input type="text" id="valorPix" placeholder="Ex: 99,90">
+                <div class="exemplo">Exemplo: 99,90 (será convertido para R$ 99,90)</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="mensalidade" class="required"><i class="fas fa-calendar-alt input-icon"></i>Referente à Mensalidade</label>
+                <input type="text" id="mensalidade" placeholder="Ex: 01/2025">
+                <div class="exemplo">Exemplo: 01/2025</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="vencimentoBoleto" class="required"><i class="fas fa-calendar-check input-icon"></i>Vencimento do Boleto</label>
+                <input type="text" id="vencimentoBoleto" placeholder="Ex: 10/02/2025">
+                <div class="exemplo">Exemplo: 10/02/2025</div>
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-barcode"></i>
+              Detalhes do Boleto
+            </div>
             
-            const receberGenero = document.querySelector('input[name="receber_genero"]:checked').value;
-            const transferirGenero = document.querySelector('input[name="transferir_genero_receb"]:checked').value;
-            const protocolo = document.getElementById('protocolo_receb').value;
-            const receberNome = document.getElementById('receber_nome_receb').value;
-            const receberCpfCnpj = document.getElementById('receber_cpf_cnpj_receb').value;
-            const transferirNome = document.getElementById('transferir_nome_receb').value;
-            const transferirCpfCnpj = document.getElementById('transferir_cpf_cnpj_receb').value;
-            const telefone = document.getElementById('telefone_contato_receb').value;
-            const telefoneAtendimento = document.getElementById('telefone_atendimento_receb').value;
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="numeroBoleto" class="required"><i class="fas fa-hashtag input-icon"></i>Número do Boleto</label>
+                <input type="text" id="numeroBoleto" placeholder="Ex: 508626">
+                <div class="exemplo">Exemplo: 508626</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="valorBoleto" class="required"><i class="fas fa-money-bill-wave input-icon"></i>Valor do Boleto</label>
+                <input type="text" id="valorBoleto" placeholder="Ex: 101,90">
+                <div class="exemplo">Exemplo: 101,90 (será convertido para R$ 101,90)</div>
+              </div>
+            </div>
+
+            <div class="section-title">
+              <i class="fas fa-info-circle"></i>
+              Informações de Atendimento
+            </div>
             
-            const novoTitular = receberGenero === 'feminino' ? 'NOVA TITULAR' : 'NOVO TITULAR';
-            const portadorReceber = receberGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
-            const portadorTransferir = transferirGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="protocoloBaixa" class="required"><i class="fas fa-file-alt input-icon"></i>Número de Protocolo</label>
+                <input type="text" id="protocoloBaixa" placeholder="Ex: 28900000922967">
+                <div class="exemplo">Exemplo: 28900000922967</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="telefoneBaixa" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento</label>
+                <input type="text" id="telefoneBaixa" placeholder="Ex: (98) 98185-3959">
+                <div class="exemplo">Exemplo: (98) 98185-3959</div>
+              </div>
+            </div>
+
+            <div class="form-group" id="erroValidacaoBaixa" style="color: var(--accent); text-align: center; display: none;"></div>
+
+            <div class="actions">
+              <button type="button" class="btn" onclick="gerarTextoBaixa()">
+                <i class="fas fa-file-alt"></i> Gerar Texto
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="result-header">
+          <div class="result-title"><i class="fas fa-clipboard-list"></i> Anotação DuoBox</div>
+          <button class="btn btn-success" onclick="copiarTexto('resultadoBaixa')">
+            <i class="fas fa-copy"></i> Copiar
+          </button>
+        </div>
+        <div class="result-content" id="resultadoBaixa"></div>
+      </div>
+    </div>
+
+    <!-- Aba de Senhas de Equipamentos -->
+    <div id="senhas" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-key"></i>
+          Credenciais de Acesso
+        </div>
+        <div class="card-body">
+          <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar por modelo, login ou senha...">
+            <button class="btn" onclick="clearSearch()">
+              <i class="fas fa-times"></i> Limpar
+            </button>
+          </div>
+          
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>MODELO</th>
+                  <th>LOGIN</th>
+                  <th>SENHA</th>
+                </tr>
+              </thead>
+              <tbody id="equipmentsTable">
+                <tr>
+                  <td>FIBER</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('superadmin')">
+                      <span class="credential-text">superadmin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('f1ber@dm!n')">
+                      <span class="credential-text">f1ber@dm!n</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DIR 842</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('Admin')">
+                      <span class="credential-text">Admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('hcneti123hc')">
+                      <span class="credential-text">hcneti123hc</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>AX2</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('admin')">
+                      <span class="credential-text">admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('zaq1XSW@')">
+                      <span class="credential-text">zaq1XSW@</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>HG6145F</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('admin')">
+                      <span class="credential-text">admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('M4r4n37#F1b3r')">
+                      <span class="credential-text">M4r4n37#F1b3r</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>WS5200</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('superadmin')">
+                      <span class="credential-text">superadmin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('hcneti123hc')">
+                      <span class="credential-text">hcneti123hc</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>SR1041E</td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('admin')">
+                      <span class="credential-text">admin</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="credential" onclick="copiarTextoDireto('c0Ntr0le@hcn3ti#')">
+                      <span class="credential-text">c0Ntr0le@hcn3ti#</span>
+                      <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="noResults" class="no-results" style="display: none;">
+              Nenhum equipamento encontrado com o termo pesquisado.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aba de Bloco de Notas - MODIFICADA COM CHECKBOX -->
+    <div id="notas" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-sticky-note"></i>
+          Editor de Notas
+        </div>
+        <div class="card-body">
+          <div class="font-controls">
+            <label for="font-size">Tamanho da fonte:</label>
+            <select id="font-size" class="font-size-select" onchange="changeFontSize()">
+              <option value="14px">Pequeno</option>
+              <option value="16px" selected>Médio</option>
+              <option value="18px">Grande</option>
+              <option value="20px">Muito Grande</option>
+            </select>
             
-            const anotacao = `${novoTitular} ${receberNome} ${portadorReceber} DO CPF/CNPJ: ${receberCpfCnpj}\n` +
-                            `IRÁ ASSUMIR A TITULARIDADE DE ${transferirNome} ${portadorTransferir} DO CPF/CNPJ: ${transferirCpfCnpj}\n` +
-                            `protocolo: ${protocolo} // telefone: ${telefoneAtendimento}`;
-            
-            document.getElementById('anotacao').textContent = anotacao;
-            document.getElementById('resultado').classList.add('mostrar');
-        });
-        
-        document.getElementById('copy-btn').addEventListener('click', function() {
-            const anotacao = document.getElementById('anotacao').textContent;
-            navigator.clipboard.writeText(anotacao).then(function() {
-                const originalText = this.textContent;
-                this.textContent = 'Copiado!';
+            <!-- NOVO: Checkbox para mostrar/ocultar texto fixo -->
+            <div class="checkbox-container">
+              <input type="checkbox" id="mostrar-texto-fixo" onchange="toggleTextoFixo()">
+              <label for="mostrar-texto-fixo" style="margin-bottom: 0; font-weight: 600;">INFORMAÇÕES</label>
+            </div>
+          </div>
+          
+          <!-- NOVO: Área com texto fixo que só aparece quando o checkbox está marcado -->
+          <div id="texto-fixo" class="conditional-field">
+            <div class="form-group">
+              <label><i class="fas fa-file-alt input-icon"></i>Avisos // Informações</label>
+              <div class="result-content texto-predefinido-container" style="background: #e9ecef;">
+                <!-- MODIFICAÇÃO SOLICITADA: Texto pré-definido atualizado -->
+Escala de Horários — Suporte N1 😑
+
+
+Turno A
+Entrada: <span style="color: #0066cc; font-weight: bold;">07:00</span>
+Saída: <span style="color: red; font-weight: bold;">17:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">11:00</span> às <span style="color: red; font-weight: bold;">13:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">08:00</span> às <span style="color: red; font-weight: bold;">09:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">14:00</span> às <span style="color: red; font-weight: bold;">15:00</span>
+
+Turno B
+Entrada: <span style="color: #0066cc; font-weight: bold;">08:00</span>
+Saída: <span style="color: red; font-weight: bold;">18:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">12:00</span> às <span style="color: red; font-weight: bold;">14:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">09:00</span> às <span style="color: red; font-weight: bold;">10:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">15:00</span> às <span style="color: red; font-weight: bold;">16:00</span>
+
+Turno C
+Entrada: <span style="color: #0066cc; font-weight: bold;">10:00</span>
+Saída: <span style="color: red; font-weight: bold;">20:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">14:00</span> às <span style="color: red; font-weight: bold;">16:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">12:00</span> às <span style="color: red; font-weight: bold;">13:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">18:00</span> às <span style="color: red; font-weight: bold;">19:00</span>
+
+Turno D
+Entrada: <span style="color: #0066cc; font-weight: bold;">12:00</span>
+Saída: <span style="color: red; font-weight: bold;">22:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">16:00</span> às <span style="color: red; font-weight: bold;">18:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">15:00</span> às <span style="color: red; font-weight: bold;">16:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">19:00</span> às <span style="color: red; font-weight: bold;">20:00</span>
+
+Turno E
+Entrada: <span style="color: #0066cc; font-weight: bold;">14:00</span>
+Saída: <span style="color: red; font-weight: bold;">00:00</span>
+Intervalo Principal: <span style="color: red; font-weight: bold;">18:00</span> às <span style="color: red; font-weight: bold;">20:00</span>
+Lanche 1: <span style="color: red; font-weight: bold;">16:00</span> às <span style="color: red; font-weight: bold;">17:00</span>
+Lanche 2: <span style="color: red; font-weight: bold;">21:00</span> às <span style="color: red; font-weight: bold;">22:00</span>
+
+LINKS ÚTEIS
+
+Painel Comercial: <a href="https://www.appsheet.com/start/" target="_blank" style="color: #2563eb; text-decoration: underline;">https://www.appsheet.com/start/</a>
+
+Portal do Assinante: <a href="https://www.portaldoassinante.com/maranet/home" target="_blank" style="color: #2563eb; text-decoration: underline;">https://www.portaldoassinante.com/maranet/home</a>
+
+Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCwafZWSYdxapnR/edit?gid=1013945962#gid=1013945962" target="_blank" style="color: #2563eb; text-decoration: underline;">https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCwafZWSYdxapnR/edit?gid=1013945962#gid=1013945962</a>
+</div>
+
+              </div>
+              <!-- BOTÃO REMOVIDO: Copiar Texto Fixo -->
+            </div>
+          </div>
+          
+          <!-- Área normal de notas (fica oculta quando o checkbox está marcado) -->
+          <div id="area-notas-normal">
+            <div class="editor-container">
+              <textarea id="editor" placeholder="Digite suas notas aqui..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aba de Cores -->
+    <div id="cores" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-palette"></i>
+          Tabela de Cores para Anotações
+        </div>
+        <div class="card-body">
+          <div class="add-color-form">
+            <div class="form-group">
+              <label for="hexCode"><i class="fas fa-tint input-icon"></i>Digite o código hexadecimal da cor</label>
+              <input type="text" id="hexCode" placeholder="Ex: #0000FF (azul)" maxlength="7">
+            </div>
+            <button class="btn" onclick="adicionarCorPersonalizada()">
+              <i class="fas fa-plus"></i> Adicionar Cor
+            </button>
+          </div>
+          
+          <div class="table-container">
+            <table id="coresTable">
+              <thead>
+                <tr>
+                  <th>Cor</th>
+                  <th>Nome</th>
+                  <th>Código</th>
+                  <th>Exemplo</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FF0000;"></div></td>
+                  <td>Vermelho</td>
+                  <td>#FF0000</td>
+                  <td class="code-example" id="codigo-vermelho">&lt;mark style="background-color: #FF0000; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-vermelho')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FF7F7F;"></div></td>
+                  <td>Vermelho Claro</td>
+                  <td>#FF7F7F</td>
+                  <td class="code-example" id="codigo-vermelho-claro">&lt;mark style="background-color: #FF7F7F; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-vermelho-claro')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FF4C4C;"></div></td>
+                  <td>Rosa Avermelhado</td>
+                  <td>#FF4C4C</td>
+                  <td class="code-example" id="codigo-rosa">&lt;mark style="background-color: #FF4C4C; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-rosa')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FFA07A;"></div></td>
+                  <td>Salmão Claro</td>
+                  <td>#FFA07A</td>
+                  <td class="code-example" id="codigo-salmao">&lt;mark style="background-color: #FFA07A; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-salmao')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #E6F0FF;"></div></td>
+                  <td>Azul Lavanda</td>
+                  <td>#E6F0FF</td>
+                  <td class="code-example" id="codigo-azul">&lt;mark style="background-color: #E6F0FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-azul')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FFFF99;"></div></td>
+                  <td>Amarelo Marcador</td>
+                  <td>#FFFF99</td>
+                  <td class="code-example" id="codigo-amarelo">&lt;mark style="background-color: #FFFF99; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-amarelo')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #B6FFB6;"></div></td>
+                  <td>Verde Marcador</td>
+                  <td>#B6FFB6</td>
+                  <td class="code-example" id="codigo-verde">&lt;mark style="background-color: #B6FFB6; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-verde')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #A7D8FF;"></div></td>
+                  <td>Azul Marcador</td>
+                  <td>#A7D8FF</td>
+                  <td class="code-example" id="codigo-azul-marcador">&lt;mark style="background-color: #A7D8FF; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-azul-marcador')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #FFA500;"></div></td>
+                  <td>Laranja</td>
+                  <td>#FFA500</td>
+                  <td class="code-example" id="codigo-laranja">&lt;mark style="background-color: #FFA500; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-laranja')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="color-sample" style="background-color: #D3D3D3;"></div></td>
+                  <td>Cinza Claro</td>
+                  <td>#D3D3D3</td>
+                  <td class="code-example" id="codigo-cinza">&lt;mark style="background-color: #D3D3D3; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+                  <td>
+                    <button class="btn" onclick="copiarExemplo('codigo-cinza')">
+                      <i class="fas fa-copy"></i> Copiar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOVA ABA: Transferência de Titularidade -->
+    <div id="titularidade" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-exchange-alt"></i>
+          Transferência de Titularidade
+        </div>
+        <div class="card-body">
+          <div class="form-container" style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div class="form-section" style="flex: 1; min-width: 300px; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-top: 4px solid #0073aa;">
+              <h2 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: #0073aa;">
+                <i class="fas fa-arrow-right"></i>
+                Quem irá Transferir
+              </h2>
+              <form id="form-transferir">
+                <div class="form-group">
+                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem TRANSFERE:</label>
+                  <div class="radio-group">
+                    <div class="radio-option">
+                      <input type="radio" id="transferir_feminino" name="transferir_genero" value="feminino" checked>
+                      <label for="transferir_feminino">Feminino (A cliente)</label>
+                    </div>
+                    <div class="radio-option">
+                      <input type="radio" id="transferir_masculino" name="transferir_genero" value="masculino">
+                      <label for="transferir_masculino">Masculino (O cliente)</label>
+                    </div>
+                  </div>
+                </div>
                 
-                setTimeout(() => {
-                    this.textContent = originalText;
-                }, 2000);
-            }.bind(this));
+                <div class="form-group">
+                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem RECEBE:</label>
+                  <div class="radio-group">
+                    <div class="radio-option">
+                      <input type="radio" id="receber_feminino_transf" name="receber_genero_transf" value="feminino" checked>
+                      <label for="receber_feminino_transf">Feminino</label>
+                    </div>
+                    <div class="radio-option">
+                      <input type="radio" id="receber_masculino_transf" name="receber_genero_transf" value="masculino">
+                      <label for="receber_masculino_transf">Masculino</label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="transferir_nome" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social:</label>
+                  <input type="text" id="transferir_nome" name="transferir_nome" placeholder="EX: MARCELOH" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="transferir_cpf_cnpj" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ:</label>
+                  <input type="text" id="transferir_cpf_cnpj" name="transferir_cpf_cnpj" placeholder="EX: 22.202.872/0001-75" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="receber_nome" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social do Novo Titular:</label>
+                  <input type="text" id="receber_nome" name="receber_nome" placeholder="EX: THENIEL" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="receber_cpf_cnpj" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ do Novo Titular:</label>
+                  <input type="text" id="receber_cpf_cnpj" name="receber_cpf_cnpj" placeholder="EX: 46.411.149/0001-64" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="telefone_contato" class="required"><i class="fas fa-phone input-icon"></i>Telefone Novo Titular:</label>
+                  <input type="text" id="telefone_contato" name="telefone_contato" placeholder="EX: (98) 98309-1379" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="protocolo_transf" class="required"><i class="fas fa-file-alt input-icon"></i>Protocolo:</label>
+                  <input type="text" id="protocolo_transf" name="protocolo" placeholder="EX: 202400001" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="telefone_atendimento" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento:</label>
+                  <input type="text" id="telefone_atendimento" name="telefone_atendimento" placeholder="EX: (11) 4004-0000" required>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">
+                  <i class="fas fa-file-alt"></i> Gerar Anotação de Transferência
+                </button>
+              </form>
+            </div>
+            
+            <div class="form-section" style="flex: 1; min-width: 300px; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-top: 4px solid #46b450;">
+              <h2 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: #46b450;">
+                <i class="fas fa-arrow-left"></i>
+                Quem irá Receber
+              </h2>
+              <form id="form-receber">
+                <div class="form-group">
+                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem RECEBE:</label>
+                  <div class="radio-group">
+                    <div class="radio-option">
+                      <input type="radio" id="receber_feminino" name="receber_genero" value="feminino" checked>
+                      <label for="receber_feminino">Feminino (A cliente)</label>
+                    </div>
+                    <div class="radio-option">
+                      <input type="radio" id="receber_masculino" name="receber_genero" value="masculino">
+                      <label for="receber_masculino">Masculino (O cliente)</label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem TRANSFERE:</label>
+                  <div class="radio-group">
+                    <div class="radio-option">
+                      <input type="radio" id="transferir_feminino_receb" name="transferir_genero_receb" value="feminino" checked>
+                      <label for="transferir_feminino_receb">Feminino</label>
+                    </div>
+                    <div class="radio-option">
+                      <input type="radio" id="transferir_masculino_receb" name="transferir_genero_receb" value="masculino">
+                      <label for="transferir_masculino_receb">Masculino</label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="receber_nome_receb" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social:</label>
+                  <input type="text" id="receber_nome_receb" name="receber_nome" placeholder="EX: THENIEL" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="receber_cpf_cnpj_receb" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ:</label>
+                  <input type="text" id="receber_cpf_cnpj_receb" name="receber_cpf_cnpj" placeholder="EX: 46.411.149/0001-64" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="transferir_nome_receb" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social do Titular Anterior:</label>
+                  <input type="text" id="transferir_nome_receb" name="transferir_nome" placeholder="EX: MARCELOH" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="transferir_cpf_cnpj_receb" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ do Titular Anterior:</label>
+                  <input type="text" id="transferir_cpf_cnpj_receb" name="transferir_cpf_cnpj" placeholder="EX: 22.202.872/0001-75" required oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                  <label for="telefone_contato_receb" class="required"><i class="fas fa-phone input-icon"></i>Telefone para Contato:</label>
+                  <input type="text" id="telefone_contato_receb" name="telefone_contato" placeholder="EX: (98) 98309-1379" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="protocolo_receb" class="required"><i class="fas fa-file-alt input-icon"></i>Protocolo:</label>
+                  <input type="text" id="protocolo_receb" name="protocolo" placeholder="EX: 202400001" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="telefone_atendimento_receb" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento:</label>
+                  <input type="text" id="telefone_atendimento_receb" name="telefone_atendimento" placeholder="EX: (11) 4004-0000" required>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">
+                  <i class="fas fa-file-alt"></i> Gerar Anotação de Recebimento
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-container">
+        <div class="card">
+          <div class="result-header">
+            <div class="result-title"><i class="fas fa-clipboard-list"></i> Anotação Gerada</div>
+            <button class="btn btn-success" onclick="copiarTexto('resultadoTitularidade')">
+              <i class="fas fa-copy"></i> Copiar
+            </button>
+          </div>
+          <div class="result-content" id="resultadoTitularidade"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOVA ABA: MAC -->
+    <div id="mac" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-network-wired"></i>
+          Consulta de Fabricante por MAC Address da Deep Web
+        </div>
+        <div class="card-body">
+          <div class="mac-simple-container">
+            <div class="form-group">
+              <label for="macInput">
+                <i class="fas fa-ethernet input-icon"></i>Digite o MAC Address
+              </label>
+              <input type="text" id="macInput" placeholder="Ex: 50:28:73:80:30:8D" 
+                     style="font-family: 'Courier New', monospace; font-size: 1.1rem; text-align: center;">
+              <div class="exemplo">Ainda em fase de implementação</div>
+            </div>
+            
+            <button class="btn" onclick="consultarMAC()" style="width: 100%;">
+              <i class="fas fa-search"></i> Consultar Fabricante
+            </button>
+            
+            <div class="mac-result" id="macResult">
+              <div style="color: var(--gray);">
+                <i class="fas fa-info-circle fa-2x"></i><br><br>
+                Digite um MAC address para consultar o fabricante
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA ATENDIMENTO - LAYOUT REORGANIZADO -->
+    <div id="atendimento" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-headset"></i>
+          Modelo de Atendimento - Configuração de Posições
+        </div>
+        <div class="card-body">
+          
+          <div class="atf-wrap">
+            <!-- PAINEL DE CONTROLE COM NOVO LAYOUT (ESQUERDA) -->
+            <div class="atf-panel">
+              <h2>CONTROLE DE ATENDIMENTO</h2>
+              
+              <label for="inputNome">Nome</label>
+              <input type="text" id="inputNome" placeholder="Digite seu nome" value="ANTÔNIO WILSON ( Júnior )">
+              
+              <label for="inputData">Data (Automática)</label>
+              <input type="text" id="inputData" readonly style="background: #f8f9fa; cursor: not-allowed;">
+              
+              <label for="inputAtend">Atendimentos</label>
+              <input type="number" id="inputAtend" placeholder="0" min="0">
+              
+              <label for="inputLig">Ligações</label>
+              <input type="number" id="inputLig" placeholder="0" min="0">
+              
+              <label for="inputOS">O.S. Abertas</label>
+              <input type="number" id="inputOS" placeholder="0" min="0">
+              
+              <!-- NOVO: GERAL E LINK LOSS LADO A LADO -->
+              <div class="row-duo">
+                <div class="duo-item">
+                  <label for="inputGeral">Geral</label>
+                  <input type="number" id="inputGeral" placeholder="0" min="0">
+                </div>
+                <div class="duo-item">
+                  <label for="inputLinkLoss">Link Loss</label>
+                  <input type="number" id="inputLinkLoss" placeholder="0" min="0">
+                </div>
+              </div>
+              
+              <!-- BOTÕES NO ESTILO ORIGINAL -->
+              <button class="atf-btn-success" onclick="copiarImagemFinal()">
+                <i class="fas fa-copy"></i> Copiar Imagem
+              </button>
+              
+              <button class="atf-btn-secondary" onclick="resetarTudo()">
+                <i class="fas fa-redo"></i> Resetar
+              </button>
+            </div>
+
+            <!-- ÁREA DE VISUALIZAÇÃO (DIREITA) -->
+            <div class="atf-canvas-wrap">
+              <div id="atf-canvas" style="width:627px;height:313px;position:relative;background:#333;cursor:default;">
+                <img src="https://i.imgur.com/QEvgDVZ.png" style="width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;">
+                
+                <!-- ELEMENTOS DE TEXTO COM POSIÇÕES DEFINITIVAS -->
+                <div id="nome-visualizacao" class="atf-overlay small" 
+                     style="left:50.72%;top:14.34%;font-size:14px;color:white;text-align:left;font-weight:bold;">ANTÔNIO WILSON DE SOUSA</div>
+
+                <div id="data-visualizacao" class="atf-overlay small" 
+                     style="left:52.40%;top:20.73%;font-size:12px;color:white;text-align:right;font-weight:bold;">16/10/2025</div>
+                
+                <!-- POSIÇÕES FIXAS DOS NÚMEROS -->
+                <div id="numero-atend" class="atf-overlay big" style="left:53.29%;top:32.70%;font-size:60px;">0</div>
+                <div id="numero-lig" class="atf-overlay big" style="left:53.35%;top:53.86%;font-size:60px;">0</div>
+                <div id="numero-os" class="atf-overlay big" style="left:53.47%;top:73.91%;font-size:60px;">0</div>
+                <div id="numero-geral" class="atf-overlay big" style="left:86.11%;top:69.44%;font-size:20px;">0</div>
+                <div id="numero-linkloss" class="atf-overlay big" style="left:86.11%;top:77.50%;font-size:20px;">0</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ÁREA PARA O CÓDIGO GERADO (MANTIDA IGUAL) -->
+          <div id="areaCodigo" style="display:none;margin-top:20px;padding:15px;background:#f8f9fa;border-radius:8px;border:1px solid #dee2e6;">
+            <h4 style="color:#333;margin-bottom:10px;">Código Definitivo Gerado:</h4>
+            <textarea id="codigoDefinitivo" style="width:100%;height:200px;font-family:monospace;font-size:12px;padding:10px;border:1px solid #ccc;border-radius:4px;"></textarea>
+            <button class="btn btn-success" onclick="copiarCodigoDefinitivo()" style="margin-top:10px;">
+              <i class="fas fa-copy"></i> Copiar Código
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏᴅᴊᴀꜱ ᴠᴇʀ. + ᴅᴇ 8.000</p>
+    </div>
+  </div>
+
+  <!-- Área de cópia oculta -->
+  <textarea id="areaCopia"></textarea>
+
+  <!-- Notificação -->
+  <div class="notification" id="notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="notificationText">Texto copiado com sucesso!</span>
+  </div>
+
+  <!-- Mensagem para ATF -->
+  <div class="atf-mensagem" id="atfMensagem"></div>
+
+  <script>
+// ========== SISTEMA DE CONSULTA MAC ==========
+    
+    // Banco de dados de MACs
+    const macDatabase = {
+"B0FEE5": "HUAWEI",
+"F41D6B": "HUAWEI",
+"C4278C": "HUAWEI",
+"001882": "HUAWEI",
+"001E10": "HUAWEI",
+"002568": "HUAWEI",
+"00259E": "HUAWEI",
+"002EC7": "HUAWEI",
+"0034FE": "HUAWEI",
+"00464B": "HUAWEI",
+"004F1A": "HUAWEI",
+"005A13": "HUAWEI",
+"006151": "HUAWEI",
+"00664B": "HUAWEI",
+"006B6F": "HUAWEI",
+"00991D": "HUAWEI",
+"009ACD": "HUAWEI",
+"00A91D": "HUAWEI",
+"00BE3B": "HUAWEI",
+"00E0FC": "HUAWEI",
+"00E12F": "HUAWEI",
+"00E406": "HUAWEI",
+"00F5FD": "HUAWEI",
+"00F7AD": "HUAWEI",
+"00F81C": "HUAWEI",
+"00F952": "HUAWEI",
+"04021F": "HUAWEI",
+"042758": "HUAWEI",
+"043389": "HUAWEI",
+"044A6C": "HUAWEI",
+"0455B8": "HUAWEI",
+"046E0B": "HUAWEI",
+"04749E": "HUAWEI",
+"048CF8": "HUAWEI",
+"049FCA": "HUAWEI",
+"04A81C": "HUAWEI",
+"04F03E": "HUAWEI",
+"04F169": "HUAWEI",
+"04F352": "HUAWEI",
+"04F938": "HUAWEI",
+"08FA28": "HUAWEI",
+"10A4DA": "HUAWEI",
+"10C3AB": "HUAWEI",
+"10DA49": "HUAWEI",
+"14CF92": "HUAWEI",
+"17A6F2": "HUAWEI",
+"24E924": "HUAWEI",
+"24264A": "HUAWEI",
+"24E13F": "HUAWEI",
+"282392": "HUAWEI",
+"2CAA8E": "HUAWEI",
+"341A4C": "HUAWEI",
+"3476C5": "HUAWEI",
+"3C2C94": "HUAWEI",
+"40F52E": "HUAWEI",
+"441CA8": "HUAWEI",
+"502873": "HUAWEI",
+"547459": "HUAWEI",
+"5475D0": "HUAWEI",
+"5475F7": "HUAWEI",
+"58B035": "HUAWEI",
+"5C4AAB": "HUAWEI",
+"60E327": "HUAWEI",
+"641CA8": "HUAWEI",
+"6CEDFB": "HUAWEI",
+"7C1CF1": "HUAWEI",
+"7CD1C3": "HUAWEI",
+"7C96D2": "HUAWEI",
+"8C01F6": "HUAWEI",
+"98D6BB": "HUAWEI",
+"9C1D58": "HUAWEI",
+"9CE374": "HUAWEI",
+"A01781": "HUAWEI",
+"A04EF9": "HUAWEI",
+"A0F3C1": "HUAWEI",
+"B4975A": "HUAWEI",
+"C8AB37": "HUAWEI",
+"CC3A61": "HUAWEI",
+"CC73F9": "HUAWEI",
+"D0C1B1": "HUAWEI",
+"D4258B": "HUAWEI",
+"DC1EA3": "HUAWEI",
+"DC4EDE": "HUAWEI",
+"EC2334": "HUAWEI",
+"F02929": "HUAWEI",
+"F0F279": "HUAWEI",
+"F48C50": "HUAWEI",
+"F88DEF": "HUAWEI",
+"00AD24": "D-Link",
+"085A11": "D-Link",
+"0C0E76": "D-Link",
+"0CB6D2": "D-Link",
+"1062EB": "D-Link",
+"10BEF5": "D-Link",
+"14D64D": "D-Link",
+"180F76": "D-Link",
+"1C5F2B": "D-Link",
+"1C7EE5": "D-Link",
+"1CAFF7": "D-Link",
+"1CBDB9": "D-Link",
+"28107B": "D-Link",
+"283B82": "D-Link",
+"340A33": "D-Link",
+"3C1E04": "D-Link",
+"409BCD": "D-Link",
+"48EE0C": "D-Link",
+"54B80A": "D-Link",
+"58D56E": "D-Link",
+"60634C": "D-Link",
+"6C198F": "D-Link",
+"6C7220": "D-Link",
+"7062B8": "D-Link",
+"74DADA": "D-Link",
+"78321B": "D-Link",
+"78542E": "D-Link",
+"7898E8": "D-Link",
+"802689": "D-Link",
+"84C9B2": "D-Link",
+"908D78": "D-Link",
+"9094E4": "D-Link",
+"9CD643": "D-Link",
+"A0A3F0": "D-Link",
+"A0AB1B": "D-Link",
+"A42A95": "D-Link",
+"A8637D": "D-Link",
+"ACF1DF": "D-Link",
+"B0C554": "D-Link",
+"B8A386": "D-Link",
+"BC0F9A": "D-Link",
+"BC2228": "D-Link",
+"BCF685": "D-Link",
+"C0A0BB": "D-Link",
+"C412F5": "D-Link",
+"C4A81D": "D-Link",
+"C4E90A": "D-Link",
+"C8BE19": "D-Link",
+"C8D3A3": "D-Link",
+"CCB255": "D-Link",
+"D8FEE3": "D-Link",
+"E01CFC": "D-Link",
+"E46F13": "D-Link",
+"E8CC18": "D-Link",
+"EC2280": "D-Link",
+"ECADE0": "D-Link",
+"F0B4D2": "D-Link",
+"F48CEB": "D-Link",
+"F8E903": "D-Link",
+"FC7516": "D-Link",
+"002FD9": "Fiberhome",
+"006762": "Fiberhome",
+"00BE9E": "Fiberhome",
+"04A2F3": "Fiberhome",
+"04C1B9": "Fiberhome",
+"04ECBB": "Fiberhome",
+"0830CE": "Fiberhome",
+"0846C7": "Fiberhome",
+"087458": "Fiberhome",
+"0C2A86": "Fiberhome",
+"0C35FE": "Fiberhome",
+"0C6ABC": "Fiberhome",
+"0C7474": "Fiberhome",
+"0C8447": "Fiberhome",
+"10071D": "Fiberhome",
+"104C43": "Fiberhome",
+"105887": "Fiberhome",
+"1077B0": "Fiberhome",
+"1088CE": "Fiberhome",
+"10DC4A": "Fiberhome",
+"14172A": "Fiberhome",
+"142233": "Fiberhome",
+"142D79": "Fiberhome",
+"14E9B2": "Fiberhome",
+"185282": "Fiberhome",
+"18A3E8": "Fiberhome",
+"18D225": "Fiberhome",
+"1C398A": "Fiberhome",
+"1C60D2": "Fiberhome",
+"1CD1BA": "Fiberhome",
+"1CDE57": "Fiberhome",
+"2025D2": "Fiberhome",
+"205D0D": "Fiberhome",
+"20896F": "Fiberhome",
+"24B7DA": "Fiberhome",
+"24CACB": "Fiberhome",
+"24E3A4": "Fiberhome",
+"24E4C8": "Fiberhome",
+"28172E": "Fiberhome",
+"28563A": "Fiberhome",
+"286DDA": "Fiberhome",
+"28BF89": "Fiberhome",
+"28F7D6": "Fiberhome",
+"3085EB": "Fiberhome",
+"3086F1": "Fiberhome",
+"30A176": "Fiberhome",
+"341A35": "Fiberhome",
+"342DA3": "Fiberhome",
+"344B3D": "Fiberhome",
+"34BF90": "Fiberhome",
+"38144E": "Fiberhome",
+"383D5B": "Fiberhome",
+"38637F": "Fiberhome",
+"387A3C": "Fiberhome",
+"38A89B": "Fiberhome",
+"3C1060": "Fiberhome",
+"3CFB5C": "Fiberhome",
+"444B7E": "Fiberhome",
+"48555F": "Fiberhome",
+"485AEA": "Fiberhome",
+"48A0F8": "Fiberhome",
+"48F97C": "Fiberhome",
+"50C6AD": "Fiberhome",
+"540A77": "Fiberhome",
+"543E64": "Fiberhome",
+"54DF24": "Fiberhome",
+"54E005": "Fiberhome",
+"58239B": "Fiberhome",
+"583BD9": "Fiberhome",
+"58AEF1": "Fiberhome",
+"58C57E": "Fiberhome",
+"5C7DF3": "Fiberhome",
+"5CA4A4": "Fiberhome",
+"5CE3B6": "Fiberhome",
+"60B617": "Fiberhome",
+"649CF3": "Fiberhome",
+"64B2B4": "Fiberhome",
+"68403C": "Fiberhome",
+"685811": "Fiberhome",
+"689A21": "Fiberhome",
+"68B76B": "Fiberhome",
+"68DECE": "Fiberhome",
+"68E905": "Fiberhome",
+"68FEDA": "Fiberhome",
+"6C09BF": "Fiberhome",
+"6C3845": "Fiberhome",
+"6C48A6": "Fiberhome",
+"6C9E7C": "Fiberhome",
+"6CA4D1": "Fiberhome",
+"6CA858": "Fiberhome",
+"6CD719": "Fiberhome",
+"70B921": "Fiberhome",
+"70D51E": "Fiberhome",
+"7412BB": "Fiberhome",
+"741E93": "Fiberhome",
+"7430AF": "Fiberhome",
+"745D68": "Fiberhome",
+"74C9A3": "Fiberhome",
+"74CC39": "Fiberhome",
+"74E19A": "Fiberhome",
+"74EC42": "Fiberhome",
+"78465F": "Fiberhome",
+"7CC74A": "Fiberhome",
+"7CC77E": "Fiberhome",
+"7CF9A0": "Fiberhome",
+"7CFCFD": "Fiberhome",
+"803AF4": "Fiberhome",
+"809FAB": "Fiberhome",
+"80C7C5": "Fiberhome",
+"8406FA": "Fiberhome",
+"844DBE": "Fiberhome",
+"848102": "Fiberhome",
+"882067": "Fiberhome",
+"88238C": "Fiberhome",
+"88659F": "Fiberhome",
+"88947E": "Fiberhome",
+"88B2AB": "Fiberhome",
+"8C5FAD": "Fiberhome",
+"8C73A0": "Fiberhome",
+"903CDA": "Fiberhome",
+"903E7F": "Fiberhome",
+"9055DE": "Fiberhome",
+"9070D3": "Fiberhome",
+"90837E": "Fiberhome",
+"94AA0A": "Fiberhome",
+"94D505": "Fiberhome",
+"98EDCA": "Fiberhome",
+"9C6865": "Fiberhome",
+"9C88AD": "Fiberhome",
+"9CA6D8": "Fiberhome",
+"9CFEA1": "Fiberhome",
+"A013CB": "Fiberhome",
+"A0D83D": "Fiberhome",
+"A0E06D": "Fiberhome",
+"A41908": "Fiberhome",
+"A844AA": "Fiberhome",
+"A8CEE7": "Fiberhome",
+"A8E705": "Fiberhome",
+"A8EA71": "Fiberhome",
+"A8FECE": "Fiberhome",
+"AC4E65": "Fiberhome",
+"AC80AE": "Fiberhome",
+"ACC25D": "Fiberhome",
+"ACC4A9": "Fiberhome",
+"ACCB36": "Fiberhome",
+"B0104B": "Fiberhome",
+"B05C16": "Fiberhome",
+"B0A7D2": "Fiberhome",
+"B0E2E5": "Fiberhome",
+"B4608C": "Fiberhome",
+"B49F4D": "Fiberhome",
+"B8C716": "Fiberhome",
+"B8DFD4": "Fiberhome",
+"B8F774": "Fiberhome",
+"BC0004": "Fiberhome",
+"BC4632": "Fiberhome",
+"BC9889": "Fiberhome",
+"BCAA82": "Fiberhome",
+"BCC00F": "Fiberhome",
+"C03656": "Fiberhome",
+"C096A4": "Fiberhome",
+"C464B7": "Fiberhome",
+"C4F0EC": "Fiberhome",
+"C84029": "Fiberhome",
+"C8741B": "Fiberhome",
+"C8E07A": "Fiberhome",
+"C8F6C8": "Fiberhome",
+"CC0677": "Fiberhome",
+"CC500A": "Fiberhome",
+"CC77C9": "Fiberhome",
+"CCB071": "Fiberhome",
+"D00492": "Fiberhome",
+"D041C9": "Fiberhome",
+"D05995": "Fiberhome",
+"D069FF": "Fiberhome",
+"D07880": "Fiberhome",
+"D092FA": "Fiberhome",
+"D40068": "Fiberhome",
+"D45800": "Fiberhome",
+"D467E7": "Fiberhome",
+"D49F29": "Fiberhome",
+"D4AD2D": "Fiberhome",
+"D4F786": "Fiberhome",
+"D4FC13": "Fiberhome",
+"D89ED4": "Fiberhome",
+"D8F507": "Fiberhome",
+"E00ECE": "Fiberhome",
+"E02AE6": "Fiberhome",
+"E0604A": "Fiberhome",
+"E096E8": "Fiberhome",
+"E0F678": "Fiberhome",
+"E42F26": "Fiberhome",
+"E8018D": "Fiberhome",
+"E85AD1": "Fiberhome",
+"E8910F": "Fiberhome",
+"E8B3EF": "Fiberhome",
+"E8C417": "Fiberhome",
+"E8D099": "Fiberhome",
+"EC8AC7": "Fiberhome",
+"ECE6A2": "Fiberhome",
+"F0407B": "Fiberhome",
+"F08CFB": "Fiberhome",
+"F0ABF3": "Fiberhome",
+"F4573E": "Fiberhome",
+"F46FED": "Fiberhome",
+"F84D33": "Fiberhome",
+"F8AFDB": "Fiberhome",
+"F8C96C": "Fiberhome",
+"F8E4A4": "Fiberhome",
+"FC61E9": "Fiberhome",
+"FCA6CD": "Fiberhome",
+"FCF647": "Fiberhome",
+"000C42": "Routerboard",
+"085531": "Routerboard",
+"18FD74": "Routerboard",
+"2CC81B": "Routerboard",
+"488F5A": "Routerboard",
+"48A98A": "Routerboard",
+"4C5E0C": "Routerboard",
+"64D154": "Routerboard",
+"6C3B6B": "Routerboard",
+"744D28": "Routerboard",
+"789A18": "Routerboard",
+"C4AD34": "Routerboard",
+"CC2DE0": "Routerboard",
+"D401C3": "Routerboard",
+"D4CA6D": "Routerboard",
+"DC2C6E": "Routerboard",
+"E48D8C": "Routerboard",
+"F41E57": "Routerboard",
+"B869F4": "Routerboard",
+"04F41C": "Routerboard",
+"28107B": "Intelbras",
+"00:1A:3F": "Intelbras",
+"18:0D:2C": "Intelbras",
+"24:FD:0D": "Intelbras",
+"30:E1:F1": "Intelbras",
+"44:3B:32": "Intelbras",
+"48:51:CF": "Intelbras",
+"54:6C:AC": "Intelbras",
+"54:BA:D9": "Intelbras",
+"58:10:8C": "Intelbras",
+"80:85:44": "Intelbras",
+"80:8F:E8": "Intelbras",
+"98:2A:0A": "Intelbras",
+"98:E5:5B": "Intelbras",
+"AC:1E:A9": "Intelbras",
+"B8:7E:E5": "Intelbras",
+"D8:36:5F": "Intelbras",
+"D8:77:8B": "Intelbras"
+
+      
+
+    };
+
+    // Função para consultar MAC
+    function consultarMAC() {
+      const macInput = document.getElementById('macInput').value.trim();
+      const macResult = document.getElementById('macResult');
+      
+      if (!macInput) {
+        macResult.innerHTML = `
+          <div style="color: var(--accent); text-align: center;">
+            <i class="fas fa-exclamation-triangle fa-2x"></i><br><br>
+            Digite um MAC address para consultar
+          </div>
+        `;
+        macResult.className = 'mac-result mac-not-found';
+        return;
+      }
+      
+      // Extrair apenas os 6 primeiros dígitos hexadecimais
+      const macLimpo = macInput.replace(/[:\-]/g, '').toUpperCase();
+      const oui = macLimpo.substring(0, 6);
+      
+      if (oui.length !== 6) {
+        macResult.innerHTML = `
+          <div style="color: var(--accent); text-align: center;">
+            <i class="fas fa-exclamation-triangle fa-2x"></i><br><br>
+            MAC address inválido<br>
+            <small>Digite pelo menos 6 caracteres hexadecimais</small>
+          </div>
+        `;
+        macResult.className = 'mac-result mac-not-found';
+        return;
+      }
+      
+      // Buscar fabricante
+      const fabricante = macDatabase[oui];
+      
+      if (fabricante) {
+        macResult.innerHTML = `
+          <div style="text-align: center;">
+            <div style="font-size: 3rem; color: var(--success); margin-bottom: 10px;">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div style="font-size: 1.3rem; font-weight: bold; color: var(--success); margin-bottom: 15px;">
+              FABRICANTE ENCONTRADO
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>MAC Digitado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${macInput}</code>
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>OUI Consultado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${formatarOUI(oui)}</code>
+            </div>
+            <div style="margin: 15px 0; padding: 15px; background: #e6f2ff; border-radius: 6px; font-size: 1.3rem;">
+              <strong>Fabricante 👇</strong><br>
+              <span style="font-weight: 900; font-size: 1.4rem; color: #000000;">${fabricante}</span>
+            </div>
+          </div>
+        `;
+        macResult.className = 'mac-result mac-found';
+      } else {
+        macResult.innerHTML = `
+          <div style="text-align: center;">
+            <div style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <div style="font-size: 1.3rem; font-weight: bold; color: var(--accent); margin-bottom: 15px;">
+              FABRICANTE DESCONHECIDO
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>MAC Digitado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${macInput}</code>
+            </div>
+            <div style="margin: 10px 0; font-size: 1.1rem;">
+              <strong>OUI Consultado:</strong><br>
+              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${formatarOUI(oui)}</code>
+            </div>
+            <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 6px;">
+              Fabricante não cadastrado no sistema
+            </div>
+          </div>
+        `;
+        macResult.className = 'mac-result mac-not-found';
+      }
+    }
+
+    // Função para formatar OUI (XX:XX:XX)
+    function formatarOUI(oui) {
+      return oui.replace(/(.{2})/g, '$1:').slice(0, -1);
+    }
+
+    // ========== NOVAS FUNÇÕES PARA A ABA NOTAS ==========
+    function toggleTextoFixo() {
+      const checkbox = document.getElementById('mostrar-texto-fixo');
+      const textoFixo = document.getElementById('texto-fixo');
+      const areaNotasNormal = document.getElementById('area-notas-normal');
+      
+      if (checkbox.checked) {
+        textoFixo.classList.add('show');
+        areaNotasNormal.style.display = 'none';
+      } else {
+        textoFixo.classList.remove('show');
+        areaNotasNormal.style.display = 'block';
+      }
+    }
+
+    // ========== FUNÇÕES DA TRANSFERÊNCIA DE TITULARIDADE ==========
+    
+    // Função para gerar texto de transferência
+    function gerarTextoTransferencia() {
+      const transferirGenero = document.querySelector('input[name="transferir_genero"]:checked').value;
+      const receberGenero = document.querySelector('input[name="receber_genero_transf"]:checked').value;
+      const protocolo = document.getElementById('protocolo_transf').value;
+      const transferirNome = document.getElementById('transferir_nome').value;
+      const transferirCpfCnpj = document.getElementById('transferir_cpf_cnpj').value;
+      const receberNome = document.getElementById('receber_nome').value;
+      const receberCpfCnpj = document.getElementById('receber_cpf_cnpj').value;
+      const telefone = document.getElementById('telefone_contato').value;
+      const telefoneAtendimento = document.getElementById('telefone_atendimento').value;
+      
+      const artigoTransferir = transferirGenero === 'feminino' ? 'A' : 'O';
+      const portadorTransferir = transferirGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
+      const portadorReceber = receberGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
+      const novoTitular = receberGenero === 'feminino' ? 'DA NOVA TITULAR' : 'DO NOVO TITULAR';
+      const entrarContato = receberGenero === 'feminino' ? 'A NOVA TITULAR IRÁ' : 'O NOVO TITULAR IRÁ';
+      
+      const anotacao = `${artigoTransferir} CLIENTE ${transferirNome} ${portadorTransferir} DO CPF/CNPJ: ${transferirCpfCnpj}\n` +
+                      `DESEJA PASSAR A TITULARIDADE DO SERVICO PARA ${receberNome} ${portadorReceber} DO CPF/CNPJ: ${receberCpfCnpj}\n` +
+                      `- NÚMERO PARA CONTATO ${novoTitular}: ${telefone}. ${entrarContato} ENTRAR EM CONTATO PARA O RECEBIMENTO DO SERVICO.\n` +
+                      `protocolo: ${protocolo} // telefone: ${telefoneAtendimento}`;
+      
+      document.getElementById('resultadoTitularidade').textContent = anotacao;
+      document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Função para gerar texto de recebimento
+    function gerarTextoRecebimento() {
+      const receberGenero = document.querySelector('input[name="receber_genero"]:checked').value;
+      const transferirGenero = document.querySelector('input[name="transferir_genero_receb"]:checked').value;
+      const protocolo = document.getElementById('protocolo_receb').value;
+      const receberNome = document.getElementById('receber_nome_receb').value;
+      const receberCpfCnpj = document.getElementById('receber_cpf_cnpj_receb').value;
+      const transferirNome = document.getElementById('transferir_nome_receb').value;
+      const transferirCpfCnpj = document.getElementById('transferir_cpf_cnpj_receb').value;
+      const telefoneAtendimento = document.getElementById('telefone_atendimento_receb').value;
+      
+      const novoTitular = receberGenero === 'feminino' ? 'NOVA TITULAR' : 'NOVO TITULAR';
+      const portadorReceber = receberGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
+      const portadorTransferir = transferirGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
+      
+      const anotacao = `${novoTitular} ${receberNome} ${portadorReceber} DO CPF/CNPJ: ${receberCpfCnpj}\n` +
+                      `IRÁ ASSUMIR A TITULARIDADE DE ${transferirNome} ${portadorTransferir} DO CPF/CNPJ: ${transferirCpfCnpj}\n` +
+                      `protocolo: ${protocolo} // telefone: ${telefoneAtendimento}`;
+      
+      document.getElementById('resultadoTitularidade').textContent = anotacao;
+      document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ========== FUNÇÕES EXISTENTES DO INDEX ==========
+    
+    // Sistema de abas
+    function openTab(tabName) {
+      // Esconder todas as abas
+      const tabContents = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+      }
+      
+      // Remover classe active de todos os botões
+      const tabButtons = document.getElementsByClassName('tab-button');
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove('active');
+      }
+      
+      // Mostrar a aba selecionada e ativar o botão
+      document.getElementById(tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // Função para mostrar notificação
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      
+      notificationText.textContent = message;
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // Função para copiar texto
+    function copiarTexto(elementId) {
+      const element = document.getElementById(elementId);
+      const textToCopy = element.textContent || element.innerText;
+      
+      if (!textToCopy.trim()) {
+        showNotification('Gere o texto primeiro antes de copiar!');
+        return;
+      }
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showNotification('Texto copiado com sucesso!');
+      }).catch(err => {
+        console.error('Erro ao copiar texto: ', err);
+        // Fallback para navegadores mais antigos
+        const textArea = document.getElementById('areaCopia');
+        textArea.value = textToCopy;
+        textArea.select();
+        document.execCommand('copy');
+        showNotification('Texto copiado com sucesso!');
+      });
+    }
+
+    // Função para copiar texto diretamente (usada nas senhas)
+    function copiarTextoDireto(texto) {
+      navigator.clipboard.writeText(texto).then(() => {
+        showNotification('Texto copiado com sucesso!');
+      }).catch(err => {
+        console.error('Erro ao copiar texto: ', err);
+        // Fallback para navegadores mais antigos
+        const textArea = document.getElementById('areaCopia');
+        textArea.value = texto;
+        textArea.select();
+        document.execCommand('copy');
+        showNotification('Texto copiado com sucesso!');
+      });
+    }
+
+    // Sistema de abas - inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar o seletor de vencimento
+      const vencimentoSelect = document.getElementById('vencimento');
+      for (let i = 1; i <= 30; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        vencimentoSelect.appendChild(option);
+      }
+      
+      // Carregar notas salvas
+      const savedNotes = localStorage.getItem('notaOffline');
+      if (savedNotes) {
+        document.getElementById('editor').value = savedNotes;
+      }
+      
+      // Carregar tamanho de fonte salvo
+      const fontSize = localStorage.getItem('fontSize');
+      if (fontSize) {
+        document.getElementById('editor').style.fontSize = fontSize;
+        document.getElementById('font-size').value = fontSize;
+      }
+      
+      // Salvar automaticamente as notas enquanto o usuário digita
+      document.getElementById('editor').addEventListener('input', function() {
+        localStorage.setItem('notaOffline', this.value);
+      });
+      
+      // Permitir adicionar cor pressionando Enter
+      document.getElementById('hexCode').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          adicionarCorPersonalizada();
+          e.preventDefault();
+        }
+      });
+      
+      // Permitir consulta MAC com Enter
+      document.getElementById('macInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          consultarMAC();
+        }
+      });
+
+      // ========== INICIALIZAÇÃO DO ATF ==========
+      // Configurar data automática
+      document.getElementById('inputData').value = obterDataAtual();
+      
+      // Configurar eventos para atualização automática
+      const inputs = ['inputAtend', 'inputLig', 'inputOS', 'inputGeral', 'inputLinkLoss', 'inputNome'];
+      inputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        if (input) {
+          input.addEventListener('input', atualizarTudo);
+        }
+      });
+      
+      // Nome em maiúsculas
+      document.getElementById('inputNome').addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+        atualizarTudo();
+      });
+      
+      // Aplicar visualização inicial
+      atualizarTudo();
+      
+      // ========== INICIALIZAÇÃO DA TRANSFERÊNCIA DE TITULARIDADE ==========
+      // Configurar eventos para os formulários de transferência
+      document.getElementById('form-transferir').addEventListener('submit', function(e) {
+        e.preventDefault();
+        gerarTextoTransferencia();
+      });
+      
+      document.getElementById('form-receber').addEventListener('submit', function(e) {
+        e.preventDefault();
+        gerarTextoRecebimento();
+      });
+    });
+
+    // Função para alterar o tamanho da fonte
+    function changeFontSize() {
+      const fontSize = document.getElementById('font-size').value;
+      document.getElementById('editor').style.fontSize = fontSize;
+      localStorage.setItem('fontSize', fontSize);
+    }
+
+    // Funções para a aba de Cores
+    function adicionarCorPersonalizada() {
+      const hexCodeInput = document.getElementById('hexCode');
+      let hexCode = hexCodeInput.value.trim();
+      
+      // Adicionar # se não tiver
+      if (hexCode && !hexCode.startsWith('#')) {
+        hexCode = '#' + hexCode;
+      }
+      
+      // Validar código hexadecimal
+      const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+      if (!hexRegex.test(hexCode)) {
+        showNotification('Código hexadecimal inválido!');
+        return;
+      }
+      
+      // Gerar nome da cor baseado no código
+      const nomeCor = `Cor Personalizada (${hexCode.toUpperCase()})`;
+      const idCor = `codigo-personalizado-${Date.now()}`;
+      
+      // Criar linha na tabela
+      const tbody = document.querySelector('#coresTable tbody');
+      const novaLinha = document.createElement('tr');
+      
+      novaLinha.innerHTML = `
+        <td><div class="color-sample" style="background-color: ${hexCode};"></div></td>
+        <td>${nomeCor}</td>
+        <td>${hexCode.toUpperCase()}</td>
+        <td class="code-example" id="${idCor}">&lt;mark style="background-color: ${hexCode}; color: black;"&gt;TEXTO AQUI&lt;/mark&gt;</td>
+        <td>
+          <button class="btn" onclick="copiarExemplo('${idCor}')">
+            <i class="fas fa-copy"></i> Copiar
+          </button>
+        </td>
+      `;
+      
+      // Adicionar no início da tabela
+      tbody.insertBefore(novaLinha, tbody.firstChild);
+      
+      // Limpar campo de entrada
+      hexCodeInput.value = '';
+      
+      // Mostrar mensagem de sucesso
+      showNotification('Cor personalizada adicionada com sucesso!');
+    }
+    
+    // Função para copiar o exemplo de código
+    function copiarExemplo(idElemento) {
+      const elemento = document.getElementById(idElemento);
+      const texto = elemento.textContent;
+      
+      // Criar um elemento textarea temporário para copiar o texto
+      const textarea = document.createElement('textarea');
+      textarea.value = texto;
+      document.body.appendChild(textarea);
+      textarea.select();
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          showNotification('Código copiado com sucesso!');
+        } else {
+          throw new Error('Falha ao copiar texto');
+        }
+      } catch (err) {
+        console.error('Erro ao copiar texto: ', err);
+        alert('Falha ao copiar texto. Selecione e copie manualmente (Ctrl+C).');
+      }
+      
+      document.body.removeChild(textarea);
+    }
+
+    // Funções para as outras abas - RESTAURADAS do S.I original
+    function toggleVencimento() {
+      const formaPagamento = document.getElementById("parcelas").value;
+      const vencimentoContainer = document.getElementById("vencimentoContainer");
+      
+      if (formaPagamento === "ISENTO") {
+        vencimentoContainer.classList.add("hidden");
+        document.getElementById("vencimento").required = false;
+      } else {
+        vencimentoContainer.classList.remove("hidden");
+        document.getElementById("vencimento").required = true;
+      }
+    }
+
+    function gerarTextoMudanca() {
+      const campos = {
+        "Cidade Antiga": "cidadeAntiga",
+        "Rua Antiga": "ruaAntiga",
+        "Bairro Antigo": "bairroAntigo",
+        "Número Antigo": "numeroAntigo",
+        "Referência Antiga": "referenciaAntiga",
+        "Cidade Nova": "cidadeNova",
+        "Rua Nova": "ruaNova",
+        "Bairro Novo": "bairroNova",
+        "Número Novo": "numeroNova",
+        "Referência Nova": "referenciaNova",
+        "Contatos": "contatos",
+        "Forma de Pagamento": "parcelas",
+        "Vencimento": "vencimento",
+        "Protocolo": "protocoloMudanca",
+        "Telefone de Atendimento": "telefoneAtendimento",
+        "Observações": "observacoes"
+      };
+
+      let camposVazios = [];
+      const valores = {};
+
+      for (const [nomeCampo, idCampo] of Object.entries(campos)) {
+        const elemento = document.getElementById(idCampo);
+        let valor = elemento ? elemento.value.trim() : '';
+        
+        // Se for isento, não validar vencimento
+        if (idCampo === "vencimento" && document.getElementById("parcelas").value === "ISENTO") {
+          valor = "ISENTO";
+        }
+        
+        // Observações é opcional, então não adicionamos à lista de campos obrigatórios
+        if (!valor && idCampo !== "referenciaAntiga" && idCampo !== "observacoes" &&
+            !(idCampo === "vencimento" && document.getElementById("parcelas").value === "ISENTO")) {
+          camposVazios.push(nomeCampo);
+        } else {
+          valores[idCampo] = valor.toUpperCase();
+        }
+      }
+
+      const erroDiv = document.getElementById("erroValidacaoMudanca");
+      if (camposVazios.length > 0) {
+        erroDiv.textContent = "Preencha os seguintes campos obrigatórios: " + camposVazios.join(", ");
+        erroDiv.style.display = 'block';
+        document.getElementById("resultadoHtmlMudanca").textContent = '';
+        
+        // Rola para o topo do formulário para mostrar o erro
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      } else {
+        erroDiv.style.display = 'none';
+      }
+
+      let frasePagamento = "";
+      let textoInicial = "";
+      
+      if (valores["parcelas"] === "ISENTO") {
+        textoInicial = "CLIENTE DESEJA MUDANÇA DE ENDEREÇO E ESTÁ ISENTO DA TAXA";
+        // Para ISENTO, não adicionamos nenhuma informação de pagamento
+      } else {
+        textoInicial = "CLIENTE DESEJA MUDANÇA DE ENDEREÇO E ESTA CIENTE DA TAXA DE R$ 70,00 REAIS";
+        if (valores["parcelas"] === "À VISTA") {
+          frasePagamento = `CLIENTE DESEJA PAGAR À VISTA COM VENCIMENTO DO BOLETO PARA O DIA ${valores["vencimento"]}`;
+        } else {
+          frasePagamento = `CLIENTE DESEJA PAGAR EM ${valores["parcelas"]} COM VENCIMENTO DO BOLETO PARA O DIA ${valores["vencimento"]}`;
+        }
+      }
+
+      // CORREÇÃO: Adicionar as observações na posição correta
+      const observacoesTexto = valores["observacoes"] ? `${valores["observacoes"]}<br>` : '';
+
+      // CORREÇÃO: Formatação final com quebra de linha adequada
+      const textoHtmlLiteral =
+`${textoInicial}<br>
+>>>ENDEREÇO ANTIGO<br>
+CIDADE: ${valores["cidadeAntiga"]}<br>
+RUA: ${valores["ruaAntiga"]}<br>
+BAIRRO: ${valores["bairroAntigo"]}
+<br>
+NÚMERO DA CARA: ${valores["numeroAntigo"]}<br>
+PONTOS DE REFERÊNCIA: ${valores["referenciaAntiga"] || 'NÃO INFORMADO'}
+<br>
+<br>
+>>>ENDEREÇO NOVO <br>
+CIDADE: ${valores["cidadeNova"]}<br>
+RUA: ${valores["ruaNova"]}
+<br>
+BAIRRO: ${valores["bairroNova"]}<br>
+NÚMERO DA CASA: ${valores["numeroNova"]}<br>
+DOIS PONTOS DE REFERÊNCIA: ${valores["referenciaNova"]}<br>
+DOIS NÚMEROS DE CONTATO: ${valores["contatos"]}<br>
+${frasePagamento}<br>
+${observacoesTexto}protocolo: ${valores["protocoloMudanca"]} // telefone: ${valores["telefoneAtendimento"]}`;
+
+      document.getElementById("resultadoHtmlMudanca").textContent = textoHtmlLiteral;
+      
+      document.getElementById('lembreteMudanca').style.display = 'block';
+      document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function gerarTextoBaixa() {
+      const dataPix = document.getElementById("dataPix").value;
+      let valorPix = document.getElementById("valorPix").value;
+      const mensalidade = document.getElementById("mensalidade").value;
+      const vencimentoBoleto = document.getElementById("vencimentoBoleto").value;
+      const numeroBoleto = document.getElementById("numeroBoleto").value;
+      let valorBoleto = document.getElementById("valorBoleto").value;
+      const protocolo = document.getElementById("protocoloBaixa").value;
+      const telefone = document.getElementById("telefoneBaixa").value;
+
+      // Adicionar R$ aos valores
+      if (valorPix && !valorPix.includes('R$')) {
+        valorPix = 'R$ ' + valorPix;
+      }
+      
+      if (valorBoleto && !valorBoleto.includes('R$')) {
+        valorBoleto = 'R$ ' + valorBoleto;
+      }
+
+      // Verificar campos obrigatórios
+      const camposObrigatorios = [
+        {nome: "Data do Pagamento", valor: dataPix},
+        {nome: "Valor do Pagamento", valor: valorPix},
+        {nome: "Mensalidade", valor: mensalidade},
+        {nome: "Vencimento do Boleto", valor: vencimentoBoleto},
+        {nome: "Número do Boleto", valor: numeroBoleto},
+        {nome: "Valor do Boleto", valor: valorBoleto},
+        {nome: "Protocolo", valor: protocolo},
+        {nome: "Telefone", valor: telefone}
+      ];
+
+      let camposVazios = [];
+      for (const campo of camposObrigatorios) {
+        if (!campo.valor.trim()) {
+          camposVazios.push(campo.nome);
+        }
+      }
+
+      const erroDiv = document.getElementById("erroValidacaoBaixa");
+      if (camposVazios.length > 0) {
+        erroDiv.textContent = "Preencha os seguintes campos obrigatórios: " + camposVazios.join(", ");
+        erroDiv.style.display = 'block';
+        document.getElementById("resultadoBaixa").textContent = '';
+        
+        // Rola para o topo do formulário para mostrar o erro
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      } else {
+        erroDiv.style.display = 'none';
+      }
+
+      // CORREÇÃO: Removidos os espaços no início das linhas
+      const texto = `CLIENTE EFETUOU TRANSFERENCIA VIA PIX EM ${dataPix}  VALOR DO PIX: ${valorPix} REF. MENSALIDADE: ${mensalidade} ---------- VENCIMENTO DO BOLETO: ${vencimentoBoleto} ---------
+Nº DO BOLETO: ${numeroBoleto} ------------ VALOR DO BOLETO: ${valorBoleto} ----------
+DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET TELECOM LTDA FOTO DO COMPROVANTE ANEXADO NO BANCO DE IMAGENS PRINCIPAL E NO DA O.S: protocolo: ${protocolo} // telefone: ${telefone}`;
+
+      document.getElementById("resultadoBaixa").textContent = texto;
+    }
+
+    // Busca na tabela de senhas
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      const tableRows = document.querySelectorAll('#equipmentsTable tr');
+      
+      tableRows.forEach(row => {
+        const rowText = row.textContent.toLowerCase();
+        if (rowText.includes(searchTerm)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      const tableRows = document.querySelectorAll('#equipmentsTable tr');
+      tableRows.forEach(row => {
+        row.style.display = '';
+      });
+    }
+
+    // ========== SISTEMA FINAL SIMPLIFICADO ==========
+
+    // CONFIGURAÇÃO DE TAMANHOS PARA A IMAGEM GERADA
+    const TAMANHOS_IMAGEM = {
+      atend: 68,
+      lig: 68,  
+      os: 68,
+      geral: 35,
+      linkloss: 35
+    };
+
+    // CONFIGURAÇÃO DE TAMANHOS PARA A VISUALIZAÇÃO NA TELA
+    const TAMANHOS_VISUALIZACAO = {
+      atend: 35,
+      lig: 35,  
+      os: 35,
+      geral: 20,
+      linkloss: 20
+    };
+
+    // FUNÇÃO PARA OBTER DATA ATUAL
+    function obterDataAtual() {
+      const hoje = new Date();
+      const dia = String(hoje.getDate()).padStart(2, '0');
+      const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+      const ano = hoje.getFullYear();
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    // FUNÇÃO PARA ATUALIZAR VISUALIZAÇÃO NA TELA
+    function atualizarTudo() {
+      const valores = {
+        atend: document.getElementById('inputAtend').value || '0',
+        lig: document.getElementById('inputLig').value || '0',
+        os: document.getElementById('inputOS').value || '0',
+        geral: document.getElementById('inputGeral').value || '0',
+        linkloss: document.getElementById('inputLinkLoss').value || '0',
+        nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
+        data: obterDataAtual()
+      };
+      
+      // Atualizar textos
+      document.getElementById('numero-atend').textContent = valores.atend;
+      document.getElementById('numero-lig').textContent = valores.lig;
+      document.getElementById('numero-os').textContent = valores.os;
+      document.getElementById('numero-geral').textContent = valores.geral;
+      document.getElementById('numero-linkloss').textContent = valores.linkloss;
+      document.getElementById('nome-visualizacao').textContent = valores.nome;
+      document.getElementById('data-visualizacao').textContent = valores.data;
+      
+      // Aplicar tamanhos
+      document.getElementById('numero-atend').style.fontSize = TAMANHOS_VISUALIZACAO.atend + 'px';
+      document.getElementById('numero-lig').style.fontSize = TAMANHOS_VISUALIZACAO.lig + 'px';
+      document.getElementById('numero-os').style.fontSize = TAMANHOS_VISUALIZACAO.os + 'px';
+      document.getElementById('numero-geral').style.fontSize = TAMANHOS_VISUALIZACAO.geral + 'px';
+      document.getElementById('numero-linkloss').style.fontSize = TAMANHOS_VISUALIZACAO.linkloss + 'px';
+      
+      mostrarMensagem('Visualização atualizada!');
+    }
+
+    // FUNÇÃO PARA COPIAR IMAGEM
+    async function copiarImagemFinal() {
+      try {
+        const loading = document.getElementById('atfLoading');
+        if (loading) loading.style.display = 'block';
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = 'https://i.imgur.com/QEvgDVZ.png';
+        
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
         });
-    </script>
+        
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // POSIÇÕES FIXAS
+        const posicoes = {
+          atend: { x: canvas.width * 0.5329, y: canvas.height * 0.3270 },
+          lig: { x: canvas.width * 0.5335, y: canvas.height * 0.5386 },
+          os: { x: canvas.width * 0.5347, y: canvas.height * 0.7391 },
+          geral: { x: canvas.width * 0.8611, y: canvas.height * 0.6944 },
+          linkloss: { x: canvas.width * 0.8611, y: canvas.height * 0.7750 },
+          nome: { x: canvas.width * 0.3372, y: canvas.height * 0.1434 },
+          data: { x: canvas.width * 0.5140, y: canvas.height * 0.2073 }
+        };
+        
+        const valores = {
+          atend: document.getElementById('inputAtend').value || '0',
+          lig: document.getElementById('inputLig').value || '0',
+          os: document.getElementById('inputOS').value || '0',
+          geral: document.getElementById('inputGeral').value || '0',
+          linkloss: document.getElementById('inputLinkLoss').value || '0',
+          nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
+          data: document.getElementById('inputData').value || obterDataAtual()
+        };
+        
+        // DESENHAR NÚMEROS
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 6;
+        ctx.fillStyle = 'black';
+        
+        ctx.font = `600 ${TAMANHOS_IMAGEM.atend}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.atend, posicoes.atend.x, posicoes.atend.y);
+        
+        ctx.font = `600 ${TAMANHOS_IMAGEM.lig}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.lig, posicoes.lig.x, posicoes.lig.y);
+        
+        ctx.font = `600 ${TAMANHOS_IMAGEM.os}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.os, posicoes.os.x, posicoes.os.y);
+        
+        ctx.font = `600 ${TAMANHOS_IMAGEM.geral}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.geral, posicoes.geral.x, posicoes.geral.y);
+        
+        ctx.font = `600 ${TAMANHOS_IMAGEM.linkloss}px "Montserrat", sans-serif`;
+        ctx.fillText(valores.linkloss, posicoes.linkloss.x, posicoes.linkloss.y);
+        
+        // DESENHAR NOME E DATA
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+        ctx.shadowBlur = 3;
+        ctx.shadowOffsetY = 3;
+        ctx.fillStyle = 'white';
+        
+        // Nome
+        ctx.textAlign = 'left';
+        ctx.font = 'bold 28px Arial, sans-serif';
+        ctx.fillText(valores.nome, posicoes.nome.x, posicoes.nome.y);
+        
+        // Data
+        ctx.textAlign = 'right';
+        ctx.font = 'bold 24px Arial, sans-serif';
+        ctx.fillText(valores.data, posicoes.data.x, posicoes.data.y);
+        
+        // Tentar copiar para área de transferência
+        try {
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          const item = new ClipboardItem({ 'image/png': blob });
+          await navigator.clipboard.write([item]);
+          mostrarMensagem('✅ Imagem copiada para a área de transferência!');
+        } catch (clipboardError) {
+          console.log('Clipboard API não suportada, mostrando opção alternativa');
+          // Em vez de fazer download automático, mostrar mensagem informativa
+          mostrarMensagem('❌ Seu navegador não suporta copiar imagens. Use Print Screen (PrtScn) para capturar a tela.');
+        }
+        
+      } catch (error) {
+        console.error('Erro ao gerar imagem:', error);
+        mostrarMensagem('❌ Erro ao copiar imagem. Tente novamente.');
+      } finally {
+        const loading = document.getElementById('atfLoading');
+        if (loading) loading.style.display = 'none';
+      }
+    }
+
+    // ========== FUNÇÃO PARA MENSAGENS DO ATF ==========
+    function mostrarMensagem(mensagem) {
+      const mensagemDiv = document.getElementById('atfMensagem');
+      mensagemDiv.textContent = mensagem;
+      mensagemDiv.classList.add('mostrar');
+      
+      setTimeout(() => {
+        mensagemDiv.classList.remove('mostrar');
+      }, 5000);
+    }
+
+    // Função para resetar tudo
+    function resetarTudo() {
+      document.getElementById('inputAtend').value = '0';
+      document.getElementById('inputLig').value = '0';
+      document.getElementById('inputOS').value = '0';
+      document.getElementById('inputGeral').value = '0';
+      document.getElementById('inputLinkLoss').value = '0';
+      atualizarTudo();
+      mostrarMensagem('Valores resetados!');
+    }
+
+    // Função para copiar código definitivo
+    function copiarCodigoDefinitivo() {
+      const codigo = document.getElementById('codigoDefinitivo').value;
+      navigator.clipboard.writeText(codigo).then(() => {
+        mostrarMensagem('Código copiado para a área de transferência!');
+      });
+    }
+  </script>
 </body>
 </html>
