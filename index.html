@@ -9,7 +9,7 @@
   <style>
     /* TODOS OS ESTILOS ORIGINAIS MANTIDOS */
 
-    /* NOVO ESTILO: Campo condicional na aba Notas */
+    /* Campo condicional na aba Notas */
     .conditional-field {
       display: none;
       margin-top: 15px;
@@ -37,14 +37,13 @@
       width: auto;
     }
 
-    /* MODIFICAÇÃO: Área de texto pré-definido com o dobro do tamanho */
+    /* Área de texto pré-definido com o dobro do tamanho */
     .texto-predefinido-container {
-      min-height: 800px !important; /* DOBRO do tamanho original (400px) */
+      min-height: 800px !important;
       max-height: 1000px !important;
       overflow-y: auto;
     }
 
-    /* Restante do CSS original mantido intacto */
     :root {
       --primary: #2563eb;
       --secondary: #1e40af;
@@ -119,15 +118,17 @@
       overflow: hidden;
       box-shadow: var(--box-shadow);
       margin-bottom: 0;
+      flex-wrap: wrap;
     }
     
     .tab-button {
       flex: 1;
+      min-width: 100px;
       padding: 12px;
       background: #e9ecef;
       border: none;
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
       transition: var(--transition);
       text-align: center;
@@ -571,7 +572,7 @@
       margin: 5px 0;
     }
 
-    /* Estilos para a aba de Atendimento (ATF) - LAYOUT REORGANIZADO */
+    /* Estilos para a aba de Atendimento (ATF) */
     .atf-wrap {
       max-width: 100%;
       margin: 18px auto;
@@ -771,7 +772,6 @@
       display: none;
     }
 
-    /* Estilos para a aba de Transferência de Titularidade */
     .radio-group {
       display: flex;
       gap: 20px;
@@ -800,36 +800,125 @@
       width: auto;
     }
 
-    /* Estilos para a aba MAC */
-    .mac-simple-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    
-    .mac-result {
+    /* ====== ESTILOS ADICIONAIS PARA A ABA CONVERSOR ====== */
+    .conversor-resultado {
+      display: none;
       margin-top: 20px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      border: 2px solid #dee2e6;
+    }
+
+    .conversor-codigo {
+      padding: 16px;
       text-align: center;
-      min-height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #0f766e;
+      background: #ccfbf1;
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+      margin-bottom: 18px;
     }
-    
-    .mac-found {
-    background: #e6f2ff;  /* Azul céu muito claro */
-    border-color: #89c2d9; /* Azul céu suave */
-}
-    
-    .mac-not-found {
-      background: #ffeaea;
-      border-color: #dc3545;
+
+    .conversor-info {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
-    
+
+    .conversor-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .conversor-item .titulo {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .conversor-item .valor {
+      font-size: 16px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .conversor-item.vlan {
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+    }
+
+    .conversor-item.vlan .valor {
+      color: #047857;
+      font-size: 21px;
+    }
+
+    .conversor-erro {
+      display: none;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 9px;
+      color: #991b1b;
+      background: #fee2e2;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .conversor-aviso {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 13px;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .conversor-dica {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .conversor-exemplos {
+      margin-top: 25px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 18px;
+    }
+
+    .conversor-exemplos strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .conversor-exemplo {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #f1f5f9;
+      margin-top: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--dark);
+    }
+
+    .conversor-exemplo:hover {
+      background: #ccfbf1;
+      border-color: #0f766e;
+    }
+
     .footer {
       text-align: center;
       margin-top: 40px;
@@ -850,6 +939,10 @@
       
       .tabs {
         flex-direction: column;
+      }
+      
+      .tab-button {
+        min-width: auto;
       }
       
       .form-grid {
@@ -900,6 +993,14 @@
         flex-direction: column;
         gap: 10px;
       }
+
+      .conversor-info {
+        grid-template-columns: 1fr;
+      }
+
+      .conversor-codigo {
+        font-size: 1.1rem;
+      }
     }
     
     #areaCopia {
@@ -934,11 +1035,11 @@
       <button class="tab-button" onclick="openTab('cores')">
         <i class="fas fa-palette"></i> Cores
       </button>
-      <!-- NOVA ABA: Transferência de Titularidade -->
-      <button class="tab-button" onclick="openTab('titularidade')">
-        <i class="fas fa-exchange-alt"></i> Titularidade
+      <!-- ABA CONVERSOR (substituiu Titularidade) -->
+      <button class="tab-button" onclick="openTab('conversor')">
+        <i class="fas fa-barcode"></i> Conversor
       </button>
-      <!-- NOVA ABA: MAC -->
+      <!-- Aba MAC -->
       <button class="tab-button" onclick="openTab('mac')">
         <i class="fas fa-network-wired"></i> MAC
       </button>
@@ -1067,7 +1168,6 @@
               </div>
             </div>
 
-            <!-- NOVO CAMPO DE OBSERVAÇÕES -->
             <div class="section-title">
               <i class="fas fa-sticky-note"></i>
               Observações Adicionais
@@ -1076,7 +1176,7 @@
             <div class="form-grid">
               <div class="form-group">
                 <label for="observacoes"><i class="fas fa-comment input-icon"></i>Observações (Opcional)</label>
-                <input type="text" id="observacoes" placeholder="Ex: FOTO SELFIE ANEXADA, CLIENTE CIENTE QUE DEVE LEVAR O EQUIPAMENTO PARA A NOVA RESIDÊNCIA" oninput="this.value = this.value.toUpperCase()">
+                <input type="text" id="observacoes" placeholder="Ex: FOTO SELFIE ANEXADA" oninput="this.value = this.value.toUpperCase()">
               </div>
             </div>
 
@@ -1091,7 +1191,6 @@
         </div>
       </div>
 
-      <!-- Resultado apenas da Anotação DuoBox (removida a Ordem de Serviço) -->
       <div class="result-container">
         <div class="card">
           <div class="result-header">
@@ -1334,7 +1433,7 @@
       </div>
     </div>
 
-    <!-- Aba de Bloco de Notas - MODIFICADA COM CHECKBOX -->
+    <!-- Aba de Bloco de Notas -->
     <div id="notas" class="tab-content">
       <div class="card">
         <div class="card-header">
@@ -1351,19 +1450,16 @@
               <option value="20px">Muito Grande</option>
             </select>
             
-            <!-- NOVO: Checkbox para mostrar/ocultar texto fixo -->
             <div class="checkbox-container">
               <input type="checkbox" id="mostrar-texto-fixo" onchange="toggleTextoFixo()">
               <label for="mostrar-texto-fixo" style="margin-bottom: 0; font-weight: 600;">INFORMAÇÕES</label>
             </div>
           </div>
           
-          <!-- NOVO: Área com texto fixo que só aparece quando o checkbox está marcado -->
           <div id="texto-fixo" class="conditional-field">
             <div class="form-group">
               <label><i class="fas fa-file-alt input-icon"></i>Avisos // Informações</label>
               <div class="result-content texto-predefinido-container" style="background: #e9ecef;">
-                <!-- MODIFICAÇÃO SOLICITADA: Texto pré-definido atualizado -->
 Escala de Horários — Suporte N1 😑
 
 
@@ -1409,14 +1505,10 @@ Painel Comercial: <a href="https://www.appsheet.com/start/" target="_blank" styl
 Portal do Assinante: <a href="https://www.portaldoassinante.com/maranet/home" target="_blank" style="color: #2563eb; text-decoration: underline;">https://www.portaldoassinante.com/maranet/home</a>
 
 Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCwafZWSYdxapnR/edit?gid=1013945962#gid=1013945962" target="_blank" style="color: #2563eb; text-decoration: underline;">https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCwafZWSYdxapnR/edit?gid=1013945962#gid=1013945962</a>
-</div>
-
               </div>
-              <!-- BOTÃO REMOVIDO: Copiar Texto Fixo -->
             </div>
           </div>
           
-          <!-- Área normal de notas (fica oculta quando o checkbox está marcado) -->
           <div id="area-notas-normal">
             <div class="editor-container">
               <textarea id="editor" placeholder="Digite suas notas aqui..."></textarea>
@@ -1573,205 +1665,136 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       </div>
     </div>
 
-    <!-- NOVA ABA: Transferência de Titularidade -->
-    <div id="titularidade" class="tab-content">
+    <!-- ====== ABA CONVERSOR (substituiu Titularidade) ====== -->
+    <div id="conversor" class="tab-content">
       <div class="card">
         <div class="card-header">
-          <i class="fas fa-exchange-alt"></i>
-          Transferência de Titularidade
+          <i class="fas fa-barcode"></i>
+          Conversor de Códigos CTO
         </div>
         <div class="card-body">
-          <div class="form-container" style="display: flex; gap: 20px; flex-wrap: wrap;">
-            <div class="form-section" style="flex: 1; min-width: 300px; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-top: 4px solid #0073aa;">
-              <h2 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: #0073aa;">
-                <i class="fas fa-arrow-right"></i>
-                Quem irá Transferir
-              </h2>
-              <form id="form-transferir">
-                <div class="form-group">
-                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem TRANSFERE:</label>
-                  <div class="radio-group">
-                    <div class="radio-option">
-                      <input type="radio" id="transferir_feminino" name="transferir_genero" value="feminino" checked>
-                      <label for="transferir_feminino">Feminino (A cliente)</label>
-                    </div>
-                    <div class="radio-option">
-                      <input type="radio" id="transferir_masculino" name="transferir_genero" value="masculino">
-                      <label for="transferir_masculino">Masculino (O cliente)</label>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem RECEBE:</label>
-                  <div class="radio-group">
-                    <div class="radio-option">
-                      <input type="radio" id="receber_feminino_transf" name="receber_genero_transf" value="feminino" checked>
-                      <label for="receber_feminino_transf">Feminino</label>
-                    </div>
-                    <div class="radio-option">
-                      <input type="radio" id="receber_masculino_transf" name="receber_genero_transf" value="masculino">
-                      <label for="receber_masculino_transf">Masculino</label>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label for="transferir_nome" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social:</label>
-                  <input type="text" id="transferir_nome" name="transferir_nome" placeholder="EX: MARCELOH" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="transferir_cpf_cnpj" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ:</label>
-                  <input type="text" id="transferir_cpf_cnpj" name="transferir_cpf_cnpj" placeholder="EX: 22.202.872/0001-75" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="receber_nome" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social do Novo Titular:</label>
-                  <input type="text" id="receber_nome" name="receber_nome" placeholder="EX: THENIEL" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="receber_cpf_cnpj" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ do Novo Titular:</label>
-                  <input type="text" id="receber_cpf_cnpj" name="receber_cpf_cnpj" placeholder="EX: 46.411.149/0001-64" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="telefone_contato" class="required"><i class="fas fa-phone input-icon"></i>Telefone Novo Titular:</label>
-                  <input type="text" id="telefone_contato" name="telefone_contato" placeholder="EX: (98) 98309-1379" required>
-                </div>
-                
-                <div class="form-group">
-                  <label for="protocolo_transf" class="required"><i class="fas fa-file-alt input-icon"></i>Protocolo:</label>
-                  <input type="text" id="protocolo_transf" name="protocolo" placeholder="EX: 202400001" required>
-                </div>
-                
-                <div class="form-group">
-                  <label for="telefone_atendimento" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento:</label>
-                  <input type="text" id="telefone_atendimento" name="telefone_atendimento" placeholder="EX: (11) 4004-0000" required>
-                </div>
-                
-                <button type="submit" class="btn" style="width: 100%;">
-                  <i class="fas fa-file-alt"></i> Gerar Anotação de Transferência
-                </button>
-              </form>
+          <div class="form-group">
+            <label for="codigoConversor">
+              <i class="fas fa-keyboard input-icon"></i>
+              Digite o código novo
+            </label>
+            <div class="search-container">
+              <input
+                id="codigoConversor"
+                type="text"
+                class="search-input"
+                placeholder="MRT-SIS-AC-0201"
+                autocomplete="off"
+                spellcheck="false"
+                style="font-family: 'Courier New', monospace; text-transform: uppercase; font-size: 1rem;"
+              >
+              <button class="btn" onclick="converterCodigo()">
+                <i class="fas fa-search"></i> Consultar
+              </button>
             </div>
-            
-            <div class="form-section" style="flex: 1; min-width: 300px; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-top: 4px solid #46b450;">
-              <h2 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: #46b450;">
-                <i class="fas fa-arrow-left"></i>
-                Quem irá Receber
-              </h2>
-              <form id="form-receber">
-                <div class="form-group">
-                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem RECEBE:</label>
-                  <div class="radio-group">
-                    <div class="radio-option">
-                      <input type="radio" id="receber_feminino" name="receber_genero" value="feminino" checked>
-                      <label for="receber_feminino">Feminino (A cliente)</label>
-                    </div>
-                    <div class="radio-option">
-                      <input type="radio" id="receber_masculino" name="receber_genero" value="masculino">
-                      <label for="receber_masculino">Masculino (O cliente)</label>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label class="required"><i class="fas fa-user input-icon"></i>Gênero de quem TRANSFERE:</label>
-                  <div class="radio-group">
-                    <div class="radio-option">
-                      <input type="radio" id="transferir_feminino_receb" name="transferir_genero_receb" value="feminino" checked>
-                      <label for="transferir_feminino_receb">Feminino</label>
-                    </div>
-                    <div class="radio-option">
-                      <input type="radio" id="transferir_masculino_receb" name="transferir_genero_receb" value="masculino">
-                      <label for="transferir_masculino_receb">Masculino</label>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label for="receber_nome_receb" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social:</label>
-                  <input type="text" id="receber_nome_receb" name="receber_nome" placeholder="EX: THENIEL" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="receber_cpf_cnpj_receb" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ:</label>
-                  <input type="text" id="receber_cpf_cnpj_receb" name="receber_cpf_cnpj" placeholder="EX: 46.411.149/0001-64" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="transferir_nome_receb" class="required"><i class="fas fa-user input-icon"></i>Nome/Razão Social do Titular Anterior:</label>
-                  <input type="text" id="transferir_nome_receb" name="transferir_nome" placeholder="EX: MARCELOH" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="transferir_cpf_cnpj_receb" class="required"><i class="fas fa-id-card input-icon"></i>CPF/CNPJ do Titular Anterior:</label>
-                  <input type="text" id="transferir_cpf_cnpj_receb" name="transferir_cpf_cnpj" placeholder="EX: 22.202.872/0001-75" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                
-                <div class="form-group">
-                  <label for="telefone_contato_receb" class="required"><i class="fas fa-phone input-icon"></i>Telefone para Contato:</label>
-                  <input type="text" id="telefone_contato_receb" name="telefone_contato" placeholder="EX: (98) 98309-1379" required>
-                </div>
-                
-                <div class="form-group">
-                  <label for="protocolo_receb" class="required"><i class="fas fa-file-alt input-icon"></i>Protocolo:</label>
-                  <input type="text" id="protocolo_receb" name="protocolo" placeholder="EX: 202400001" required>
-                </div>
-                
-                <div class="form-group">
-                  <label for="telefone_atendimento_receb" class="required"><i class="fas fa-phone-alt input-icon"></i>Telefone de Atendimento:</label>
-                  <input type="text" id="telefone_atendimento_receb" name="telefone_atendimento" placeholder="EX: (11) 4004-0000" required>
-                </div>
-                
-                <button type="submit" class="btn" style="width: 100%;">
-                  <i class="fas fa-file-alt"></i> Gerar Anotação de Recebimento
-                </button>
-              </form>
+            <div class="conversor-dica">
+              Digite o código completo. Você também pode pressionar Enter.
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="result-container">
-        <div class="card">
-          <div class="result-header">
-            <div class="result-title"><i class="fas fa-clipboard-list"></i> Anotação Gerada</div>
-            <button class="btn btn-success" onclick="copiarTexto('resultadoTitularidade')">
-              <i class="fas fa-copy"></i> Copiar
+          <div id="conversorErro" class="conversor-erro" role="alert"></div>
+
+          <div id="conversorResultado" class="conversor-resultado">
+            <h2 class="result-title" style="margin-bottom: 15px;">
+              <i class="fas fa-network-wired"></i>
+              Informações da rede
+            </h2>
+
+            <div id="conversorCodigoFormatado" class="conversor-codigo"></div>
+
+            <div class="conversor-info">
+              <div class="conversor-item">
+                <div class="titulo">Empresa</div>
+                <div class="valor">Maranet</div>
+              </div>
+              <div class="conversor-item">
+                <div class="titulo">Cidade</div>
+                <div id="conversorCidade" class="valor"></div>
+              </div>
+              <div class="conversor-item">
+                <div class="titulo">OLT</div>
+                <div id="conversorOlt" class="valor"></div>
+              </div>
+              <div class="conversor-item">
+                <div class="titulo">SLOT</div>
+                <div id="conversorSlot" class="valor"></div>
+              </div>
+              <div class="conversor-item">
+                <div class="titulo">PON</div>
+                <div id="conversorPon" class="valor"></div>
+              </div>
+              <div class="conversor-item">
+                <div class="titulo">CTO</div>
+                <div id="conversorCto" class="valor"></div>
+              </div>
+              <div class="conversor-item vlan">
+                <div class="titulo">VLAN</div>
+                <div id="conversorVlan" class="valor"></div>
+              </div>
+            </div>
+
+            <div id="conversorAviso" class="conversor-aviso"></div>
+
+            <div class="actions">
+              <button class="btn btn-success" onclick="copiarResultadoConversor()">
+                <i class="fas fa-copy"></i> Copiar informações
+              </button>
+              <button class="btn" onclick="limparConversor()" style="background: #e2e8f0; color: #334155;">
+                <i class="fas fa-broom"></i> Limpar
+              </button>
+            </div>
+          </div>
+
+          <div class="conversor-exemplos">
+            <strong>Exemplos para testar</strong>
+            <button class="conversor-exemplo" onclick="usarExemploConversor('MRT-SIS-AC-0201')">
+              MRT-SIS-AC-0201 — Santa Inês, Data Center
+            </button>
+            <button class="conversor-exemplo" onclick="usarExemploConversor('MRT-SIS-BA-0206')">
+              MRT-SIS-BA-0206 — Santa Inês, OLT Santa Inês
+            </button>
+            <button class="conversor-exemplo" onclick="usarExemploConversor('MRT-VNA-AC-0201')">
+              MRT-VNA-AC-0201 — Viana 1
+            </button>
+            <button class="conversor-exemplo" onclick="usarExemploConversor('MRT-VNA-BC-0201')">
+              MRT-VNA-BC-0201 — Viana 2
+            </button>
+            <button class="conversor-exemplo" onclick="usarExemploConversor('MRT-SJCR-AA-0206')">
+              MRT-SJCR-AA-0206 — São João do Carú
             </button>
           </div>
-          <div class="result-content" id="resultadoTitularidade"></div>
         </div>
       </div>
     </div>
 
-    <!-- NOVA ABA: MAC -->
+    <!-- Aba MAC -->
     <div id="mac" class="tab-content">
       <div class="card">
         <div class="card-header">
           <i class="fas fa-network-wired"></i>
-          Consulta de Fabricante por MAC Address da Deep Web
+          Consulta de Fabricante por MAC Address
         </div>
         <div class="card-body">
-          <div class="mac-simple-container">
+          <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
             <div class="form-group">
               <label for="macInput">
                 <i class="fas fa-ethernet input-icon"></i>Digite o MAC Address
               </label>
               <input type="text" id="macInput" placeholder="Ex: 50:28:73:80:30:8D" 
                      style="font-family: 'Courier New', monospace; font-size: 1.1rem; text-align: center;">
-              <div class="exemplo">Ainda em fase de implementação</div>
             </div>
             
             <button class="btn" onclick="consultarMAC()" style="width: 100%;">
               <i class="fas fa-search"></i> Consultar Fabricante
             </button>
             
-            <div class="mac-result" id="macResult">
-              <div style="color: var(--gray);">
+            <div id="macResult" class="result-content" style="margin-top: 20px; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+              <div style="color: var(--gray); text-align: center;">
                 <i class="fas fa-info-circle fa-2x"></i><br><br>
                 Digite um MAC address para consultar o fabricante
               </div>
@@ -1781,7 +1804,7 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       </div>
     </div>
 
-    <!-- ABA ATENDIMENTO - LAYOUT REORGANIZADO -->
+    <!-- ABA ATENDIMENTO -->
     <div id="atendimento" class="tab-content">
       <div class="card">
         <div class="card-header">
@@ -1791,7 +1814,6 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
         <div class="card-body">
           
           <div class="atf-wrap">
-            <!-- PAINEL DE CONTROLE COM NOVO LAYOUT (ESQUERDA) -->
             <div class="atf-panel">
               <h2>CONTROLE DE ATENDIMENTO</h2>
               
@@ -1810,7 +1832,6 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
               <label for="inputOS">O.S. Abertas</label>
               <input type="number" id="inputOS" placeholder="0" min="0">
               
-              <!-- NOVO: GERAL E LINK LOSS LADO A LADO -->
               <div class="row-duo">
                 <div class="duo-item">
                   <label for="inputGeral">Geral</label>
@@ -1822,7 +1843,6 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
                 </div>
               </div>
               
-              <!-- BOTÕES NO ESTILO ORIGINAL -->
               <button class="atf-btn-success" onclick="copiarImagemFinal()">
                 <i class="fas fa-copy"></i> Copiar Imagem
               </button>
@@ -1832,19 +1852,16 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
               </button>
             </div>
 
-            <!-- ÁREA DE VISUALIZAÇÃO (DIREITA) -->
             <div class="atf-canvas-wrap">
               <div id="atf-canvas" style="width:627px;height:313px;position:relative;background:#333;cursor:default;">
                 <img src="https://i.imgur.com/QEvgDVZ.png" style="width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;">
                 
-                <!-- ELEMENTOS DE TEXTO COM POSIÇÕES DEFINITIVAS -->
                 <div id="nome-visualizacao" class="atf-overlay small" 
                      style="left:50.72%;top:14.34%;font-size:14px;color:white;text-align:left;font-weight:bold;">ANTÔNIO WILSON DE SOUSA</div>
 
                 <div id="data-visualizacao" class="atf-overlay small" 
                      style="left:52.40%;top:20.73%;font-size:12px;color:white;text-align:right;font-weight:bold;">16/10/2025</div>
                 
-                <!-- POSIÇÕES FIXAS DOS NÚMEROS -->
                 <div id="numero-atend" class="atf-overlay big" style="left:53.29%;top:32.70%;font-size:60px;">0</div>
                 <div id="numero-lig" class="atf-overlay big" style="left:53.35%;top:53.86%;font-size:60px;">0</div>
                 <div id="numero-os" class="atf-overlay big" style="left:53.47%;top:73.91%;font-size:60px;">0</div>
@@ -1854,7 +1871,6 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
             </div>
           </div>
 
-          <!-- ÁREA PARA O CÓDIGO GERADO (MANTIDA IGUAL) -->
           <div id="areaCodigo" style="display:none;margin-top:20px;padding:15px;background:#f8f9fa;border-radius:8px;border:1px solid #dee2e6;">
             <h4 style="color:#333;margin-bottom:10px;">Código Definitivo Gerado:</h4>
             <textarea id="codigoDefinitivo" style="width:100%;height:200px;font-family:monospace;font-size:12px;padding:10px;border:1px solid #ccc;border-radius:4px;"></textarea>
@@ -1867,517 +1883,148 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
     </div>
 
     <div class="footer">
-      <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏᴅᴊᴀꜱ ᴠᴇʀ. + ᴅᴇ 8.000</p>
+      <p>ꜱɪꜱᴛᴇᴍᴀꜱ ɪɴᴛᴇɢʀᴀᴅᴏꜱ &copy; 2025 - ᴅᴇꜱᴇɴᴠᴏʟᴠɪᴅᴏ ᴘᴏʀ ꜱᴄʀᴇᴇᴀᴍ ᴛᴇᴄɴᴏʟᴏɢɪᴀꜱ ᴠᴇʀ. + ᴅᴇ 8.000</p>
     </div>
   </div>
 
-  <!-- Área de cópia oculta -->
   <textarea id="areaCopia"></textarea>
 
-  <!-- Notificação -->
   <div class="notification" id="notification">
     <i class="fas fa-check-circle"></i>
     <span id="notificationText">Texto copiado com sucesso!</span>
   </div>
 
-  <!-- Mensagem para ATF -->
   <div class="atf-mensagem" id="atfMensagem"></div>
 
   <script>
-// ========== SISTEMA DE CONSULTA MAC ==========
-    
-    // Banco de dados de MACs
+    // ========== SISTEMA DE CONSULTA MAC ==========
     const macDatabase = {
-"245F9F": "HUAWEI",
-"B0FEE5": "HUAWEI",
-"F41D6B": "HUAWEI",
-"C4278C": "HUAWEI",
-"001882": "HUAWEI",
-"001E10": "HUAWEI",
-"002568": "HUAWEI",
-"00259E": "HUAWEI",
-"002EC7": "HUAWEI",
-"0034FE": "HUAWEI",
-"00464B": "HUAWEI",
-"004F1A": "HUAWEI",
-"005A13": "HUAWEI",
-"006151": "HUAWEI",
-"00664B": "HUAWEI",
-"006B6F": "HUAWEI",
-"00991D": "HUAWEI",
-"009ACD": "HUAWEI",
-"00A91D": "HUAWEI",
-"00BE3B": "HUAWEI",
-"00E0FC": "HUAWEI",
-"00E12F": "HUAWEI",
-"00E406": "HUAWEI",
-"00F5FD": "HUAWEI",
-"00F7AD": "HUAWEI",
-"00F81C": "HUAWEI",
-"00F952": "HUAWEI",
-"04021F": "HUAWEI",
-"042758": "HUAWEI",
-"043389": "HUAWEI",
-"044A6C": "HUAWEI",
-"0455B8": "HUAWEI",
-"046E0B": "HUAWEI",
-"04749E": "HUAWEI",
-"048CF8": "HUAWEI",
-"049FCA": "HUAWEI",
-"04A81C": "HUAWEI",
-"04F03E": "HUAWEI",
-"04F169": "HUAWEI",
-"04F352": "HUAWEI",
-"04F938": "HUAWEI",
-"08FA28": "HUAWEI",
-"10A4DA": "HUAWEI",
-"10C3AB": "HUAWEI",
-"10DA49": "HUAWEI",
-"14CF92": "HUAWEI",
-"17A6F2": "HUAWEI",
-"24E924": "HUAWEI",
-"24264A": "HUAWEI",
-"24E13F": "HUAWEI",
-"282392": "HUAWEI",
-"2CAA8E": "HUAWEI",
-"341A4C": "HUAWEI",
-"3476C5": "HUAWEI",
-"3C2C94": "HUAWEI",
-"40F52E": "HUAWEI",
-"441CA8": "HUAWEI",
-"502873": "HUAWEI",
-"547459": "HUAWEI",
-"5475D0": "HUAWEI",
-"5475F7": "HUAWEI",
-"58B035": "HUAWEI",
-"5C4AAB": "HUAWEI",
-"60E327": "HUAWEI",
-"641CA8": "HUAWEI",
-"6CEDFB": "HUAWEI",
-"7C1CF1": "HUAWEI",
-"7CD1C3": "HUAWEI",
-"7C96D2": "HUAWEI",
-"8C01F6": "HUAWEI",
-"98D6BB": "HUAWEI",
-"9C1D58": "HUAWEI",
-"9CE374": "HUAWEI",
-"A01781": "HUAWEI",
-"A04EF9": "HUAWEI",
-"A0F3C1": "HUAWEI",
-"B4975A": "HUAWEI",
-"C8AB37": "HUAWEI",
-"CC3A61": "HUAWEI",
-"CC73F9": "HUAWEI",
-"D0C1B1": "HUAWEI",
-"D4258B": "HUAWEI",
-"DC1EA3": "HUAWEI",
-"DC4EDE": "HUAWEI",
-"EC2334": "HUAWEI",
-"F02929": "HUAWEI",
-"F0F279": "HUAWEI",
-"F48C50": "HUAWEI",
-"F88DEF": "HUAWEI",
-"00AD24": "D-Link",
-"085A11": "D-Link",
-"0C0E76": "D-Link",
-"0CB6D2": "D-Link",
-"1062EB": "D-Link",
-"10BEF5": "D-Link",
-"14D64D": "D-Link",
-"180F76": "D-Link",
-"1C5F2B": "D-Link",
-"1C7EE5": "D-Link",
-"1CAFF7": "D-Link",
-"1CBDB9": "D-Link",
-"28107B": "D-Link",
-"283B82": "D-Link",
-"340A33": "D-Link",
-"3C1E04": "D-Link",
-"409BCD": "D-Link",
-"48EE0C": "D-Link",
-"54B80A": "D-Link",
-"58D56E": "D-Link",
-"60634C": "D-Link",
-"6C198F": "D-Link",
-"6C7220": "D-Link",
-"7062B8": "D-Link",
-"74DADA": "D-Link",
-"78321B": "D-Link",
-"78542E": "D-Link",
-"7898E8": "D-Link",
-"802689": "D-Link",
-"84C9B2": "D-Link",
-"908D78": "D-Link",
-"9094E4": "D-Link",
-"9CD643": "D-Link",
-"A0A3F0": "D-Link",
-"A0AB1B": "D-Link",
-"A42A95": "D-Link",
-"A8637D": "D-Link",
-"ACF1DF": "D-Link",
-"B0C554": "D-Link",
-"B8A386": "D-Link",
-"BC0F9A": "D-Link",
-"BC2228": "D-Link",
-"BCF685": "D-Link",
-"C0A0BB": "D-Link",
-"C412F5": "D-Link",
-"C4A81D": "D-Link",
-"C4E90A": "D-Link",
-"C8BE19": "D-Link",
-"C8D3A3": "D-Link",
-"CCB255": "D-Link",
-"D8FEE3": "D-Link",
-"E01CFC": "D-Link",
-"E46F13": "D-Link",
-"E8CC18": "D-Link",
-"EC2280": "D-Link",
-"ECADE0": "D-Link",
-"F0B4D2": "D-Link",
-"F48CEB": "D-Link",
-"F8E903": "D-Link",
-"FC7516": "D-Link",
-"002FD9": "Fiberhome",
-"006762": "Fiberhome",
-"00BE9E": "Fiberhome",
-"04A2F3": "Fiberhome",
-"04C1B9": "Fiberhome",
-"04ECBB": "Fiberhome",
-"0830CE": "Fiberhome",
-"0846C7": "Fiberhome",
-"087458": "Fiberhome",
-"0C2A86": "Fiberhome",
-"0C35FE": "Fiberhome",
-"0C6ABC": "Fiberhome",
-"0C7474": "Fiberhome",
-"0C8447": "Fiberhome",
-"10071D": "Fiberhome",
-"104C43": "Fiberhome",
-"105887": "Fiberhome",
-"1077B0": "Fiberhome",
-"1088CE": "Fiberhome",
-"10DC4A": "Fiberhome",
-"14172A": "Fiberhome",
-"142233": "Fiberhome",
-"142D79": "Fiberhome",
-"14E9B2": "Fiberhome",
-"185282": "Fiberhome",
-"18A3E8": "Fiberhome",
-"18D225": "Fiberhome",
-"1C398A": "Fiberhome",
-"1C60D2": "Fiberhome",
-"1CD1BA": "Fiberhome",
-"1CDE57": "Fiberhome",
-"2025D2": "Fiberhome",
-"205D0D": "Fiberhome",
-"20896F": "Fiberhome",
-"24B7DA": "Fiberhome",
-"24CACB": "Fiberhome",
-"24E3A4": "Fiberhome",
-"24E4C8": "Fiberhome",
-"28172E": "Fiberhome",
-"28563A": "Fiberhome",
-"286DDA": "Fiberhome",
-"28BF89": "Fiberhome",
-"28F7D6": "Fiberhome",
-"3085EB": "Fiberhome",
-"3086F1": "Fiberhome",
-"30A176": "Fiberhome",
-"341A35": "Fiberhome",
-"342DA3": "Fiberhome",
-"344B3D": "Fiberhome",
-"34BF90": "Fiberhome",
-"38144E": "Fiberhome",
-"383D5B": "Fiberhome",
-"38637F": "Fiberhome",
-"387A3C": "Fiberhome",
-"38A89B": "Fiberhome",
-"3C1060": "Fiberhome",
-"3CFB5C": "Fiberhome",
-"444B7E": "Fiberhome",
-"48555F": "Fiberhome",
-"485AEA": "Fiberhome",
-"48A0F8": "Fiberhome",
-"48F97C": "Fiberhome",
-"50C6AD": "Fiberhome",
-"540A77": "Fiberhome",
-"543E64": "Fiberhome",
-"54DF24": "Fiberhome",
-"54E005": "Fiberhome",
-"58239B": "Fiberhome",
-"583BD9": "Fiberhome",
-"58AEF1": "Fiberhome",
-"58C57E": "Fiberhome",
-"5C7DF3": "Fiberhome",
-"5CA4A4": "Fiberhome",
-"5CE3B6": "Fiberhome",
-"60B617": "Fiberhome",
-"649CF3": "Fiberhome",
-"64B2B4": "Fiberhome",
-"68403C": "Fiberhome",
-"685811": "Fiberhome",
-"689A21": "Fiberhome",
-"68B76B": "Fiberhome",
-"68DECE": "Fiberhome",
-"68E905": "Fiberhome",
-"68FEDA": "Fiberhome",
-"6C09BF": "Fiberhome",
-"6C3845": "Fiberhome",
-"6C48A6": "Fiberhome",
-"6C9E7C": "Fiberhome",
-"6CA4D1": "Fiberhome",
-"6CA858": "Fiberhome",
-"6CD719": "Fiberhome",
-"70B921": "Fiberhome",
-"70D51E": "Fiberhome",
-"7412BB": "Fiberhome",
-"741E93": "Fiberhome",
-"7430AF": "Fiberhome",
-"745D68": "Fiberhome",
-"74C9A3": "Fiberhome",
-"74CC39": "Fiberhome",
-"74E19A": "Fiberhome",
-"74EC42": "Fiberhome",
-"78465F": "Fiberhome",
-"7CC74A": "Fiberhome",
-"7CC77E": "Fiberhome",
-"7CF9A0": "Fiberhome",
-"7CFCFD": "Fiberhome",
-"803AF4": "Fiberhome",
-"809FAB": "Fiberhome",
-"80C7C5": "Fiberhome",
-"8406FA": "Fiberhome",
-"844DBE": "Fiberhome",
-"848102": "Fiberhome",
-"882067": "Fiberhome",
-"88238C": "Fiberhome",
-"88659F": "Fiberhome",
-"88947E": "Fiberhome",
-"88B2AB": "Fiberhome",
-"8C5FAD": "Fiberhome",
-"8C73A0": "Fiberhome",
-"903CDA": "Fiberhome",
-"903E7F": "Fiberhome",
-"9055DE": "Fiberhome",
-"9070D3": "Fiberhome",
-"90837E": "Fiberhome",
-"94AA0A": "Fiberhome",
-"94D505": "Fiberhome",
-"98EDCA": "Fiberhome",
-"9C6865": "Fiberhome",
-"9C88AD": "Fiberhome",
-"9CA6D8": "Fiberhome",
-"9CFEA1": "Fiberhome",
-"A013CB": "Fiberhome",
-"A0D83D": "Fiberhome",
-"A0E06D": "Fiberhome",
-"A41908": "Fiberhome",
-"A844AA": "Fiberhome",
-"A8CEE7": "Fiberhome",
-"A8E705": "Fiberhome",
-"A8EA71": "Fiberhome",
-"A8FECE": "Fiberhome",
-"AC4E65": "Fiberhome",
-"AC80AE": "Fiberhome",
-"ACC25D": "Fiberhome",
-"ACC4A9": "Fiberhome",
-"ACCB36": "Fiberhome",
-"B0104B": "Fiberhome",
-"B05C16": "Fiberhome",
-"B0A7D2": "Fiberhome",
-"B0E2E5": "Fiberhome",
-"B4608C": "Fiberhome",
-"B49F4D": "Fiberhome",
-"B8C716": "Fiberhome",
-"B8DFD4": "Fiberhome",
-"B8F774": "Fiberhome",
-"BC0004": "Fiberhome",
-"BC4632": "Fiberhome",
-"BC9889": "Fiberhome",
-"BCAA82": "Fiberhome",
-"BCC00F": "Fiberhome",
-"C03656": "Fiberhome",
-"C096A4": "Fiberhome",
-"C464B7": "Fiberhome",
-"C4F0EC": "Fiberhome",
-"C84029": "Fiberhome",
-"C8741B": "Fiberhome",
-"C8E07A": "Fiberhome",
-"C8F6C8": "Fiberhome",
-"CC0677": "Fiberhome",
-"CC500A": "Fiberhome",
-"CC77C9": "Fiberhome",
-"CCB071": "Fiberhome",
-"D00492": "Fiberhome",
-"D041C9": "Fiberhome",
-"D05995": "Fiberhome",
-"D069FF": "Fiberhome",
-"D07880": "Fiberhome",
-"D092FA": "Fiberhome",
-"D40068": "Fiberhome",
-"D45800": "Fiberhome",
-"D467E7": "Fiberhome",
-"D49F29": "Fiberhome",
-"D4AD2D": "Fiberhome",
-"D4F786": "Fiberhome",
-"D4FC13": "Fiberhome",
-"D89ED4": "Fiberhome",
-"D8F507": "Fiberhome",
-"E00ECE": "Fiberhome",
-"E02AE6": "Fiberhome",
-"E0604A": "Fiberhome",
-"E096E8": "Fiberhome",
-"E0F678": "Fiberhome",
-"E42F26": "Fiberhome",
-"E8018D": "Fiberhome",
-"E85AD1": "Fiberhome",
-"E8910F": "Fiberhome",
-"E8B3EF": "Fiberhome",
-"E8C417": "Fiberhome",
-"E8D099": "Fiberhome",
-"EC8AC7": "Fiberhome",
-"ECE6A2": "Fiberhome",
-"F0407B": "Fiberhome",
-"F08CFB": "Fiberhome",
-"F0ABF3": "Fiberhome",
-"F4573E": "Fiberhome",
-"F46FED": "Fiberhome",
-"F84D33": "Fiberhome",
-"F8AFDB": "Fiberhome",
-"F8C96C": "Fiberhome",
-"F8E4A4": "Fiberhome",
-"FC61E9": "Fiberhome",
-"FCA6CD": "Fiberhome",
-"FCF647": "Fiberhome",
-"000C42": "Routerboard",
-"085531": "Routerboard",
-"18FD74": "Routerboard",
-"2CC81B": "Routerboard",
-"488F5A": "Routerboard",
-"48A98A": "Routerboard",
-"4C5E0C": "Routerboard",
-"64D154": "Routerboard",
-"6C3B6B": "Routerboard",
-"744D28": "Routerboard",
-"789A18": "Routerboard",
-"C4AD34": "Routerboard",
-"CC2DE0": "Routerboard",
-"D401C3": "Routerboard",
-"D4CA6D": "Routerboard",
-"DC2C6E": "Routerboard",
-"E48D8C": "Routerboard",
-"F41E57": "Routerboard",
-"B869F4": "Routerboard",
-"04F41C": "Routerboard",
-"28107B": "Intelbras",
-"001A3F": "Intelbras",
-"180D2C": "Intelbras",
-"24FD0D": "Intelbras",
-"30E1F1": "Intelbras",
-"443B32": "Intelbras",
-"4851CF": "Intelbras",
-"546CAC": "Intelbras",
-"54BAD9": "Intelbras",
-"58108C": "Intelbras",
-"808544": "Intelbras",
-"808FE8": "Intelbras",
-"982A0A": "Intelbras",
-"98E55B": "Intelbras",
-"AC1EA9": "Intelbras",
-"B87EE5": "Intelbras",
-"D8365F": "Intelbras",
-"D8778B": "Intelbras"
-
-      
-
+"245F9F": "HUAWEI","B0FEE5": "HUAWEI","F41D6B": "HUAWEI","C4278C": "HUAWEI","001882": "HUAWEI",
+"001E10": "HUAWEI","002568": "HUAWEI","00259E": "HUAWEI","002EC7": "HUAWEI","0034FE": "HUAWEI",
+"00464B": "HUAWEI","004F1A": "HUAWEI","005A13": "HUAWEI","006151": "HUAWEI","00664B": "HUAWEI",
+"006B6F": "HUAWEI","00991D": "HUAWEI","009ACD": "HUAWEI","00A91D": "HUAWEI","00BE3B": "HUAWEI",
+"00E0FC": "HUAWEI","00E12F": "HUAWEI","00E406": "HUAWEI","00F5FD": "HUAWEI","00F7AD": "HUAWEI",
+"00F81C": "HUAWEI","00F952": "HUAWEI","04021F": "HUAWEI","042758": "HUAWEI","043389": "HUAWEI",
+"044A6C": "HUAWEI","0455B8": "HUAWEI","046E0B": "HUAWEI","04749E": "HUAWEI","048CF8": "HUAWEI",
+"049FCA": "HUAWEI","04A81C": "HUAWEI","04F03E": "HUAWEI","04F169": "HUAWEI","04F352": "HUAWEI",
+"04F938": "HUAWEI","08FA28": "HUAWEI","10A4DA": "HUAWEI","10C3AB": "HUAWEI","10DA49": "HUAWEI",
+"14CF92": "HUAWEI","17A6F2": "HUAWEI","24E924": "HUAWEI","24264A": "HUAWEI","24E13F": "HUAWEI",
+"282392": "HUAWEI","2CAA8E": "HUAWEI","341A4C": "HUAWEI","3476C5": "HUAWEI","3C2C94": "HUAWEI",
+"40F52E": "HUAWEI","441CA8": "HUAWEI","502873": "HUAWEI","547459": "HUAWEI","5475D0": "HUAWEI",
+"5475F7": "HUAWEI","58B035": "HUAWEI","5C4AAB": "HUAWEI","60E327": "HUAWEI","641CA8": "HUAWEI",
+"6CEDFB": "HUAWEI","7C1CF1": "HUAWEI","7CD1C3": "HUAWEI","7C96D2": "HUAWEI","8C01F6": "HUAWEI",
+"98D6BB": "HUAWEI","9C1D58": "HUAWEI","9CE374": "HUAWEI","A01781": "HUAWEI","A04EF9": "HUAWEI",
+"A0F3C1": "HUAWEI","B4975A": "HUAWEI","C8AB37": "HUAWEI","CC3A61": "HUAWEI","CC73F9": "HUAWEI",
+"D0C1B1": "HUAWEI","D4258B": "HUAWEI","DC1EA3": "HUAWEI","DC4EDE": "HUAWEI","EC2334": "HUAWEI",
+"F02929": "HUAWEI","F0F279": "HUAWEI","F48C50": "HUAWEI","F88DEF": "HUAWEI",
+"00AD24": "D-Link","085A11": "D-Link","0C0E76": "D-Link","0CB6D2": "D-Link","1062EB": "D-Link",
+"10BEF5": "D-Link","14D64D": "D-Link","180F76": "D-Link","1C5F2B": "D-Link","1C7EE5": "D-Link",
+"1CAFF7": "D-Link","1CBDB9": "D-Link","28107B": "D-Link","283B82": "D-Link","340A33": "D-Link",
+"3C1E04": "D-Link","409BCD": "D-Link","48EE0C": "D-Link","54B80A": "D-Link","58D56E": "D-Link",
+"60634C": "D-Link","6C198F": "D-Link","6C7220": "D-Link","7062B8": "D-Link","74DADA": "D-Link",
+"78321B": "D-Link","78542E": "D-Link","7898E8": "D-Link","802689": "D-Link","84C9B2": "D-Link",
+"908D78": "D-Link","9094E4": "D-Link","9CD643": "D-Link","A0A3F0": "D-Link","A0AB1B": "D-Link",
+"A42A95": "D-Link","A8637D": "D-Link","ACF1DF": "D-Link","B0C554": "D-Link","B8A386": "D-Link",
+"BC0F9A": "D-Link","BC2228": "D-Link","BCF685": "D-Link","C0A0BB": "D-Link","C412F5": "D-Link",
+"C4A81D": "D-Link","C4E90A": "D-Link","C8BE19": "D-Link","C8D3A3": "D-Link","CCB255": "D-Link",
+"D8FEE3": "D-Link","E01CFC": "D-Link","E46F13": "D-Link","E8CC18": "D-Link","EC2280": "D-Link",
+"ECADE0": "D-Link","F0B4D2": "D-Link","F48CEB": "D-Link","F8E903": "D-Link","FC7516": "D-Link",
+"002FD9": "Fiberhome","006762": "Fiberhome","00BE9E": "Fiberhome","04A2F3": "Fiberhome","04C1B9": "Fiberhome",
+"04ECBB": "Fiberhome","0830CE": "Fiberhome","0846C7": "Fiberhome","087458": "Fiberhome","0C2A86": "Fiberhome",
+"0C35FE": "Fiberhome","0C6ABC": "Fiberhome","0C7474": "Fiberhome","0C8447": "Fiberhome","10071D": "Fiberhome",
+"104C43": "Fiberhome","105887": "Fiberhome","1077B0": "Fiberhome","1088CE": "Fiberhome","10DC4A": "Fiberhome",
+"14172A": "Fiberhome","142233": "Fiberhome","142D79": "Fiberhome","14E9B2": "Fiberhome","185282": "Fiberhome",
+"18A3E8": "Fiberhome","18D225": "Fiberhome","1C398A": "Fiberhome","1C60D2": "Fiberhome","1CD1BA": "Fiberhome",
+"1CDE57": "Fiberhome","2025D2": "Fiberhome","205D0D": "Fiberhome","20896F": "Fiberhome","24B7DA": "Fiberhome",
+"24CACB": "Fiberhome","24E3A4": "Fiberhome","24E4C8": "Fiberhome","28172E": "Fiberhome","28563A": "Fiberhome",
+"286DDA": "Fiberhome","28BF89": "Fiberhome","28F7D6": "Fiberhome","3085EB": "Fiberhome","3086F1": "Fiberhome",
+"30A176": "Fiberhome","341A35": "Fiberhome","342DA3": "Fiberhome","344B3D": "Fiberhome","34BF90": "Fiberhome",
+"38144E": "Fiberhome","383D5B": "Fiberhome","38637F": "Fiberhome","387A3C": "Fiberhome","38A89B": "Fiberhome",
+"3C1060": "Fiberhome","3CFB5C": "Fiberhome","444B7E": "Fiberhome","48555F": "Fiberhome","485AEA": "Fiberhome",
+"48A0F8": "Fiberhome","48F97C": "Fiberhome","50C6AD": "Fiberhome","540A77": "Fiberhome","543E64": "Fiberhome",
+"54DF24": "Fiberhome","54E005": "Fiberhome","58239B": "Fiberhome","583BD9": "Fiberhome","58AEF1": "Fiberhome",
+"58C57E": "Fiberhome","5C7DF3": "Fiberhome","5CA4A4": "Fiberhome","5CE3B6": "Fiberhome","60B617": "Fiberhome",
+"649CF3": "Fiberhome","64B2B4": "Fiberhome","68403C": "Fiberhome","685811": "Fiberhome","689A21": "Fiberhome",
+"68B76B": "Fiberhome","68DECE": "Fiberhome","68E905": "Fiberhome","68FEDA": "Fiberhome","6C09BF": "Fiberhome",
+"6C3845": "Fiberhome","6C48A6": "Fiberhome","6C9E7C": "Fiberhome","6CA4D1": "Fiberhome","6CA858": "Fiberhome",
+"6CD719": "Fiberhome","70B921": "Fiberhome","70D51E": "Fiberhome","7412BB": "Fiberhome","741E93": "Fiberhome",
+"7430AF": "Fiberhome","745D68": "Fiberhome","74C9A3": "Fiberhome","74CC39": "Fiberhome","74E19A": "Fiberhome",
+"74EC42": "Fiberhome","78465F": "Fiberhome","7CC74A": "Fiberhome","7CC77E": "Fiberhome","7CF9A0": "Fiberhome",
+"7CFCFD": "Fiberhome","803AF4": "Fiberhome","809FAB": "Fiberhome","80C7C5": "Fiberhome","8406FA": "Fiberhome",
+"844DBE": "Fiberhome","848102": "Fiberhome","882067": "Fiberhome","88238C": "Fiberhome","88659F": "Fiberhome",
+"88947E": "Fiberhome","88B2AB": "Fiberhome","8C5FAD": "Fiberhome","8C73A0": "Fiberhome","903CDA": "Fiberhome",
+"903E7F": "Fiberhome","9055DE": "Fiberhome","9070D3": "Fiberhome","90837E": "Fiberhome","94AA0A": "Fiberhome",
+"94D505": "Fiberhome","98EDCA": "Fiberhome","9C6865": "Fiberhome","9C88AD": "Fiberhome","9CA6D8": "Fiberhome",
+"9CFEA1": "Fiberhome","A013CB": "Fiberhome","A0D83D": "Fiberhome","A0E06D": "Fiberhome","A41908": "Fiberhome",
+"A844AA": "Fiberhome","A8CEE7": "Fiberhome","A8E705": "Fiberhome","A8EA71": "Fiberhome","A8FECE": "Fiberhome",
+"AC4E65": "Fiberhome","AC80AE": "Fiberhome","ACC25D": "Fiberhome","ACC4A9": "Fiberhome","ACCB36": "Fiberhome",
+"B0104B": "Fiberhome","B05C16": "Fiberhome","B0A7D2": "Fiberhome","B0E2E5": "Fiberhome","B4608C": "Fiberhome",
+"B49F4D": "Fiberhome","B8C716": "Fiberhome","B8DFD4": "Fiberhome","B8F774": "Fiberhome","BC0004": "Fiberhome",
+"BC4632": "Fiberhome","BC9889": "Fiberhome","BCAA82": "Fiberhome","BCC00F": "Fiberhome","C03656": "Fiberhome",
+"C096A4": "Fiberhome","C464B7": "Fiberhome","C4F0EC": "Fiberhome","C84029": "Fiberhome","C8741B": "Fiberhome",
+"C8E07A": "Fiberhome","C8F6C8": "Fiberhome","CC0677": "Fiberhome","CC500A": "Fiberhome","CC77C9": "Fiberhome",
+"CCB071": "Fiberhome","D00492": "Fiberhome","D041C9": "Fiberhome","D05995": "Fiberhome","D069FF": "Fiberhome",
+"D07880": "Fiberhome","D092FA": "Fiberhome","D40068": "Fiberhome","D45800": "Fiberhome","D467E7": "Fiberhome",
+"D49F29": "Fiberhome","D4AD2D": "Fiberhome","D4F786": "Fiberhome","D4FC13": "Fiberhome","D89ED4": "Fiberhome",
+"D8F507": "Fiberhome","E00ECE": "Fiberhome","E02AE6": "Fiberhome","E0604A": "Fiberhome","E096E8": "Fiberhome",
+"E0F678": "Fiberhome","E42F26": "Fiberhome","E8018D": "Fiberhome","E85AD1": "Fiberhome","E8910F": "Fiberhome",
+"E8B3EF": "Fiberhome","E8C417": "Fiberhome","E8D099": "Fiberhome","EC8AC7": "Fiberhome","ECE6A2": "Fiberhome",
+"F0407B": "Fiberhome","F08CFB": "Fiberhome","F0ABF3": "Fiberhome","F4573E": "Fiberhome","F46FED": "Fiberhome",
+"F84D33": "Fiberhome","F8AFDB": "Fiberhome","F8C96C": "Fiberhome","F8E4A4": "Fiberhome","FC61E9": "Fiberhome",
+"FCA6CD": "Fiberhome","FCF647": "Fiberhome",
+"000C42": "Routerboard","085531": "Routerboard","18FD74": "Routerboard","2CC81B": "Routerboard","488F5A": "Routerboard",
+"48A98A": "Routerboard","4C5E0C": "Routerboard","64D154": "Routerboard","6C3B6B": "Routerboard","744D28": "Routerboard",
+"789A18": "Routerboard","C4AD34": "Routerboard","CC2DE0": "Routerboard","D401C3": "Routerboard","D4CA6D": "Routerboard",
+"DC2C6E": "Routerboard","E48D8C": "Routerboard","F41E57": "Routerboard","B869F4": "Routerboard","04F41C": "Routerboard",
+"001A3F": "Intelbras","180D2C": "Intelbras","24FD0D": "Intelbras","30E1F1": "Intelbras","443B32": "Intelbras",
+"4851CF": "Intelbras","546CAC": "Intelbras","54BAD9": "Intelbras","58108C": "Intelbras","808544": "Intelbras",
+"808FE8": "Intelbras","982A0A": "Intelbras","98E55B": "Intelbras","AC1EA9": "Intelbras","B87EE5": "Intelbras",
+"D8365F": "Intelbras","D8778B": "Intelbras"
     };
 
-    // Função para consultar MAC
     function consultarMAC() {
       const macInput = document.getElementById('macInput').value.trim();
       const macResult = document.getElementById('macResult');
       
       if (!macInput) {
-        macResult.innerHTML = `
-          <div style="color: var(--accent); text-align: center;">
-            <i class="fas fa-exclamation-triangle fa-2x"></i><br><br>
-            Digite um MAC address para consultar
-          </div>
-        `;
-        macResult.className = 'mac-result mac-not-found';
+        macResult.innerHTML = `<div style="color: var(--accent); text-align: center;"><i class="fas fa-exclamation-triangle fa-2x"></i><br><br>Digite um MAC address para consultar</div>`;
         return;
       }
       
-      // Extrair apenas os 6 primeiros dígitos hexadecimais
       const macLimpo = macInput.replace(/[:\-]/g, '').toUpperCase();
       const oui = macLimpo.substring(0, 6);
       
       if (oui.length !== 6) {
-        macResult.innerHTML = `
-          <div style="color: var(--accent); text-align: center;">
-            <i class="fas fa-exclamation-triangle fa-2x"></i><br><br>
-            MAC address inválido<br>
-            <small>Digite pelo menos 6 caracteres hexadecimais</small>
-          </div>
-        `;
-        macResult.className = 'mac-result mac-not-found';
+        macResult.innerHTML = `<div style="color: var(--accent); text-align: center;"><i class="fas fa-exclamation-triangle fa-2x"></i><br><br>MAC address inválido<br><small>Digite pelo menos 6 caracteres hexadecimais</small></div>`;
         return;
       }
       
-      // Buscar fabricante
       const fabricante = macDatabase[oui];
       
       if (fabricante) {
         macResult.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 3rem; color: var(--success); margin-bottom: 10px;">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div style="font-size: 1.3rem; font-weight: bold; color: var(--success); margin-bottom: 15px;">
-              FABRICANTE ENCONTRADO
-            </div>
-            <div style="margin: 10px 0; font-size: 1.1rem;">
-              <strong>MAC Digitado:</strong><br>
-              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${macInput}</code>
-            </div>
-            <div style="margin: 10px 0; font-size: 1.1rem;">
-              <strong>OUI Consultado:</strong><br>
-              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${formatarOUI(oui)}</code>
-            </div>
-            <div style="margin: 15px 0; padding: 15px; background: #e6f2ff; border-radius: 6px; font-size: 1.3rem;">
+          <div style="text-align: center; width: 100%;">
+            <div style="font-size: 3rem; color: var(--success); margin-bottom: 10px;"><i class="fas fa-check-circle"></i></div>
+            <div style="font-size: 1.3rem; font-weight: bold; color: var(--success); margin-bottom: 15px;">FABRICANTE ENCONTRADO</div>
+            <div style="margin: 10px 0; font-size: 1.1rem;"><strong>MAC:</strong><br><code style="font-family: 'Courier New', monospace; font-size: 1.1rem;">${macInput}</code></div>
+            <div style="margin: 10px 0; font-size: 1.1rem;"><strong>OUI:</strong><br><code style="font-family: 'Courier New', monospace; font-size: 1.1rem;">${formatarOUI(oui)}</code></div>
+            <div style="margin: 15px 0; padding: 15px; background: #e6f2ff; border-radius: 6px;">
               <strong>Fabricante 👇</strong><br>
               <span style="font-weight: 900; font-size: 1.4rem; color: #000000;">${fabricante}</span>
             </div>
-          </div>
-        `;
-        macResult.className = 'mac-result mac-found';
+          </div>`;
       } else {
         macResult.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;">
-              <i class="fas fa-question-circle"></i>
-            </div>
-            <div style="font-size: 1.3rem; font-weight: bold; color: var(--accent); margin-bottom: 15px;">
-              FABRICANTE DESCONHECIDO
-            </div>
-            <div style="margin: 10px 0; font-size: 1.1rem;">
-              <strong>MAC Digitado:</strong><br>
-              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${macInput}</code>
-            </div>
-            <div style="margin: 10px 0; font-size: 1.1rem;">
-              <strong>OUI Consultado:</strong><br>
-              <code style="font-family: 'Courier New', monospace; font-size: 1.2rem;">${formatarOUI(oui)}</code>
-            </div>
-            <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 6px;">
-              Fabricante não cadastrado no sistema
-            </div>
-          </div>
-        `;
-        macResult.className = 'mac-result mac-not-found';
+          <div style="text-align: center; width: 100%;">
+            <div style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;"><i class="fas fa-question-circle"></i></div>
+            <div style="font-size: 1.3rem; font-weight: bold; color: var(--accent); margin-bottom: 15px;">FABRICANTE DESCONHECIDO</div>
+            <div style="margin: 10px 0; font-size: 1.1rem;"><strong>MAC:</strong><br><code style="font-family: 'Courier New', monospace; font-size: 1.1rem;">${macInput}</code></div>
+            <div style="margin: 10px 0; font-size: 1.1rem;"><strong>OUI:</strong><br><code style="font-family: 'Courier New', monospace; font-size: 1.1rem;">${formatarOUI(oui)}</code></div>
+            <div style="margin: 15px 0; padding: 15px; background: #fee2e2; border-radius: 6px; color: #991b1b;">Fabricante não cadastrado no sistema</div>
+          </div>`;
       }
     }
 
-    // Função para formatar OUI (XX:XX:XX)
     function formatarOUI(oui) {
       return oui.replace(/(.{2})/g, '$1:').slice(0, -1);
     }
@@ -2397,107 +2044,203 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       }
     }
 
-    // ========== FUNÇÕES DA TRANSFERÊNCIA DE TITULARIDADE ==========
-    
-    // Função para gerar texto de transferência
-    function gerarTextoTransferencia() {
-      const transferirGenero = document.querySelector('input[name="transferir_genero"]:checked').value;
-      const receberGenero = document.querySelector('input[name="receber_genero_transf"]:checked').value;
-      const protocolo = document.getElementById('protocolo_transf').value;
-      const transferirNome = document.getElementById('transferir_nome').value;
-      const transferirCpfCnpj = document.getElementById('transferir_cpf_cnpj').value;
-      const receberNome = document.getElementById('receber_nome').value;
-      const receberCpfCnpj = document.getElementById('receber_cpf_cnpj').value;
-      const telefone = document.getElementById('telefone_contato').value;
-      const telefoneAtendimento = document.getElementById('telefone_atendimento').value;
-      
-      const artigoTransferir = transferirGenero === 'feminino' ? 'A' : 'O';
-      const portadorTransferir = transferirGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
-      const portadorReceber = receberGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
-      const novoTitular = receberGenero === 'feminino' ? 'DA NOVA TITULAR' : 'DO NOVO TITULAR';
-      const entrarContato = receberGenero === 'feminino' ? 'A NOVA TITULAR IRÁ' : 'O NOVO TITULAR IRÁ';
-      
-      const anotacao = `${artigoTransferir} CLIENTE ${transferirNome} ${portadorTransferir} DO CPF/CNPJ: ${transferirCpfCnpj}\n` +
-                      `DESEJA PASSAR A TITULARIDADE DO SERVICO PARA ${receberNome} ${portadorReceber} DO CPF/CNPJ: ${receberCpfCnpj}\n` +
-                      `- NÚMERO PARA CONTATO ${novoTitular}: ${telefone}. ${entrarContato} ENTRAR EM CONTATO PARA O RECEBIMENTO DO SERVICO.\n` +
-                      `protocolo: ${protocolo} // telefone: ${telefoneAtendimento}`;
-      
-      document.getElementById('resultadoTitularidade').textContent = anotacao;
-      document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    // Função para gerar texto de recebimento
-    function gerarTextoRecebimento() {
-      const receberGenero = document.querySelector('input[name="receber_genero"]:checked').value;
-      const transferirGenero = document.querySelector('input[name="transferir_genero_receb"]:checked').value;
-      const protocolo = document.getElementById('protocolo_receb').value;
-      const receberNome = document.getElementById('receber_nome_receb').value;
-      const receberCpfCnpj = document.getElementById('receber_cpf_cnpj_receb').value;
-      const transferirNome = document.getElementById('transferir_nome_receb').value;
-      const transferirCpfCnpj = document.getElementById('transferir_cpf_cnpj_receb').value;
-      const telefoneAtendimento = document.getElementById('telefone_atendimento_receb').value;
-      
-      const novoTitular = receberGenero === 'feminino' ? 'NOVA TITULAR' : 'NOVO TITULAR';
-      const portadorReceber = receberGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
-      const portadorTransferir = transferirGenero === 'feminino' ? 'PORTADORA' : 'PORTADOR';
-      
-      const anotacao = `${novoTitular} ${receberNome} ${portadorReceber} DO CPF/CNPJ: ${receberCpfCnpj}\n` +
-                      `IRÁ ASSUMIR A TITULARIDADE DE ${transferirNome} ${portadorTransferir} DO CPF/CNPJ: ${transferirCpfCnpj}\n` +
-                      `protocolo: ${protocolo} // telefone: ${telefoneAtendimento}`;
-      
-      document.getElementById('resultadoTitularidade').textContent = anotacao;
-      document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
+    // ========== FUNÇÕES DA ABA CONVERSOR ==========
+    const cidadesConversor = {
+      "ACQE": { nome: "Acoque", vlan: "4021" },
+      "AGBE": { nome: "Água Bela", vlan: "4022" },
+      "ALLG": { nome: "Alto Alegre do Pindaré", vlan: "4024" },
+      "BRRT": { nome: "Barrote" },
+      "BXVA": { nome: "Bela Vista", vlan: "4020" },
+      "BOJ":  { nome: "Bom Jardim", vlan: "4012" },
+      "CTDR": { nome: "Centro da Rosa", vlan: "4028" },
+      "IEMO": { nome: "Igarapé do Meio", vlan: "4014" },
+      "IEIS": { nome: "Igarapé dos Índios", vlan: "4014" },
+      "MNRH": { nome: "Mineirinho", vlan: "4033" },
+      "MNA":  { nome: "Monção", vlan: "4011" },
+      "MNOA": { nome: "Morada Nova", vlan: "4026" },
+      "GVNB": { nome: "Newton Belo", vlan: "4037" },
+      "PDRS": { nome: "Pedras", vlan: "4010" },
+      "PDM":  { nome: "Pindaré", vlan: "4019" },
+      "PXY":  { nome: "Pio XII", vlan: "4031" },
+      "SIS":  { nome: "Santa Inês" },
+      "SUA":  { nome: "Santa Luzia", vlan: "4015" },
+      "SJCR": { nome: "São João do Carú", vlan: "4042" },
+      "TUFI": { nome: "Tufilândia", vlan: "4025" },
+      "VNA":  { nome: "Viana" },
+      "VMM":  { nome: "Vitória", vlan: "4027" },
+      "ZED":  { nome: "Zé Doca" },
+      "SVEN": { nome: "São Vicente", vlan: "4016" },
+      "LAJE": { nome: "Lajes", vlan: "4030" }
+    };
+
+    const vlansOltConversor = {
+      "SIS-A": "4050",
+      "SIS-B": "4017",
+      "VNA-A": "4052",
+      "VNA-B": "4053"
+    };
+
+    function nomeSlotConversor(letra) {
+      return letra.charCodeAt(0) - 64;
     }
 
-    // ========== FUNÇÕES EXISTENTES DO INDEX ==========
-    
-    // Sistema de abas
+    function formatarSlotConversor(numero) {
+      return String(numero).padStart(2, "0");
+    }
+
+    function nomeOltConversor(sigla, letra) {
+      if (sigla === "SIS") {
+        if (letra === "A") return "OLT Data Center";
+        if (letra === "B") return "OLT Santa Inês";
+        return "OLT não cadastrada (" + letra + ")";
+      }
+      if (sigla === "VNA") {
+        if (letra === "A") return "OLT Viana 1";
+        if (letra === "B") return "OLT Viana 2";
+        return "OLT não cadastrada (" + letra + ")";
+      }
+      if (letra === "A") {
+        return "OLT " + cidadesConversor[sigla].nome;
+      }
+      return "OLT " + letra + " (confirmar cadastro)";
+    }
+
+    function consultarVlanConversor(sigla, letraOlt) {
+      if (sigla === "SIS" || sigla === "VNA") {
+        return vlansOltConversor[sigla + "-" + letraOlt] || null;
+      }
+      return cidadesConversor[sigla].vlan || null;
+    }
+
+    function converterCodigo() {
+      const codigo = document.getElementById("codigoConversor").value.trim().toUpperCase();
+      const erro = document.getElementById("conversorErro");
+      const resultado = document.getElementById("conversorResultado");
+      const aviso = document.getElementById("conversorAviso");
+
+      erro.style.display = "none";
+      resultado.style.display = "none";
+      aviso.style.display = "none";
+
+      const partes = codigo.match(/^MRT-([A-Z]{3,4})-([A-Z])([A-Z])-(\d{2})(\d{2})$/);
+
+      if (!partes) {
+        erro.textContent = "Código inválido. Use o formato MRT-SIS-AC-0201. Confira as letras, os hífens e os quatro números finais.";
+        erro.style.display = "block";
+        return;
+      }
+
+      const sigla = partes[1];
+      const letraOlt = partes[2];
+      const letraSlot = partes[3];
+      const pon = partes[4];
+      const cto = partes[5];
+
+      if (!cidadesConversor[sigla]) {
+        erro.textContent = "A localidade " + sigla + " não está cadastrada. Confira a nomenclatura da cidade.";
+        erro.style.display = "block";
+        return;
+      }
+
+      if (nomeSlotConversor(letraSlot) < 1 || nomeSlotConversor(letraSlot) > 26) {
+        erro.textContent = "A letra do SLOT é inválida.";
+        erro.style.display = "block";
+        return;
+      }
+
+      const cidade = cidadesConversor[sigla];
+      const olt = nomeOltConversor(sigla, letraOlt);
+      const vlan = consultarVlanConversor(sigla, letraOlt);
+
+      document.getElementById("conversorCodigoFormatado").textContent = codigo;
+      document.getElementById("conversorCidade").textContent = cidade.nome + " (" + sigla + ")";
+      document.getElementById("conversorOlt").textContent = olt;
+      document.getElementById("conversorSlot").textContent = formatarSlotConversor(nomeSlotConversor(letraSlot));
+      document.getElementById("conversorPon").textContent = pon;
+      document.getElementById("conversorCto").textContent = cto;
+      document.getElementById("conversorVlan").textContent = vlan || "Não cadastrada";
+
+      if (!vlan) {
+        aviso.textContent = "A VLAN desta OLT ainda não está cadastrada. Confirme o número antes de utilizá-lo.";
+        aviso.style.display = "block";
+      }
+
+      if (sigla !== "SIS" && sigla !== "VNA" && letraOlt !== "A") {
+        aviso.textContent = "A primeira letra desta OLT não possui um cadastro específico para esta cidade. Confira a identificação da OLT e a VLAN.";
+        aviso.style.display = "block";
+      }
+
+      resultado.style.display = "block";
+    }
+
+    function usarExemploConversor(codigo) {
+      document.getElementById("codigoConversor").value = codigo;
+      converterCodigo();
+    }
+
+    function limparConversor() {
+      document.getElementById("codigoConversor").value = "";
+      document.getElementById("conversorResultado").style.display = "none";
+      document.getElementById("conversorErro").style.display = "none";
+      document.getElementById("codigoConversor").focus();
+    }
+
+    function copiarResultadoConversor() {
+      const texto =
+        "Empresa: Maranet\n" +
+        "Código: " + document.getElementById("conversorCodigoFormatado").textContent + "\n" +
+        "Cidade: " + document.getElementById("conversorCidade").textContent + "\n" +
+        "OLT: " + document.getElementById("conversorOlt").textContent + "\n" +
+        "SLOT: " + document.getElementById("conversorSlot").textContent + "\n" +
+        "PON: " + document.getElementById("conversorPon").textContent + "\n" +
+        "CTO: " + document.getElementById("conversorCto").textContent + "\n" +
+        "VLAN: " + document.getElementById("conversorVlan").textContent;
+
+      navigator.clipboard.writeText(texto).then(() => {
+        showNotification('Informações copiadas com sucesso!');
+      }).catch(() => {
+        const textArea = document.getElementById('areaCopia');
+        textArea.value = texto;
+        textArea.select();
+        document.execCommand('copy');
+        showNotification('Informações copiadas com sucesso!');
+      });
+    }
+
+    // ========== FUNÇÕES EXISTENTES DO SISTEMA ==========
     function openTab(tabName) {
-      // Esconder todas as abas
       const tabContents = document.getElementsByClassName('tab-content');
       for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].classList.remove('active');
       }
-      
-      // Remover classe active de todos os botões
       const tabButtons = document.getElementsByClassName('tab-button');
       for (let i = 0; i < tabButtons.length; i++) {
         tabButtons[i].classList.remove('active');
       }
-      
-      // Mostrar a aba selecionada e ativar o botão
       document.getElementById(tabName).classList.add('active');
       event.currentTarget.classList.add('active');
     }
 
-    // Função para mostrar notificação
     function showNotification(message) {
       const notification = document.getElementById('notification');
       const notificationText = document.getElementById('notificationText');
-      
       notificationText.textContent = message;
       notification.classList.add('show');
-      
       setTimeout(() => {
         notification.classList.remove('show');
       }, 3000);
     }
 
-    // Função para copiar texto
     function copiarTexto(elementId) {
       const element = document.getElementById(elementId);
       const textToCopy = element.textContent || element.innerText;
-      
       if (!textToCopy.trim()) {
         showNotification('Gere o texto primeiro antes de copiar!');
         return;
       }
-      
       navigator.clipboard.writeText(textToCopy).then(() => {
         showNotification('Texto copiado com sucesso!');
       }).catch(err => {
-        console.error('Erro ao copiar texto: ', err);
-        // Fallback para navegadores mais antigos
         const textArea = document.getElementById('areaCopia');
         textArea.value = textToCopy;
         textArea.select();
@@ -2506,13 +2249,10 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       });
     }
 
-    // Função para copiar texto diretamente (usada nas senhas)
     function copiarTextoDireto(texto) {
       navigator.clipboard.writeText(texto).then(() => {
         showNotification('Texto copiado com sucesso!');
       }).catch(err => {
-        console.error('Erro ao copiar texto: ', err);
-        // Fallback para navegadores mais antigos
         const textArea = document.getElementById('areaCopia');
         textArea.value = texto;
         textArea.select();
@@ -2521,9 +2261,7 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       });
     }
 
-    // Sistema de abas - inicialização
     document.addEventListener('DOMContentLoaded', function() {
-      // Inicializar o seletor de vencimento
       const vencimentoSelect = document.getElementById('vencimento');
       for (let i = 1; i <= 30; i++) {
         const option = document.createElement('option');
@@ -2532,25 +2270,21 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
         vencimentoSelect.appendChild(option);
       }
       
-      // Carregar notas salvas
       const savedNotes = localStorage.getItem('notaOffline');
       if (savedNotes) {
         document.getElementById('editor').value = savedNotes;
       }
       
-      // Carregar tamanho de fonte salvo
       const fontSize = localStorage.getItem('fontSize');
       if (fontSize) {
         document.getElementById('editor').style.fontSize = fontSize;
         document.getElementById('font-size').value = fontSize;
       }
       
-      // Salvar automaticamente as notas enquanto o usuário digita
       document.getElementById('editor').addEventListener('input', function() {
         localStorage.setItem('notaOffline', this.value);
       });
       
-      // Permitir adicionar cor pressionando Enter
       document.getElementById('hexCode').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
           adicionarCorPersonalizada();
@@ -2558,18 +2292,22 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
         }
       });
       
-      // Permitir consulta MAC com Enter
       document.getElementById('macInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
           consultarMAC();
         }
       });
 
-      // ========== INICIALIZAÇÃO DO ATF ==========
-      // Configurar data automática
+      // Evento Enter para o campo do conversor
+      document.getElementById('codigoConversor').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          converterCodigo();
+        }
+      });
+
       document.getElementById('inputData').value = obterDataAtual();
       
-      // Configurar eventos para atualização automática
       const inputs = ['inputAtend', 'inputLig', 'inputOS', 'inputGeral', 'inputLinkLoss', 'inputNome'];
       inputs.forEach(inputId => {
         const input = document.getElementById(inputId);
@@ -2578,60 +2316,35 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
         }
       });
       
-      // Nome em maiúsculas
       document.getElementById('inputNome').addEventListener('input', function() {
         this.value = this.value.toUpperCase();
         atualizarTudo();
       });
       
-      // Aplicar visualização inicial
       atualizarTudo();
-      
-      // ========== INICIALIZAÇÃO DA TRANSFERÊNCIA DE TITULARIDADE ==========
-      // Configurar eventos para os formulários de transferência
-      document.getElementById('form-transferir').addEventListener('submit', function(e) {
-        e.preventDefault();
-        gerarTextoTransferencia();
-      });
-      
-      document.getElementById('form-receber').addEventListener('submit', function(e) {
-        e.preventDefault();
-        gerarTextoRecebimento();
-      });
     });
 
-    // Função para alterar o tamanho da fonte
     function changeFontSize() {
       const fontSize = document.getElementById('font-size').value;
       document.getElementById('editor').style.fontSize = fontSize;
       localStorage.setItem('fontSize', fontSize);
     }
 
-    // Funções para a aba de Cores
     function adicionarCorPersonalizada() {
       const hexCodeInput = document.getElementById('hexCode');
       let hexCode = hexCodeInput.value.trim();
-      
-      // Adicionar # se não tiver
       if (hexCode && !hexCode.startsWith('#')) {
         hexCode = '#' + hexCode;
       }
-      
-      // Validar código hexadecimal
       const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
       if (!hexRegex.test(hexCode)) {
         showNotification('Código hexadecimal inválido!');
         return;
       }
-      
-      // Gerar nome da cor baseado no código
       const nomeCor = `Cor Personalizada (${hexCode.toUpperCase()})`;
       const idCor = `codigo-personalizado-${Date.now()}`;
-      
-      // Criar linha na tabela
       const tbody = document.querySelector('#coresTable tbody');
       const novaLinha = document.createElement('tr');
-      
       novaLinha.innerHTML = `
         <td><div class="color-sample" style="background-color: ${hexCode};"></div></td>
         <td>${nomeCor}</td>
@@ -2643,48 +2356,32 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
           </button>
         </td>
       `;
-      
-      // Adicionar no início da tabela
       tbody.insertBefore(novaLinha, tbody.firstChild);
-      
-      // Limpar campo de entrada
       hexCodeInput.value = '';
-      
-      // Mostrar mensagem de sucesso
       showNotification('Cor personalizada adicionada com sucesso!');
     }
     
-    // Função para copiar o exemplo de código
     function copiarExemplo(idElemento) {
       const elemento = document.getElementById(idElemento);
       const texto = elemento.textContent;
-      
-      // Criar um elemento textarea temporário para copiar o texto
       const textarea = document.createElement('textarea');
       textarea.value = texto;
       document.body.appendChild(textarea);
       textarea.select();
-      
       try {
         const successful = document.execCommand('copy');
         if (successful) {
           showNotification('Código copiado com sucesso!');
-        } else {
-          throw new Error('Falha ao copiar texto');
         }
       } catch (err) {
-        console.error('Erro ao copiar texto: ', err);
-        alert('Falha ao copiar texto. Selecione e copie manualmente (Ctrl+C).');
+        alert('Falha ao copiar texto.');
       }
-      
       document.body.removeChild(textarea);
     }
 
-    // Funções para as outras abas - RESTAURADAS do S.I original
     function toggleVencimento() {
       const formaPagamento = document.getElementById("parcelas").value;
       const vencimentoContainer = document.getElementById("vencimentoContainer");
-      
       if (formaPagamento === "ISENTO") {
         vencimentoContainer.classList.add("hidden");
         document.getElementById("vencimento").required = false;
@@ -2696,37 +2393,22 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
 
     function gerarTextoMudanca() {
       const campos = {
-        "Cidade Antiga": "cidadeAntiga",
-        "Rua Antiga": "ruaAntiga",
-        "Bairro Antigo": "bairroAntigo",
-        "Número Antigo": "numeroAntigo",
-        "Referência Antiga": "referenciaAntiga",
-        "Cidade Nova": "cidadeNova",
-        "Rua Nova": "ruaNova",
-        "Bairro Novo": "bairroNova",
-        "Número Novo": "numeroNova",
-        "Referência Nova": "referenciaNova",
-        "Contatos": "contatos",
-        "Forma de Pagamento": "parcelas",
-        "Vencimento": "vencimento",
-        "Protocolo": "protocoloMudanca",
-        "Telefone de Atendimento": "telefoneAtendimento",
+        "Cidade Antiga": "cidadeAntiga","Rua Antiga": "ruaAntiga","Bairro Antigo": "bairroAntigo",
+        "Número Antigo": "numeroAntigo","Referência Antiga": "referenciaAntiga",
+        "Cidade Nova": "cidadeNova","Rua Nova": "ruaNova","Bairro Novo": "bairroNova",
+        "Número Novo": "numeroNova","Referência Nova": "referenciaNova",
+        "Contatos": "contatos","Forma de Pagamento": "parcelas","Vencimento": "vencimento",
+        "Protocolo": "protocoloMudanca","Telefone de Atendimento": "telefoneAtendimento",
         "Observações": "observacoes"
       };
-
       let camposVazios = [];
       const valores = {};
-
       for (const [nomeCampo, idCampo] of Object.entries(campos)) {
         const elemento = document.getElementById(idCampo);
         let valor = elemento ? elemento.value.trim() : '';
-        
-        // Se for isento, não validar vencimento
         if (idCampo === "vencimento" && document.getElementById("parcelas").value === "ISENTO") {
           valor = "ISENTO";
         }
-        
-        // Observações é opcional, então não adicionamos à lista de campos obrigatórios
         if (!valor && idCampo !== "referenciaAntiga" && idCampo !== "observacoes" &&
             !(idCampo === "vencimento" && document.getElementById("parcelas").value === "ISENTO")) {
           camposVazios.push(nomeCampo);
@@ -2734,26 +2416,20 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
           valores[idCampo] = valor.toUpperCase();
         }
       }
-
       const erroDiv = document.getElementById("erroValidacaoMudanca");
       if (camposVazios.length > 0) {
         erroDiv.textContent = "Preencha os seguintes campos obrigatórios: " + camposVazios.join(", ");
         erroDiv.style.display = 'block';
         document.getElementById("resultadoHtmlMudanca").textContent = '';
-        
-        // Rola para o topo do formulário para mostrar o erro
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       } else {
         erroDiv.style.display = 'none';
       }
-
       let frasePagamento = "";
       let textoInicial = "";
-      
       if (valores["parcelas"] === "ISENTO") {
         textoInicial = "CLIENTE DESEJA MUDANÇA DE ENDEREÇO E ESTÁ ISENTO DA TAXA";
-        // Para ISENTO, não adicionamos nenhuma informação de pagamento
       } else {
         textoInicial = "CLIENTE DESEJA MUDANÇA DE ENDEREÇO E ESTA CIENTE DA TAXA DE R$ 70,00 REAIS";
         if (valores["parcelas"] === "À VISTA") {
@@ -2762,35 +2438,26 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
           frasePagamento = `CLIENTE DESEJA PAGAR EM ${valores["parcelas"]} COM VENCIMENTO DO BOLETO PARA O DIA ${valores["vencimento"]}`;
         }
       }
-
-      // CORREÇÃO: Adicionar as observações na posição correta
       const observacoesTexto = valores["observacoes"] ? `${valores["observacoes"]}<br>` : '';
-
-      // CORREÇÃO: Formatação final com quebra de linha adequada
       const textoHtmlLiteral =
 `${textoInicial}<br>
 >>>ENDEREÇO ANTIGO<br>
 CIDADE: ${valores["cidadeAntiga"]}<br>
 RUA: ${valores["ruaAntiga"]}<br>
-BAIRRO: ${valores["bairroAntigo"]}
-<br>
+BAIRRO: ${valores["bairroAntigo"]}<br>
 NÚMERO DA CASA: ${valores["numeroAntigo"]}<br>
-PONTOS DE REFERÊNCIA: ${valores["referenciaAntiga"] || 'NÃO INFORMADO'}
-<br>
+PONTOS DE REFERÊNCIA: ${valores["referenciaAntiga"] || 'NÃO INFORMADO'}<br>
 <br>
 >>>ENDEREÇO NOVO <br>
 CIDADE: ${valores["cidadeNova"]}<br>
-RUA: ${valores["ruaNova"]}
-<br>
+RUA: ${valores["ruaNova"]}<br>
 BAIRRO: ${valores["bairroNova"]}<br>
 NÚMERO DA CASA: ${valores["numeroNova"]}<br>
 DOIS PONTOS DE REFERÊNCIA: ${valores["referenciaNova"]}<br>
 DOIS NÚMEROS DE CONTATO: ${valores["contatos"]}<br>
 ${frasePagamento}<br>
 ${observacoesTexto}protocolo: ${valores["protocoloMudanca"]} // telefone: ${valores["telefoneAtendimento"]}`;
-
       document.getElementById("resultadoHtmlMudanca").textContent = textoHtmlLiteral;
-      
       document.getElementById('lembreteMudanca').style.display = 'block';
       document.querySelector('.result-container').scrollIntoView({ behavior: 'smooth' });
     }
@@ -2804,109 +2471,58 @@ ${observacoesTexto}protocolo: ${valores["protocoloMudanca"]} // telefone: ${valo
       let valorBoleto = document.getElementById("valorBoleto").value;
       const protocolo = document.getElementById("protocoloBaixa").value;
       const telefone = document.getElementById("telefoneBaixa").value;
-
-      // Adicionar R$ aos valores
-      if (valorPix && !valorPix.includes('R$')) {
-        valorPix = 'R$ ' + valorPix;
-      }
-      
-      if (valorBoleto && !valorBoleto.includes('R$')) {
-        valorBoleto = 'R$ ' + valorBoleto;
-      }
-
-      // Verificar campos obrigatórios
+      if (valorPix && !valorPix.includes('R$')) valorPix = 'R$ ' + valorPix;
+      if (valorBoleto && !valorBoleto.includes('R$')) valorBoleto = 'R$ ' + valorBoleto;
       const camposObrigatorios = [
-        {nome: "Data do Pagamento", valor: dataPix},
-        {nome: "Valor do Pagamento", valor: valorPix},
-        {nome: "Mensalidade", valor: mensalidade},
-        {nome: "Vencimento do Boleto", valor: vencimentoBoleto},
-        {nome: "Número do Boleto", valor: numeroBoleto},
-        {nome: "Valor do Boleto", valor: valorBoleto},
-        {nome: "Protocolo", valor: protocolo},
-        {nome: "Telefone", valor: telefone}
+        {nome: "Data do Pagamento", valor: dataPix},{nome: "Valor do Pagamento", valor: valorPix},
+        {nome: "Mensalidade", valor: mensalidade},{nome: "Vencimento do Boleto", valor: vencimentoBoleto},
+        {nome: "Número do Boleto", valor: numeroBoleto},{nome: "Valor do Boleto", valor: valorBoleto},
+        {nome: "Protocolo", valor: protocolo},{nome: "Telefone", valor: telefone}
       ];
-
       let camposVazios = [];
       for (const campo of camposObrigatorios) {
-        if (!campo.valor.trim()) {
-          camposVazios.push(campo.nome);
-        }
+        if (!campo.valor.trim()) camposVazios.push(campo.nome);
       }
-
       const erroDiv = document.getElementById("erroValidacaoBaixa");
       if (camposVazios.length > 0) {
         erroDiv.textContent = "Preencha os seguintes campos obrigatórios: " + camposVazios.join(", ");
         erroDiv.style.display = 'block';
         document.getElementById("resultadoBaixa").textContent = '';
-        
-        // Rola para o topo do formulário para mostrar o erro
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       } else {
         erroDiv.style.display = 'none';
       }
-
-      // CORREÇÃO: Removidos os espaços no início das linhas
       const texto = `CLIENTE EFETUOU TRANSFERENCIA VIA PIX EM ${dataPix}  VALOR DO PIX: ${valorPix} REF. MENSALIDADE: ${mensalidade} ---------- VENCIMENTO DO BOLETO: ${vencimentoBoleto} ---------
 Nº DO BOLETO: ${numeroBoleto} ------------ VALOR DO BOLETO: ${valorBoleto} ----------
 DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET TELECOM LTDA FOTO DO COMPROVANTE ANEXADO NO BANCO DE IMAGENS PRINCIPAL E NO DA O.S: protocolo: ${protocolo} // telefone: ${telefone}`;
-
       document.getElementById("resultadoBaixa").textContent = texto;
     }
 
-    // Busca na tabela de senhas
     document.getElementById('searchInput').addEventListener('input', function() {
       const searchTerm = this.value.toLowerCase();
       const tableRows = document.querySelectorAll('#equipmentsTable tr');
-      
       tableRows.forEach(row => {
         const rowText = row.textContent.toLowerCase();
-        if (rowText.includes(searchTerm)) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
+        row.style.display = rowText.includes(searchTerm) ? '' : 'none';
       });
     });
 
     function clearSearch() {
       document.getElementById('searchInput').value = '';
-      const tableRows = document.querySelectorAll('#equipmentsTable tr');
-      tableRows.forEach(row => {
-        row.style.display = '';
-      });
+      document.querySelectorAll('#equipmentsTable tr').forEach(row => { row.style.display = ''; });
     }
 
-    // ========== SISTEMA FINAL SIMPLIFICADO ==========
+    const TAMANHOS_IMAGEM = { atend: 68, lig: 68, os: 68, geral: 35, linkloss: 35 };
+    const TAMANHOS_VISUALIZACAO = { atend: 35, lig: 35, os: 35, geral: 20, linkloss: 20 };
 
-    // CONFIGURAÇÃO DE TAMANHOS PARA A IMAGEM GERADA
-    const TAMANHOS_IMAGEM = {
-      atend: 68,
-      lig: 68,  
-      os: 68,
-      geral: 35,
-      linkloss: 35
-    };
-
-    // CONFIGURAÇÃO DE TAMANHOS PARA A VISUALIZAÇÃO NA TELA
-    const TAMANHOS_VISUALIZACAO = {
-      atend: 35,
-      lig: 35,  
-      os: 35,
-      geral: 20,
-      linkloss: 20
-    };
-
-    // FUNÇÃO PARA OBTER DATA ATUAL
     function obterDataAtual() {
       const hoje = new Date();
       const dia = String(hoje.getDate()).padStart(2, '0');
       const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-      const ano = hoje.getFullYear();
-      return `${dia}/${mes}/${ano}`;
+      return `${dia}/${mes}/${hoje.getFullYear()}`;
     }
 
-    // FUNÇÃO PARA ATUALIZAR VISUALIZAÇÃO NA TELA
     function atualizarTudo() {
       const valores = {
         atend: document.getElementById('inputAtend').value || '0',
@@ -2917,8 +2533,6 @@ DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET
         nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
         data: obterDataAtual()
       };
-      
-      // Atualizar textos
       document.getElementById('numero-atend').textContent = valores.atend;
       document.getElementById('numero-lig').textContent = valores.lig;
       document.getElementById('numero-os').textContent = valores.os;
@@ -2926,40 +2540,28 @@ DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET
       document.getElementById('numero-linkloss').textContent = valores.linkloss;
       document.getElementById('nome-visualizacao').textContent = valores.nome;
       document.getElementById('data-visualizacao').textContent = valores.data;
-      
-      // Aplicar tamanhos
       document.getElementById('numero-atend').style.fontSize = TAMANHOS_VISUALIZACAO.atend + 'px';
       document.getElementById('numero-lig').style.fontSize = TAMANHOS_VISUALIZACAO.lig + 'px';
       document.getElementById('numero-os').style.fontSize = TAMANHOS_VISUALIZACAO.os + 'px';
       document.getElementById('numero-geral').style.fontSize = TAMANHOS_VISUALIZACAO.geral + 'px';
       document.getElementById('numero-linkloss').style.fontSize = TAMANHOS_VISUALIZACAO.linkloss + 'px';
-      
       mostrarMensagem('Visualização atualizada!');
     }
 
-    // FUNÇÃO PARA COPIAR IMAGEM
     async function copiarImagemFinal() {
       try {
-        const loading = document.getElementById('atfLoading');
-        if (loading) loading.style.display = 'block';
-        
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.src = 'https://i.imgur.com/QEvgDVZ.png';
-        
         await new Promise((resolve, reject) => {
           img.onload = resolve;
           img.onerror = reject;
         });
-        
         canvas.width = img.naturalWidth;
         canvas.height = img.naturalHeight;
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        
-        // POSIÇÕES FIXAS
         const posicoes = {
           atend: { x: canvas.width * 0.5329, y: canvas.height * 0.3270 },
           lig: { x: canvas.width * 0.5335, y: canvas.height * 0.5386 },
@@ -2969,7 +2571,6 @@ DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET
           nome: { x: canvas.width * 0.3372, y: canvas.height * 0.1434 },
           data: { x: canvas.width * 0.5140, y: canvas.height * 0.2073 }
         };
-        
         const valores = {
           atend: document.getElementById('inputAtend').value || '0',
           lig: document.getElementById('inputLig').value || '0',
@@ -2979,79 +2580,55 @@ DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET
           nome: document.getElementById('inputNome').value || 'ANTÔNIO WILSON DE SOUSA',
           data: document.getElementById('inputData').value || obterDataAtual()
         };
-        
-        // DESENHAR NÚMEROS
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
         ctx.shadowBlur = 6;
         ctx.shadowOffsetY = 6;
         ctx.fillStyle = 'black';
-        
         ctx.font = `600 ${TAMANHOS_IMAGEM.atend}px "Montserrat", sans-serif`;
         ctx.fillText(valores.atend, posicoes.atend.x, posicoes.atend.y);
-        
         ctx.font = `600 ${TAMANHOS_IMAGEM.lig}px "Montserrat", sans-serif`;
         ctx.fillText(valores.lig, posicoes.lig.x, posicoes.lig.y);
-        
         ctx.font = `600 ${TAMANHOS_IMAGEM.os}px "Montserrat", sans-serif`;
         ctx.fillText(valores.os, posicoes.os.x, posicoes.os.y);
-        
         ctx.font = `600 ${TAMANHOS_IMAGEM.geral}px "Montserrat", sans-serif`;
         ctx.fillText(valores.geral, posicoes.geral.x, posicoes.geral.y);
-        
         ctx.font = `600 ${TAMANHOS_IMAGEM.linkloss}px "Montserrat", sans-serif`;
         ctx.fillText(valores.linkloss, posicoes.linkloss.x, posicoes.linkloss.y);
-        
-        // DESENHAR NOME E DATA
         ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
         ctx.shadowBlur = 3;
         ctx.shadowOffsetY = 3;
         ctx.fillStyle = 'white';
-        
-        // Nome
         ctx.textAlign = 'left';
         ctx.font = 'bold 28px Arial, sans-serif';
         ctx.fillText(valores.nome, posicoes.nome.x, posicoes.nome.y);
-        
-        // Data
         ctx.textAlign = 'right';
         ctx.font = 'bold 24px Arial, sans-serif';
         ctx.fillText(valores.data, posicoes.data.x, posicoes.data.y);
-        
-        // Tentar copiar para área de transferência
         try {
           const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
           const item = new ClipboardItem({ 'image/png': blob });
           await navigator.clipboard.write([item]);
           mostrarMensagem('✅ Imagem copiada para a área de transferência!');
         } catch (clipboardError) {
-          console.log('Clipboard API não suportada, mostrando opção alternativa');
-          // Em vez de fazer download automático, mostrar mensagem informativa
-          mostrarMensagem('❌ Seu navegador não suporta copiar imagens. Use Print Screen (PrtScn) para capturar a tela.');
+          mostrarMensagem('❌ Seu navegador não suporta copiar imagens. Use Print Screen (PrtScn).');
         }
-        
       } catch (error) {
         console.error('Erro ao gerar imagem:', error);
         mostrarMensagem('❌ Erro ao copiar imagem. Tente novamente.');
-      } finally {
-        const loading = document.getElementById('atfLoading');
-        if (loading) loading.style.display = 'none';
       }
     }
 
-    // ========== FUNÇÃO PARA MENSAGENS DO ATF ==========
     function mostrarMensagem(mensagem) {
       const mensagemDiv = document.getElementById('atfMensagem');
       mensagemDiv.textContent = mensagem;
       mensagemDiv.classList.add('mostrar');
-      
       setTimeout(() => {
         mensagemDiv.classList.remove('mostrar');
       }, 5000);
     }
 
-    // Função para resetar tudo
     function resetarTudo() {
       document.getElementById('inputAtend').value = '0';
       document.getElementById('inputLig').value = '0';
@@ -3062,7 +2639,6 @@ DESTINADO PARA CONTA DA 10.833.144/0001-82 BANCO SANTANDER (BRASIL)S.A - MARANET
       mostrarMensagem('Valores resetados!');
     }
 
-    // Função para copiar código definitivo
     function copiarCodigoDefinitivo() {
       const codigo = document.getElementById('codigoDefinitivo').value;
       navigator.clipboard.writeText(codigo).then(() => {
