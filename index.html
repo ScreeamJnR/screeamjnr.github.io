@@ -92,7 +92,7 @@
     .color-sample { width: 80px; height: 40px; border-radius: 4px; border: 1px solid #ddd; }
     .code-example { font-family: 'Courier New', monospace; background: #f8fafc; padding: 10px; border-radius: 4px; border: 1px solid #e2e8f0; font-size: 0.85rem; margin: 5px 0; }
 
-    /* ====== ATF ====== */
+    /* ATF */
     .atf-wrap { max-width: 100%; margin: 18px auto; display: flex; gap: 18px; align-items: flex-start; justify-content: flex-start; padding-bottom: 30px; }
     .atf-panel { width: 280px; background: rgba(0,0,0,0.65); color: white; padding: 12px; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.6); order: 1; }
     .atf-panel h2 { margin: 0 0 8px; font-size: 16px; text-align: center; color: #ff6600; }
@@ -116,13 +116,13 @@
     .atf-mensagem.mostrar { opacity: 1; }
     .atf-loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 20px; border-radius: 10px; z-index: 1001; display: none; }
 
-    /* ====== MAC - RESTAURADO ====== */
+    /* MAC */
     .mac-simple-container { max-width: 600px; margin: 0 auto; padding: 20px; }
     .mac-result { margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 2px solid #dee2e6; text-align: center; min-height: 100px; display: flex; align-items: center; justify-content: center; }
     .mac-found { background: #e6f2ff; border-color: #89c2d9; }
     .mac-not-found { background: #ffeaea; border-color: #dc3545; }
 
-    /* ====== CONVERSOR ====== */
+    /* CONVERSOR */
     .conversor-resultado { display: none; margin-top: 20px; }
     .conversor-codigo { padding: 16px; text-align: center; font-size: 1.4rem; font-weight: bold; letter-spacing: 1px; color: #0f766e; background: #ccfbf1; border-radius: 10px; overflow-wrap: anywhere; margin-bottom: 18px; }
     .conversor-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -172,30 +172,14 @@
     </header>
 
     <div class="tabs">
-      <button class="tab-button active" onclick="openTab('mudanca')">
-        <i class="fas fa-truck-moving"></i> Mudança
-      </button>
-      <button class="tab-button" onclick="openTab('baixa')">
-        <i class="fas fa-money-bill-wave"></i> Baixa
-      </button>
-      <button class="tab-button" onclick="openTab('senhas')">
-        <i class="fas fa-key"></i> Senhas
-      </button>
-      <button class="tab-button" onclick="openTab('notas')">
-        <i class="fas fa-sticky-note"></i> Notas
-      </button>
-      <button class="tab-button" onclick="openTab('cores')">
-        <i class="fas fa-palette"></i> Cores
-      </button>
-      <button class="tab-button" onclick="openTab('conversor')">
-        <i class="fas fa-barcode"></i> Conversor
-      </button>
-      <button class="tab-button" onclick="openTab('mac')">
-        <i class="fas fa-network-wired"></i> MAC
-      </button>
-      <button class="tab-button" onclick="openTab('atendimento')">
-        <i class="fas fa-headset"></i> Atendimento
-      </button>
+      <button class="tab-button active" onclick="openTab('mudanca')"><i class="fas fa-truck-moving"></i> Mudança</button>
+      <button class="tab-button" onclick="openTab('baixa')"><i class="fas fa-money-bill-wave"></i> Baixa</button>
+      <button class="tab-button" onclick="openTab('senhas')"><i class="fas fa-key"></i> Senhas</button>
+      <button class="tab-button" onclick="openTab('notas')"><i class="fas fa-sticky-note"></i> Notas</button>
+      <button class="tab-button" onclick="openTab('cores')"><i class="fas fa-palette"></i> Cores</button>
+      <button class="tab-button" onclick="openTab('conversor')"><i class="fas fa-barcode"></i> Conversor</button>
+      <button class="tab-button" onclick="openTab('mac')"><i class="fas fa-network-wired"></i> MAC</button>
+      <button class="tab-button" onclick="openTab('atendimento')"><i class="fas fa-headset"></i> Atendimento</button>
     </div>
 
     <!-- ========== MUDANÇA ========== -->
@@ -488,7 +472,7 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       </div>
     </div>
 
-    <!-- ========== MAC - RESTAURADO ========== -->
+    <!-- ========== MAC ========== -->
     <div id="mac" class="tab-content">
       <div class="card">
         <div class="card-header"><i class="fas fa-network-wired"></i> Consulta de Fabricante por MAC Address</div>
@@ -567,8 +551,9 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
   <div class="atf-mensagem" id="atfMensagem"></div>
 
   <script>
-    // ========== BANCO DE DADOS MAC ==========
+    // ========== BANCO DE DADOS MAC (EXPANDIDO) ==========
     const macDatabase = {
+      // HUAWEI
       "245F9F":"HUAWEI","B0FEE5":"HUAWEI","F41D6B":"HUAWEI","C4278C":"HUAWEI","001882":"HUAWEI",
       "001E10":"HUAWEI","002568":"HUAWEI","00259E":"HUAWEI","002EC7":"HUAWEI","0034FE":"HUAWEI",
       "00464B":"HUAWEI","004F1A":"HUAWEI","005A13":"HUAWEI","006151":"HUAWEI","00664B":"HUAWEI",
@@ -587,6 +572,7 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       "A0F3C1":"HUAWEI","B4975A":"HUAWEI","C8AB37":"HUAWEI","CC3A61":"HUAWEI","CC73F9":"HUAWEI",
       "D0C1B1":"HUAWEI","D4258B":"HUAWEI","DC1EA3":"HUAWEI","DC4EDE":"HUAWEI","EC2334":"HUAWEI",
       "F02929":"HUAWEI","F0F279":"HUAWEI","F48C50":"HUAWEI","F88DEF":"HUAWEI",
+      // D-Link
       "00AD24":"D-Link","085A11":"D-Link","0C0E76":"D-Link","0CB6D2":"D-Link","1062EB":"D-Link",
       "10BEF5":"D-Link","14D64D":"D-Link","180F76":"D-Link","1C5F2B":"D-Link","1C7EE5":"D-Link",
       "1CAFF7":"D-Link","1CBDB9":"D-Link","28107B":"D-Link","283B82":"D-Link","340A33":"D-Link",
@@ -599,6 +585,7 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       "C4A81D":"D-Link","C4E90A":"D-Link","C8BE19":"D-Link","C8D3A3":"D-Link","CCB255":"D-Link",
       "D8FEE3":"D-Link","E01CFC":"D-Link","E46F13":"D-Link","E8CC18":"D-Link","EC2280":"D-Link",
       "ECADE0":"D-Link","F0B4D2":"D-Link","F48CEB":"D-Link","F8E903":"D-Link","FC7516":"D-Link",
+      // Fiberhome
       "002FD9":"Fiberhome","006762":"Fiberhome","00BE9E":"Fiberhome","04A2F3":"Fiberhome","04C1B9":"Fiberhome",
       "04ECBB":"Fiberhome","0830CE":"Fiberhome","0846C7":"Fiberhome","087458":"Fiberhome","0C2A86":"Fiberhome",
       "0C35FE":"Fiberhome","0C6ABC":"Fiberhome","0C7474":"Fiberhome","0C8447":"Fiberhome","10071D":"Fiberhome",
@@ -642,14 +629,132 @@ Escala N1: <a href="https://docs.google.com/spreadsheets/d/1-y-Xb77HdgYfvZ3DJQCw
       "F0407B":"Fiberhome","F08CFB":"Fiberhome","F0ABF3":"Fiberhome","F4573E":"Fiberhome","F46FED":"Fiberhome",
       "F84D33":"Fiberhome","F8AFDB":"Fiberhome","F8C96C":"Fiberhome","F8E4A4":"Fiberhome","FC61E9":"Fiberhome",
       "FCA6CD":"Fiberhome","FCF647":"Fiberhome",
+      // Routerboard
       "000C42":"Routerboard","085531":"Routerboard","18FD74":"Routerboard","2CC81B":"Routerboard","488F5A":"Routerboard",
       "48A98A":"Routerboard","4C5E0C":"Routerboard","64D154":"Routerboard","6C3B6B":"Routerboard","744D28":"Routerboard",
       "789A18":"Routerboard","C4AD34":"Routerboard","CC2DE0":"Routerboard","D401C3":"Routerboard","D4CA6D":"Routerboard",
       "DC2C6E":"Routerboard","E48D8C":"Routerboard","F41E57":"Routerboard","B869F4":"Routerboard","04F41C":"Routerboard",
+      // Intelbras
       "001A3F":"Intelbras","180D2C":"Intelbras","24FD0D":"Intelbras","30E1F1":"Intelbras","443B32":"Intelbras",
       "4851CF":"Intelbras","546CAC":"Intelbras","54BAD9":"Intelbras","58108C":"Intelbras","808544":"Intelbras",
       "808FE8":"Intelbras","982A0A":"Intelbras","98E55B":"Intelbras","AC1EA9":"Intelbras","B87EE5":"Intelbras",
-      "D8365F":"Intelbras","D8778B":"Intelbras"
+      "D8365F":"Intelbras","D8778B":"Intelbras",
+      // ===== NOVOS PREFIXOS XIAOMI (MA-L) =====
+      "504F3B":"Xiaomi Communications","5C4071":"Xiaomi Communications","A4C3BE":"Xiaomi Communications",
+      "FC4345":"Xiaomi Communications","009EC8":"Xiaomi Communications","00C30A":"Xiaomi Communications",
+      "00EC0A":"Xiaomi Communications","04106B":"Xiaomi Communications","047A0B":"Beijing Xiaomi Electronics",
+      "04B167":"Xiaomi Communications","04C807":"Xiaomi Communications","04D13A":"Xiaomi Communications",
+      "04CF8C":"Xiaomi Electronics","04E598":"Xiaomi Communications","081C6E":"Xiaomi Communications",
+      "082525":"Xiaomi Communications","0C1DAF":"Xiaomi Communications","0C9838":"Xiaomi Communications",
+      "0CC6FD":"Xiaomi Communications","0CF346":"Xiaomi Communications","102AB3":"Xiaomi Communications",
+      "103F44":"Xiaomi Communications","1449D4":"Xiaomi Communications","14993E":"Xiaomi Communications",
+      "14F65A":"Xiaomi Communications","1801F1":"Xiaomi Communications","185936":"Xiaomi Communications",
+      "188740":"Xiaomi Communications","18F0E4":"Xiaomi Communications","1C2AB0":"Beijing Xiaomi Electronics",
+      "1C8BEF":"Beijing Xiaomi Electronics","1CCCD6":"Xiaomi Communications","2034FB":"Xiaomi Communications",
+      "2047DA":"Xiaomi Communications","2072A9":"Beijing Xiaomi Electronics","2082C0":"Xiaomi Communications",
+      "20A60C":"Xiaomi Communications","20F478":"Xiaomi Communications","241145":"Xiaomi Communications",
+      "24D337":"Xiaomi Communications","28167F":"Xiaomi Communications","286C07":"Xiaomi Electronics",
+      "28E31F":"Xiaomi Communications","2CD066":"Xiaomi Communications","2CFE4F":"Xiaomi Communications",
+      "3050CE":"Xiaomi Communications","341CF0":"Xiaomi Communications","3480B3":"Xiaomi Communications",
+      "34B98D":"Xiaomi Communications","34CE00":"Xiaomi Electronics","38A4ED":"Xiaomi Communications",
+      "38C6BD":"Xiaomi Communications","38E60A":"Xiaomi Communications","3C135A":"Xiaomi Communications",
+      "3C2CA6":"Beijing Xiaomi Electronics","3CBD3E":"Beijing Xiaomi Electronics","40313C":"Xiaomi Electronics",
+      "447147":"Beijing Xiaomi Electronics","44DF65":"Beijing Xiaomi Mobile Software","482CA0":"Xiaomi Communications",
+      "488759":"Xiaomi Communications","48FDA3":"Xiaomi Communications","4C0220":"Xiaomi Communications",
+      "4C49E3":"Xiaomi Communications","4C6371":"Xiaomi Communications","4CE0DB":"Xiaomi Communications",
+      "4CC64C":"Beijing Xiaomi Mobile Software","4CF202":"Xiaomi Communications","503DC6":"Xiaomi Communications",
+      "50642B":"Xiaomi Electronics","508E49":"Xiaomi Communications","508F4C":"Xiaomi Communications",
+      "509839":"Xiaomi Communications","50A009":"Xiaomi Communications","50DAD6":"Xiaomi Communications",
+      "5448E6":"Beijing Xiaomi Mobile Software","582059":"Xiaomi Communications","584498":"Xiaomi Communications",
+      "58B623":"Beijing Xiaomi Mobile Software","5CD06E":"Xiaomi Communications","606EE8":"Xiaomi Communications",
+      "60AB67":"Xiaomi Communications","640980":"Xiaomi Communications","64644A":"Beijing Xiaomi Mobile Software",
+      "64A200":"Xiaomi Communications","64B473":"Xiaomi Communications","6490C1":"Beijing Xiaomi Mobile Software",
+      "649E31":"Beijing Xiaomi Mobile Software","64CC2E":"Xiaomi Communications","64DDE9":"Xiaomi Communications",
+      "68C44C":"Xiaomi Communications","68ABBC":"Beijing Xiaomi Mobile Software","68B8BB":"Beijing Xiaomi Electronics",
+      "68DFDD":"Xiaomi Communications","6C0DC4":"Beijing Xiaomi Electronics","6CF784":"Xiaomi Communications",
+      "703A51":"Xiaomi Communications","705FA3":"Xiaomi Communications","24CF24":"Beijing Xiaomi Mobile Software",
+      "28D127":"Beijing Xiaomi Mobile Software","3CCD57":"Beijing Xiaomi Mobile Software","44237C":"Beijing Xiaomi Mobile Software",
+      "50D2F5":"Beijing Xiaomi Mobile Software","50EC50":"Beijing Xiaomi Mobile Software","70BBE9":"Xiaomi Communications",
+      "5C0214":"Beijing Xiaomi Mobile Software","741575":"Xiaomi Communications","742344":"Xiaomi Communications",
+      "743822":"Xiaomi Communications","7451BA":"Xiaomi Communications","74F2FA":"Xiaomi Communications",
+      "7802F8":"Xiaomi Communications","7811DC":"Xiaomi Electronics","785333":"Beijing Xiaomi Electronics",
+      "5CE50C":"Beijing Xiaomi Mobile Software","78D840":"Xiaomi Communications","7C035E":"Xiaomi Communications",
+      "7C03AB":"Xiaomi Communications","7C1DD9":"Xiaomi Communications","7C2ADB":"Xiaomi Communications",
+      "7C49EB":"Xiaomi Electronics","7CA449":"Xiaomi Communications","7CD661":"Xiaomi Communications",
+      "7CC294":"Beijing Xiaomi Mobile Software","7CFD6B":"Xiaomi Communications","8035C1":"Xiaomi Communications",
+      "80AD16":"Xiaomi Communications","884604":"Xiaomi Communications","844693":"Beijing Xiaomi Mobile Software",
+      "8852EB":"Xiaomi Communications","886C60":"Xiaomi Communications","9C9D7E":"Beijing Xiaomi Mobile Software",
+      "88C397":"Beijing Xiaomi Mobile Software","B460ED":"Beijing Xiaomi Mobile Software","508811":"Beijing Xiaomi Mobile Software",
+      "8C53C3":"Beijing Xiaomi Mobile Software","8C7A3D":"Xiaomi Communications","70217F":"Xiaomi Communications",
+      "8CAACE":"Xiaomi Communications","8CBEBE":"Xiaomi Communications","8CD9D6":"Xiaomi Communications",
+      "8CD0B2":"Beijing Xiaomi Mobile Software","8CDEF9":"Beijing Xiaomi Mobile Software","902AEE":"Xiaomi Communications",
+      "9078B2":"Xiaomi Communications","941700":"Xiaomi Communications","947BAE":"Xiaomi Communications",
+      "9487E0":"Xiaomi Communications","94D331":"Xiaomi Communications","98F621":"Xiaomi Communications",
+      "98FAE3":"Xiaomi Communications","9C28F7":"Xiaomi Communications","9C2EA1":"Xiaomi Communications",
+      "9C5A81":"Xiaomi Communications","9C99A0":"Xiaomi Communications","9C9ED5":"Xiaomi Communications",
+      "9CBCF0":"Xiaomi Communications","A086C6":"Xiaomi Communications","A439B3":"Beijing Xiaomi Mobile Software",
+      "A44519":"Xiaomi Communications","A44BD5":"Xiaomi Communications","A45046":"Xiaomi Communications",
+      "A45590":"Xiaomi Communications","A4A930":"Beijing Xiaomi Mobile Software","A4CCB3":"Xiaomi Communications",
+      "A4E287":"Xiaomi Communications","A86A86":"Xiaomi Communications","A89CED":"Xiaomi Communications",
+      "AC1E9E":"Xiaomi Communications","AC8C46":"Beijing Xiaomi Mobile Software","ACC1EE":"Xiaomi Communications",
+      "ACF7F3":"Xiaomi Communications","B0E235":"Xiaomi Communications","B405A1":"Xiaomi Communications",
+      "A4C788":"Xiaomi Communications","B4C4FC":"Xiaomi Communications","B83BCC":"Xiaomi Communications",
+      "B850D8":"Beijing Xiaomi Mobile Software","B894E7":"Xiaomi Communications","B8EA98":"Xiaomi Communications",
+      "8C5AF8":"Beijing Xiaomi Electronics","BC6193":"Xiaomi Communications","BC6AD1":"Xiaomi Communications",
+      "BC7FA4":"Xiaomi Communications","C01693":"Xiaomi Communications","C05B44":"Beijing Xiaomi Mobile Software",
+      "C40BCB":"Xiaomi Communications","C46AB7":"Xiaomi Communications","C493BB":"Beijing Xiaomi Mobile Software",
+      "C82832":"Beijing Xiaomi Electronics","C83DDC":"Xiaomi Communications","C85CCC":"Beijing Xiaomi Mobile Software",
+      "E84A54":"Beijing Xiaomi Mobile Software","C8BF4C":"Beijing Xiaomi Mobile Software","CC4210":"Xiaomi Communications",
+      "CC4D75":"Beijing Xiaomi Mobile Software","CCB5D1":"Beijing Xiaomi Mobile Software","CCD843":"Beijing Xiaomi Mobile Software",
+      "CCEB5E":"Xiaomi Communications","F0B429":"Xiaomi Communications","D09C7A":"Xiaomi Communications",
+      "D43538":"Beijing Xiaomi Mobile Software","D45EEC":"Beijing Xiaomi Electronics","D4970B":"Xiaomi Communications",
+      "D4DA21":"Beijing Xiaomi Mobile Software","D4F0EA":"Beijing Xiaomi Mobile Software","D832E3":"Xiaomi Communications",
+      "D86375":"Xiaomi Communications","D8B053":"Xiaomi Communications","D8CE3A":"Xiaomi Communications",
+      "DC6AE7":"Xiaomi Communications","DCB72E":"Xiaomi Communications","DCED83":"Beijing Xiaomi Mobile Software",
+      "E01F88":"Xiaomi Communications","E06267":"Xiaomi Communications","E0806B":"Xiaomi Communications",
+      "E0B655":"Beijing Xiaomi Electronics","E0CCF8":"Xiaomi Communications","E0DCFF":"Xiaomi Communications",
+      "E446DA":"Xiaomi Communications","E44519":"Beijing Xiaomi Electronics","E4AAE4":"Xiaomi Communications",
+      "3CAFB7":"Xiaomi Communications","684DB6":"Xiaomi Communications","6C483F":"Xiaomi Communications",
+      "44F770":"Beijing Xiaomi Mobile Software","0C07DF":"Xiaomi Communications","203B34":"Xiaomi Communications",
+      "90FB5D":"Beijing Xiaomi Mobile Software","D0AE05":"Xiaomi Communications","1CEAAC":"Beijing Xiaomi Mobile Software",
+      "CCDA20":"Beijing Xiaomi Mobile Software","0CEDC8":"Xiaomi Communications","2C0B97":"Xiaomi Communications",
+      "E85FB4":"Xiaomi Communications","285923":"Xiaomi Communications","58EA1F":"Beijing Xiaomi Mobile Software",
+      "948B93":"Xiaomi Communications","D0CEC0":"Xiaomi Communications","2C195C":"Beijing Xiaomi Mobile Software",
+      "3C3824":"Xiaomi Communications","789987":"Xiaomi Communications","D4A365":"Xiaomi Communications",
+      "E484D3":"Xiaomi Communications","E4BCAA":"Xiaomi Communications","E4DB6D":"Beijing Xiaomi Electronics",
+      "E85A8B":"Xiaomi Communications","E88843":"Xiaomi Communications","E8F791":"Xiaomi Communications",
+      "EC30B3":"Xiaomi Communications","EC4118":"Xiaomi Electronics","EC4D3E":"Beijing Xiaomi Mobile Software",
+      "ECD09F":"Xiaomi Communications","ECFA5C":"Beijing Xiaomi Electronics","F06C5D":"Xiaomi Communications",
+      "F41A9C":"Xiaomi Communications","F4308B":"Xiaomi Communications","F460E2":"Xiaomi Communications",
+      "F48B32":"Xiaomi Communications","F4F5DB":"Xiaomi Communications","F8710C":"Xiaomi Communications",
+      "F8A45F":"Xiaomi Communications","F8AB82":"Xiaomi Communications","FC0296":"Xiaomi Communications",
+      "FC1999":"Xiaomi Communications","FC5B8C":"Xiaomi Communications","FC64BA":"Xiaomi Communications",
+      "FCA9F5":"Xiaomi Communications","FCD908":"Xiaomi Communications","B09C63":"Xiaomi Communications",
+      "D41761":"Xiaomi Communications","E89847":"Xiaomi Communications","B852E0":"Beijing Xiaomi Electronics",
+      "209952":"Xiaomi Communications","646306":"Xiaomi Communications","98EE94":"Xiaomi Communications",
+      "E4FE43":"Beijing Xiaomi Mobile Software","D4438A":"Beijing Xiaomi Mobile Software","203462":"Xiaomi Communications",
+      "A82BD5":"Xiaomi Communications","D0C1BF":"Xiaomi Communications","A4BA70":"Beijing Xiaomi Mobile Software",
+      "444A37":"Xiaomi Communications","9812E0":"Xiaomi Communications","C4710F":"Xiaomi Communications",
+      "14D881":"Beijing Xiaomi Mobile Software","D893D4":"Xiaomi Communications","046761":"Beijing Xiaomi Mobile Software",
+      "2025CC":"Xiaomi Communications","A4FF9F":"Xiaomi Communications","F843EF":"Xiaomi Communications",
+      "34FA1C":"Beijing Xiaomi Mobile Software","98171A":"Beijing Xiaomi Mobile Software","EC1055":"Beijing Xiaomi Electronics",
+      "2C0DCF":"Xiaomi Communications","44CBAD":"Xiaomi Communications","88B951":"Xiaomi Communications",
+      "D4532A":"Beijing Xiaomi Mobile Software","F88306":"Beijing Xiaomi Mobile Software","04AE47":"Beijing Xiaomi Mobile Software",
+      "4C8E19":"Xiaomi Communications","882F92":"Xiaomi Communications","98E081":"Beijing Xiaomi Mobile Software",
+      "E87EEF":"Xiaomi Communications","94626D":"Beijing Xiaomi Electronics","50926A":"Beijing Xiaomi Mobile Software",
+      "50FE39":"Beijing Xiaomi Mobile Software","08B339":"Xiaomi Communications","400877":"Xiaomi Communications",
+      "B85384":"Xiaomi Communications","CC033D":"Beijing Xiaomi Mobile Software","E41B43":"Beijing Xiaomi Mobile Software",
+      "4CE20F":"Xiaomi Communications","808F97":"Xiaomi Communications","D8E374":"Xiaomi Communications",
+      "34F015":"Beijing Xiaomi Mobile Software","709751":"Beijing Xiaomi Mobile Software","44BDC8":"Xiaomi Communications",
+      "4C55B2":"Xiaomi Communications","80E63C":"Xiaomi Communications","14907A":"Beijing Xiaomi Mobile Software",
+      "246477":"Beijing Xiaomi Mobile Software","10C197":"Xiaomi Communications","3C7F6E":"Xiaomi Communications",
+      "84AEDE":"Xiaomi Communications","60F723":"Beijing Xiaomi Mobile Software","E8BA17":"Beijing Xiaomi Mobile Software",
+      "ACE4D8":"Xiaomi Communications","B47E9F":"Xiaomi Communications","C46940":"Xiaomi Communications",
+      "1C2575":"Xiaomi Communications","987552":"Xiaomi Communications","D8EDA8":"Xiaomi Communications",
+      "44579F":"Beijing Xiaomi Mobile Software","44E213":"Beijing Xiaomi Mobile Software","38C1ED":"Xiaomi Communications",
+      "E4D398":"Xiaomi Communications","FCC17D":"Xiaomi Communications","6C0699":"Beijing Xiaomi Mobile Software",
+      "7C0CF1":"Beijing Xiaomi Mobile Software","3007EB":"Xiaomi Communications","343932":"Xiaomi Communications",
+      "B00BE2":"Xiaomi Communications"
     };
 
     function formatarOUI(oui) {
